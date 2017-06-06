@@ -1,0 +1,12 @@
+node_modules
+bower_components
+__pycache__
+migrations
+*.pyc
+bin
+obj
+*.db
+*.sqlite3
+media/
+env/
+settings.py
