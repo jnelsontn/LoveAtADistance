@@ -9,4 +9,4 @@ obj
 *.sqlite3
 media/
 env/
-settings.py
+secret.py

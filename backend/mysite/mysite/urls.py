@@ -33,6 +33,7 @@ router.register(r'calendar', todo_calendar_view.TodoCalendarViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
+# call our methods here for front-end
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include(router.urls)),
