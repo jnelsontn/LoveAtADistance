@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/1.11/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
-from secret import *
+from .secret import *
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -69,7 +69,7 @@ CORS_ORIGIN_WHITELIST = (
     '127.0.0.1:8080'
 )
 
-ROOT_URLCONF = 'mysite.urls'
+ROOT_URLCONF = 'api.urls'
 
 TEMPLATES = [
     {
@@ -87,7 +87,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'mysite.wsgi.application'
+WSGI_APPLICATION = 'api.wsgi.application'
 
 
 # Database

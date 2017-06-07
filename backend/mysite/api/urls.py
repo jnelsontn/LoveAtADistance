@@ -17,7 +17,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework import routers
 from rest_framework.authtoken.views import obtain_auth_token
-from api.views import *
+from .views import *
 
 router = routers.DefaultRouter()
 router.register(r'users', profile_view.UserViewSet)
