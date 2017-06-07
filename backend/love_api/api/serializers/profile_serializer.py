@@ -12,6 +12,7 @@ class ProfileSerializer(serializers.HyperlinkedModelSerializer):
         model = Profile
         exclude = ()
 
+    # When a User is created, create their Profile too
     def update(self, instance, data):
         instance = super(UserSerializer, self).update(instance, data)
         instance.save()

@@ -6,14 +6,22 @@ from api.serializers import *
 from api.models import *
 
 class UserViewSet(viewsets.ModelViewSet):
-    # built-in Django model
+    """
+    API endpoint that allows Orders to be viewed or edited.
+    """
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
 
 class ProfileViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows Orders to be viewed or edited.
+    """
     queryset = Profile.objects.all().order_by('-create_time')
     serializer_class = ProfileSerializer
 
 class GroupViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows Orders to be viewed or edited.
+    """
     queryset = Group.objects.all()
     serializer_class = GroupSerializer

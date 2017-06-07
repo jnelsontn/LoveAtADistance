@@ -1,4 +1,4 @@
-"""mysite URL Configuration
+"""love_api URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.11/topics/http/urls/
@@ -13,17 +13,16 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+from rest_framework.authtoken.views import obtain_auth_token
+from rest_framework import routers
 from django.conf.urls import url, include
 from django.contrib import admin
-from rest_framework import routers
-from rest_framework.authtoken.views import obtain_auth_token
 from .views import *
 
 router = routers.DefaultRouter()
 router.register(r'users', profile_view.UserViewSet)
 router.register(r'profiles', profile_view.ProfileViewSet)
 router.register(r'groups', profile_view.GroupViewSet)
-
 router.register(r'connections', connection_view.ConnectionViewSet)
 router.register(r'numbers', important_number_view.ImportantNumberViewSet)
 router.register(r'messages', message_view.MessageViewSet)
