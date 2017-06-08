@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<title>Love at a Distance</title>
+
+	<link href="dist/css/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/main.css" rel="stylesheet" type="text/css">
+
+	<!-- Main Angular Scripts -->
+	<script type="text/javascript" src="dist/js/angular/angular.min.js"></script>
+	<script type="text/javascript" src="dist/js/ui-router/angular-ui-router.min.js"></script>
+
+</head>
+
+<body ng-app="LoveClient">
+
+    <!-- temporary nav -->
+    <a ui-sref="home">home</a> |
+    <a ui-sref="register">Register</a> |
+    <a ui-sref="login">Login</a> <br /><br />
+
+    <!-- injected content -->
+    <div class="container">
+        <ui-view></ui-view>
+    </div>
+
+<!-- Angular -->
+<script type="text/javascript" src="dist/js/angular-animate/angular-animate.min.js"></script>
+<script type="text/javascript" src="dist/js/angular-ui-bootstrap/ui-bootstrap-tpls.js"></script>
+
+<!-- @Love Modules -->
+<script type="text/javascript" src="app/app.js"></script>
+
+<!-- factories -->
+<script type="text/javascript" src="app/factories/root_factory.js"></script>
+
+<!-- controllers -->
+<script type="text/javascript" src="app/controllers/register_ctrl.js"></script>
+<script type="text/javascript" src="app/controllers/login_ctrl.js"></script>
+
+</body></html>
+
