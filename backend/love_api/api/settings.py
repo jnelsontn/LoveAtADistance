@@ -18,7 +18,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
-# NOTE: Create a secret.py file and put yoru secret key in there. 
+# NOTE: Create a secret.py file and put your secret key in there. 
 #SECRET_KEY = ''
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -67,6 +67,9 @@ CORS_ORIGIN_WHITELIST = (
     'localhost:8080',
     '127.0.0.1:8080'
 )
+#ensure_csrf_cookie()
+CSRF_COOKIE_DOMAIN = "*"
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'api.urls'
 
