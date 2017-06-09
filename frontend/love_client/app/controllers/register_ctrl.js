@@ -3,6 +3,8 @@
 app.controller('RegisterCtrl', function($scope, $http, $location, RootFactory, apiUrl) {
     console.log('RegisterCtrl Here');
 
+    console.log ('Do we have a token: ', RootFactory.getToken() );
+
     $scope.user = {};
 
     $scope.register = () => {
@@ -22,8 +24,10 @@ app.controller('RegisterCtrl', function($scope, $http, $location, RootFactory, a
         }).then(res => {
             RootFactory.setToken(res.data.token);
                 if (res.data.token !== '') {
-                    $location.path('/');
-                    console.log('got token ', res.data.token);
+                    // $location.path('/');
+                    console.log('user', res.data.user);
+                    console.log('profile', res.data.profile);
+                    console.log('token ', res.data.token);
                 }
         }, console.error );
     };
