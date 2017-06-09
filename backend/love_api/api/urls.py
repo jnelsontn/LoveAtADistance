@@ -37,7 +37,8 @@ urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^register/', register_user_view.register_user),
     url(r'^admin/', admin.site.urls),
-    url(r'^api-token-auth/', obtain_auth_token),
+    # url(r'^api-token-auth/', obtain_auth_token),
+    url(r'^api-token/', obtain_user_token),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
 

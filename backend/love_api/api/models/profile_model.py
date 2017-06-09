@@ -6,7 +6,7 @@ from django.dispatch import receiver
 
 # Profile extends upon the default Django User Model
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True, related_name="profile")
+    user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True, related_name='profile')
     bio = models.TextField(max_length=800, blank=True)
     city = models.CharField(max_length=30, blank=True)
     state = models.CharField(max_length=30, blank=True)
