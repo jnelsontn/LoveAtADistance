@@ -2,3 +2,7 @@
 			<ul><li ng-repeat="date in calendar | orderBy:'event_date':true">
 				((date.event_date)) ((date.message))
             </ul>
+
+            <ul><li ng-repeat="date in partner.calendar | orderBy:'event_date':true">
+				((partner.date.event_date)) ((partner.date.message))
+            </ul>

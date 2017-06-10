@@ -2,8 +2,9 @@
 
 app.controller('HomeCtrl', function($scope, $http, $location, RootFactory, $rootScope, apiUrl) {
     console.log('HomeCtrl Here');
-    console.log ('Do we have a token: ', RootFactory.getToken() );
   
+    var relationship;
+
     $http({
         url: `${apiUrl}/users/current`,
         headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
@@ -16,23 +17,42 @@ app.controller('HomeCtrl', function($scope, $http, $location, RootFactory, $root
         $scope.calendar = profile.calendar;
         $scope.moreinfo = profile.profile;
 
-        let connect = profile.myuser_connection;
-        if (connect.connected_user && (connect.are_they_connected == 1)) {
-            console.log('we have a relationship');
-            $scope.inRelationship = true;
-            $scope.partner_uid = connect.connected_user;
-            console.log($scope.partner_uid);
+        // clean code practices
+        if (profile.relationship !== null) {
+            relationship = profile.relationship.partner;
+            $http({
+                url: `${apiUrl}/limitedusers/` + relationship,
+                headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
+            }).then( (bae) => {
+                bae = bae.data;
+                console.log(bae);
+                if (bae.relationship === null || undefined) {
+                    console.log('no dont think so');
+                } else if (bae.relationship.partner ===  $scope.profile.id) {
+                    $scope.relationship = true;
+                    console.log('we have match');
+                } else {
+                    console.log('no idea but this aint happening');
+                }
+            }).then( () => {
+                if ($scope.relationship) {
+                    console.log($scope.relationship);
+                    $http({
+                        url: `${apiUrl}/users/` + relationship,
+                        headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
+                    }).then( (x) => {
+                        x = x.data;
+                        console.log(x);
+                        $scope.partner = x;
+                        }
+                    );
+                    console.log('third hit');
+                }
+
+            });
         }
 
-        $http({
-            url: `${apiUrl}/users/` + $scope.partner_uid,
-            headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
-        }).then( (bae) => {
-            $scope.partner = bae.data;
-            console.log(bae.data);
-            }
-        );
-    }).then( () => console.log('still here') );
+    }).then( () => console.log('bye bye') );
 
 
 });

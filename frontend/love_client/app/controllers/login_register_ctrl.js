@@ -1,7 +1,15 @@
 'use strict';
 
-app.controller('LoginCtrl', function($scope, $http, $location, RootFactory, $rootScope, apiUrl) {
+app.controller('LoginCtrl', function($scope, $http, $location, RootFactory, apiUrl) {
     console.log('LoginCtrl Here');
+
+  $scope.user = {
+    first_name: "Jordan",
+    last_name: "Nelson",
+    email: "me@me.com",
+    username: "jordan",
+    password: "coolhead"
+  };
 
     $scope.register = () => {
             $http({

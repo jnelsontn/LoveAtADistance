@@ -7,7 +7,7 @@ app.config( ($interpolateProvider, $httpProvider) => {
     $interpolateProvider.startSymbol('((');
     $interpolateProvider.endSymbol('))');
 
-    $httpProvider.defaults.withCredentials = true;
+    // $httpProvider.defaults.withCredentials = true;
 });
 
 app.run(function($http, $cookies, RootFactory ) {
