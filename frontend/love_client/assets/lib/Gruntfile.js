@@ -35,6 +35,12 @@ module.exports = function(grunt) {
             src: ['ui-bootstrap-tpls.js'],
             dest: '../../dist/js/angular-ui-bootstrap'
         },
+        angular_cookies: {
+            expand: true,
+            cwd: 'node_modules/angular-cookies',
+            src: ['angular-cookies.min.js', 'angular-cookies.min.js.map'],
+            dest: '../../dist/js/angular-cookies'
+        },
         bootstrap: {
             expand: true,
             cwd: 'node_modules/bootstrap/dist/css',

@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 import json
 
+from api.serializers import *
+
 @csrf_exempt
 def register_user(request):
     '''Handles the creation of a new user for authentication
@@ -32,6 +34,8 @@ def register_user(request):
     token = Token.objects.create(user=new_user)
 
     # Return the token to the client
-    data = json.dumps({"token":token.key})
+    data = json.dumps({'token':token.key})
     return HttpResponse(data, content_type='application/json')
+
+
 
