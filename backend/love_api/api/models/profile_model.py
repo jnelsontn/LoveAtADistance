@@ -6,14 +6,13 @@ from django.dispatch import receiver
 
 # Profile extends upon the default Django User Model
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True, related_name='profile')
-    bio = models.TextField(max_length=800, blank=True)
-    city = models.CharField(max_length=30, blank=True)
-    state = models.CharField(max_length=30, blank=True)
-    country = models.CharField(max_length=30, blank=True)
+    user = models.OneToOneField(User, related_name='profile', on_delete=models.CASCADE)
+    bio = models.TextField(max_length=800, null=True, blank=True)
+    city = models.CharField(max_length=30, null=True, blank=True)
+    state = models.CharField(max_length=30, null=True, blank=True)
+    country = models.CharField(max_length=30, null=True, blank=True)
     birth_date = models.DateField(blank=True, null=True)
-    phone_number = models.CharField(max_length=20, blank=True)
-    create_time = models.DateTimeField(auto_now_add=True)
+    phone_number = models.CharField(max_length=20, null=True, blank=True)
 
     def __str__(self):
         return "UserID: {}, Name: {} {}".format(self.user.id, self.user.first_name, self.user.last_name)

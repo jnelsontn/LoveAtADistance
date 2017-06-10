@@ -1,1 +1,1 @@
-from .methods import *
+from .register_user import *
