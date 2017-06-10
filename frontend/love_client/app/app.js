@@ -3,57 +3,62 @@
 var app = angular.module('LoveClient', ['ui.router', 'ngCookies'])
     .constant('apiUrl', 'http://127.0.0.1:8000');
 
-app.config(function($httpProvider, $interpolateProvider) {
-    $httpProvider.defaults.withCredentials = true;
-
+app.config( ($interpolateProvider, $httpProvider) => {
     $interpolateProvider.startSymbol('((');
     $interpolateProvider.endSymbol('))');
+
+    $httpProvider.defaults.withCredentials = true;
 });
 
 app.run(function($http, $cookies, RootFactory ) {
-    // No Clue what I am doing, seeing if i can keep myself
-    // logged in... need to move on from this
-    $http.defaults.xsrfHeaderName = 'X-CSRFToken';
-    $http.defaults.xsrfCookieName = 'csrftoken';
-    $http.defaults.headers.post['X-CSRFToken'] = $cookies.csrftoken;
+    // $http.defaults.xsrfHeaderName = 'X-CSRFToken';
+    // $http.defaults.xsrfCookieName = 'csrftoken';
 
-    console.log( $cookies.getAll('token') );
-    let token = $cookies.get('token');
-    if (token) {
-        RootFactory.setToken(token);
+    // $http.defaults.headers.post['X-CSRFToken'] = $cookies.csrftoken;
+    // $http.defaults.headers.common['X-CSRFToken'] = $cookies.csrftoken;
+
+    // let token = $cookies.get('csrftoken');
+    // if (token) {
+    //     console.log('cookie w/token: ', token);
+    //     RootFactory.setToken(token);
+    // }
+
+});
+
+app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
+    
+    $urlRouterProvider.otherwise('/login');
+    $stateProvider
+    .state('login_register', {
+        url: '/', // this loads a header with links to our child states
+        templateUrl: 'app/templates/login_register/main.html',
+        controller: "LoginCtrl"                                  
+    })
+    .state('login_register.login', {
+           url: '^/login',
+           templateUrl: 'app/templates/login_register/login.html',
+    })
+    .state('login_register.register', {
+        url: '^/register',
+           templateUrl: 'app/templates/login_register/register.html',
+    })
+    .state('home', {
+        url: '/home',
+        views: {
+            '': {  // the main template will be placed here (relatively named)
+                templateUrl: 'app/templates/home/home.html',
+                controller: 'HomeCtrl'
+            },
+                // the child views will be defined here (absolutely named)
+                'messages@home': { 
+                    templateUrl: 'app/templates/home/home_messages.html'
+                },
+                'calendar@home': { 
+                    templateUrl: 'app/templates/home/home_calendar.html'
+                }
     }
 
-});
+    });
+ 
 
-app.config(($stateProvider, $urlRouterProvider) => {
-
-    $urlRouterProvider.otherwise('/home');
-
-    var testState = {
-        name: 'test',
-        url: '/test',
-        template: '<h3>It worked!</h3>'
-    };
-
-    $stateProvider
-    .state('home', {
-        url: '/',
-        controller: 'HomeCtrl',
-        templateUrl: 'app/templates/home.html'
-    })
-    .state('register', {
-        url: '/register',
-        controller: 'RegisterCtrl',
-        templateUrl: 'app/templates/register.html'
-    })
-    .state('login', {
-        url: '/login',
-        controller: 'LoginCtrl',
-        templateUrl: 'app/templates/login.html'
-    })
-    .state(testState);
-
-});
-
-
-
+}]);

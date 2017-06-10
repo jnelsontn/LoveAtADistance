@@ -1,11 +1,7 @@
 'use strict';
 
-app.controller('RegisterCtrl', function($scope, $http, $location, RootFactory, apiUrl) {
-    console.log('RegisterCtrl Here');
-
-    console.log ('Do we have a token: ', RootFactory.getToken() );
-
-    $scope.user = {};
+app.controller('LoginCtrl', function($scope, $http, $location, RootFactory, $rootScope, apiUrl) {
+    console.log('LoginCtrl Here');
 
     $scope.register = () => {
             $http({
@@ -24,13 +20,31 @@ app.controller('RegisterCtrl', function($scope, $http, $location, RootFactory, a
         }).then(res => {
             RootFactory.setToken(res.data.token);
                 if (res.data.token !== '') {
-                    // $location.path('/');
-                    console.log('user', res.data.user);
-                    console.log('profile', res.data.profile);
+                    $location.path('/home');
                     console.log('token ', res.data.token);
                 }
         }, console.error );
     };
 
-}); // end RegisterCtrl
+    $scope.login = () => {
+        $http({
+            url: `${apiUrl}/api-token-auth/`,
+            method: 'POST',
+            data: {
+                'username': $scope.user.username,
+                'password': $scope.user.password
+            }
+        }).then(res => {
+          RootFactory.setToken(res.data.token);
+            if (res.data.token !== '') {
+                $location.path('/home');
+                console.log('token: ', res.data.token);
+            }
+        }, console.error );
+    };
+
+}); // end LoginCtrl
+
+
+
 

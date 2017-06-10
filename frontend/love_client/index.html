@@ -19,32 +19,26 @@
 
 <body ng-app="LoveClient">
 
-    <!-- temporary nav -->
-    <a ui-sref="home">home</a> |
-    <a ui-sref="register">Register</a> |
-    <a ui-sref="login">Login</a> <br /><br />
-
-    <!-- injected content -->
-    <div class="container">
-        <ui-view></ui-view>
-    </div>
+	<div ui-view></div>
 
 <!-- Angular -->
 <script type="text/javascript" src="dist/js/angular-animate/angular-animate.min.js"></script>
 <script type="text/javascript" src="dist/js/angular-ui-bootstrap/ui-bootstrap-tpls.js"></script>
 <script type="text/javascript" src="dist/js/angular-cookies/angular-cookies.min.js"></script>
 
-<!-- @Love Modules -->
+<!-- @Love -->
 <script type="text/javascript" src="app/app.js"></script>
 
 <!-- factories -->
 <script type="text/javascript" src="app/factories/root_factory.js"></script>
 
 <!-- controllers -->
-<script type="text/javascript" src="app/controllers/register_ctrl.js"></script>
-<script type="text/javascript" src="app/controllers/login_ctrl.js"></script>
+<script type="text/javascript" src="app/controllers/login_register_ctrl.js"></script>
 <script type="text/javascript" src="app/controllers/home_ctrl.js"></script>
 
-
 </body></html>
+
+
+
+
 
