@@ -12,9 +12,11 @@ from .views import *
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
+router.register(r'limitedusers', views.LimitedUserViewSet)
+
 router.register(r'profiles', views.ProfileViewSet)
 router.register(r'groups', views.GroupViewSet)
-router.register(r'connections', views.ConnectionViewSet)
+router.register(r'relationships', views.RelationshipViewSet)
 router.register(r'numbers', views.ImportantNumberViewSet)
 router.register(r'messages', views.MessageViewSet)
 router.register(r'photos', views.PhotoViewSet)

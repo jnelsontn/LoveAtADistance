@@ -3,11 +3,6 @@ from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
 from api.models import *
 
-from django.http import Http404
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
-
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -20,8 +15,13 @@ class UserViewSet(viewsets.ModelViewSet):
 
         return super(UserViewSet, self).get_object()
 
-class ProfileViewSet(viewsets.ModelViewSet):
+# class UserDetail(generics.RetrieveUpdateDestroyAPIView):
+#     serializer_class = UserSerializer
+ 
+#     def get_queryset(self):
+#         return User.objects.all().filter(username=self.request.user)
 
+class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
 
@@ -30,9 +30,9 @@ class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
 
-class ConnectionViewSet(viewsets.ModelViewSet):
-    queryset = Connection.objects.all()
-    serializer_class = ConnectionSerializer
+class RelationshipViewSet(viewsets.ModelViewSet):
+    queryset = Relationship.objects.all()
+    serializer_class = RelationshipSerializer
 
 class ImportantNumberViewSet(viewsets.ModelViewSet):
     queryset = ImportantNumber.objects.all()
@@ -49,3 +49,13 @@ class TodoCalendarViewSet(viewsets.ModelViewSet):
 class MessageViewSet(viewsets.ModelViewSet):
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
+
+# limited viewset, lets just get name and relationship
+class LimitedUserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = LimitedUserSerializer
+
+
+
+
+
