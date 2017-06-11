@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('LoginCtrl', function($scope, $http, $location, RootFactory, apiUrl) {
+app.controller('LoginCtrl', function($scope, $http, $state, $location, RootFactory, apiUrl) {
     console.log('LoginCtrl Here');
 
   $scope.user = {
@@ -28,7 +28,8 @@ app.controller('LoginCtrl', function($scope, $http, $location, RootFactory, apiU
         }).then(res => {
             RootFactory.setToken(res.data.token);
                 if (res.data.token !== '') {
-                    $location.path('/home');
+                    // $location.path('/home');
+                    $state.go('check');
                     console.log('token ', res.data.token);
                 }
         }, console.error );
@@ -45,7 +46,8 @@ app.controller('LoginCtrl', function($scope, $http, $location, RootFactory, apiU
         }).then(res => {
           RootFactory.setToken(res.data.token);
             if (res.data.token !== '') {
-                $location.path('/home');
+                // $location.path('/home');
+                $state.go('check');
                 console.log('token: ', res.data.token);
             }
         }, console.error );

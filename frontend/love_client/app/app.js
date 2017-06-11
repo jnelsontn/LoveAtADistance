@@ -42,6 +42,17 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
         url: '^/register',
            templateUrl: 'app/templates/login_register/register.html',
     })
+    // there should be something here that checks relationship val and routs accordingly
+    .state('check', {
+        url: '/',
+        templateUrl: 'app/templates/check_status/status.html',
+        controller: 'CheckStatusCtrl'
+    })
+    .state('find_partner', { 
+        url: '/checking',
+        templateUrl: 'app/templates/home/find_partner.html',
+        controller: 'FindPartnerCtrl'
+    })
     .state('home', {
         url: '/home',
         views: {
@@ -56,8 +67,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
                 'calendar@home': { 
                     templateUrl: 'app/templates/home/home_calendar.html'
                 }
-    }
-
+        }
     });
  
 
