@@ -20,9 +20,3 @@ class Relationship(models.Model):
 # @receiver(post_save, sender=User)
 # def save_initial_connection(sender, instance, **kwargs):
 #     instance.connection.save()
-
-
-# user1: adds someone, so its me - them - ADDED?
-# user2: adds me -- so its 	him, me - ADDED? 
-# So I Just need to search "CONNECTED_USER" to see who has added me 
-# So if a reverse relationship exists we are together?

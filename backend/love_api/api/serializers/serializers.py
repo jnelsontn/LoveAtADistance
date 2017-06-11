@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 from api.models import *
-from api.serializers import *
+# from api.serializers import *
 
 class ProfileSerializer(serializers.HyperlinkedModelSerializer):
 

@@ -2,6 +2,8 @@ from api.serializers import *
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
 from api.models import *
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
@@ -15,11 +17,21 @@ class UserViewSet(viewsets.ModelViewSet):
 
         return super(UserViewSet, self).get_object()
 
-# class UserDetail(generics.RetrieveUpdateDestroyAPIView):
-#     serializer_class = UserSerializer
- 
-#     def get_queryset(self):
-#         return User.objects.all().filter(username=self.request.user)
+# limited viewset, lets just get name and relationship
+class LimitedUserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = LimitedUserSerializer
+
+# just give us an id and email
+class NoRelationshipViewSet(viewsets.ModelViewSet):
+    serializer_class = NoRelationshipSerializer
+
+    def get_queryset(self):
+        """
+        This view returns a list of all users whom are not in a
+        relationship and whom are not the current user.
+        """
+        return User.objects.filter(relationship=None).exclude(id=self.request.user.id)
 
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
@@ -49,13 +61,4 @@ class TodoCalendarViewSet(viewsets.ModelViewSet):
 class MessageViewSet(viewsets.ModelViewSet):
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
-
-# limited viewset, lets just get name and relationship
-class LimitedUserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = LimitedUserSerializer
-
-
-
-
 

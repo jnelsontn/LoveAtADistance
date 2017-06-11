@@ -12,7 +12,8 @@ from .views import *
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
-router.register(r'limitedusers', views.LimitedUserViewSet)
+router.register(r'limitedusers', views.LimitedUserViewSet, 'limitedusers')
+router.register(r'norelationship', views.NoRelationshipViewSet, 'norelationship')
 
 router.register(r'profiles', views.ProfileViewSet)
 router.register(r'groups', views.GroupViewSet)

@@ -29,9 +29,21 @@ class LimitedUserSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = User
-        fields = ('relationship',)
+        fields = ('id', 'first_name', 'last_name', 'relationship',)
+
+class NoRelationshipSerializer(serializers.HyperlinkedModelSerializer):
+
+	class Meta:
+		model = User
+		fields = ('id', 'first_name', 'last_name', 'email',)
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Group
         exclude = ()
+
+
+
+
+
+
