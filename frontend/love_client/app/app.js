@@ -3,30 +3,15 @@
 var app = angular.module('LoveClient', ['ui.router', 'ngCookies'])
     .constant('apiUrl', 'http://127.0.0.1:8000');
 
-app.config( ($interpolateProvider, $httpProvider) => {
+app.config( ($httpProvider, $interpolateProvider, $stateProvider, $urlRouterProvider) => {
+
+    $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+    $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+
     $interpolateProvider.startSymbol('((');
     $interpolateProvider.endSymbol('))');
 
-    $httpProvider.defaults.withCredentials = true;
-});
 
-app.run(function($http, $cookies, RootFactory ) {
-    // $http.defaults.xsrfHeaderName = 'X-CSRFToken';
-    // $http.defaults.xsrfCookieName = 'csrftoken';
-
-    // $http.defaults.headers.post['X-CSRFToken'] = $cookies.csrftoken;
-    // $http.defaults.headers.common['X-CSRFToken'] = $cookies.csrftoken;
-
-    // let token = $cookies.get('csrftoken');
-    // if (token) {
-    //     console.log('cookie w/token: ', token);
-    //     RootFactory.setToken(token);
-    // }
-
-});
-
-app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
-    
     $urlRouterProvider.otherwise('/login');
     $stateProvider
     .state('login_register', {
@@ -34,13 +19,28 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
         templateUrl: 'app/templates/login_register/main.html',
         controller: "LoginCtrl"                                  
     })
-    .state('login_register.login', {
-           url: '^/login',
-           templateUrl: 'app/templates/login_register/login.html',
+        .state('login_register.login', {
+                url: '^/login',
+               templateUrl: 'app/templates/login_register/login.html',
+        })
+        .state('login_register.register', {
+                url: '^/register',
+                templateUrl: 'app/templates/login_register/register.html',
+        })
+    .state('check', {
+        url: '/',
+        templateUrl: 'app/templates/check_status/status.html',
+        controller: 'CheckStatusCtrl'
     })
-    .state('login_register.register', {
-        url: '^/register',
-           templateUrl: 'app/templates/login_register/register.html',
+    .state('find_partner', { 
+        url: '/',
+        templateUrl: 'app/templates/find_partner/find_partner.html',
+        controller: 'FindPartnerCtrl'
+    })
+    .state('waiting', { 
+        url: '/',
+        templateUrl: 'app/templates/check_status/waiting.html',
+        controller: 'AwaitingResponseCtrl'
     })
     .state('home', {
         url: '/home',
@@ -56,9 +56,10 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
                 'calendar@home': { 
                     templateUrl: 'app/templates/home/home_calendar.html'
                 }
-    }
-
+        }
     });
- 
 
-}]);
+
+}); // end config
+
+

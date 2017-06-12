@@ -1,7 +1,15 @@
 'use strict';
 
-app.controller('LoginCtrl', function($scope, $http, $location, RootFactory, $rootScope, apiUrl) {
+app.controller('LoginCtrl', function($scope, $http, $state, RootFactory, apiUrl) {
     console.log('LoginCtrl Here');
+
+  $scope.user = {
+    first_name: "Jordan",
+    last_name: "Nelson",
+    email: "me@me.com",
+    username: "jordan",
+    password: "catsgowalking"
+  };
 
     $scope.register = () => {
             $http({
@@ -20,7 +28,7 @@ app.controller('LoginCtrl', function($scope, $http, $location, RootFactory, $roo
         }).then(res => {
             RootFactory.setToken(res.data.token);
                 if (res.data.token !== '') {
-                    $location.path('/home');
+                    $state.go('find_partner');
                     console.log('token ', res.data.token);
                 }
         }, console.error );
@@ -37,7 +45,7 @@ app.controller('LoginCtrl', function($scope, $http, $location, RootFactory, $roo
         }).then(res => {
           RootFactory.setToken(res.data.token);
             if (res.data.token !== '') {
-                $location.path('/home');
+                $state.go('check');
                 console.log('token: ', res.data.token);
             }
         }, console.error );

@@ -1,42 +1,43 @@
 'use strict';
 
-app.controller('HomeCtrl', function($scope, $http, $location, RootFactory, $rootScope, apiUrl) {
+app.controller('HomeCtrl', function($scope, $http, $location, $rootScope, RootFactory, apiUrl) {
     console.log('HomeCtrl Here');
-    console.log ('Do we have a token: ', RootFactory.getToken() );
   
-    $http({
-        url: `${apiUrl}/users/current`,
-        headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
-    })
-    .then( (profile) => {
-        profile = profile.data;
-        console.log(profile);
-        $scope.profile = profile;
-        $scope.messages = profile.messages;
-        $scope.calendar = profile.calendar;
-        $scope.moreinfo = profile.profile;
+    // $http({
+    //     url: `${apiUrl}/users/current`,
+    //     headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
+    // })
+    // .then((profile) => {
+    //     profile = profile.data;
+        $scope.profile = $rootScope.profile;
 
-        let connect = profile.myuser_connection;
-        if (connect.connected_user && (connect.are_they_connected == 1)) {
-            console.log('we have a relationship');
-            $scope.inRelationship = true;
-            $scope.partner_uid = connect.connected_user;
-            console.log($scope.partner_uid);
-        }
+        $scope.messages = $scope.profile.messages;
+        $scope.calendar = $scope.profile.calendar;
+        $scope.info = $scope.profile.profile;
+
+        $scope.partner_id = $scope.profile.relationship.partner;
+
+        console.log($scope.profile);
+
+        // $scope.messages = profile.messages;
+        // $scope.calendar = profile.calendar;
+        // $scope.info = profile.profile;
 
         $http({
-            url: `${apiUrl}/users/` + $scope.partner_uid,
+            url: `${apiUrl}/users/` + $scope.partner_id,
             headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
-        }).then( (bae) => {
-            $scope.partner = bae.data;
-            console.log(bae.data);
-            }
-        );
-    }).then( () => console.log('still here') );
+        }).then((partner) => {
+            partner = partner.data;
+            console.log(partner);
+            $scope.partner = partner;
+            $scope.partner_messages = partner.messages;
+            $scope.partner_calendar = partner.calendar;
+            $scope.partner_info = partner.profile;
+        });
 
+    // });
 
 });
-
 
 
 

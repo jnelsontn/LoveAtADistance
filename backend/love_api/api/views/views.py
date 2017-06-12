@@ -2,11 +2,8 @@ from api.serializers import *
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
 from api.models import *
-
-from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
@@ -20,19 +17,40 @@ class UserViewSet(viewsets.ModelViewSet):
 
         return super(UserViewSet, self).get_object()
 
-class ProfileViewSet(viewsets.ModelViewSet):
+class RelCheckViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = RelCheckSerializer
 
+class LimitedNoRelViewSet(viewsets.ModelViewSet):
+    serializer_class = LimitedNoRelSerializer
+
+    def get_queryset(self):
+        """
+        This view returns a list of all users whom are not in a
+        relationship and whom are not the current user user.
+        Used when we built a list for the user to select.
+        Sent are 'id', 'first_name', 'last_name',,
+        """
+        queryset = User.objects.filter(relationship=None).exclude(id=self.request.user.id)
+        email = self.request.query_params.get('email', None)
+        if email is not None:
+            queryset = queryset.filter(email=email)
+        return queryset
+
+class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
 
-class GroupViewSet(viewsets.ModelViewSet):
+class RelationshipViewSet(viewsets.ModelViewSet):
+    queryset = Relationship.objects.all()
+    serializer_class = RelationshipSerializer
 
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer
-
-class ConnectionViewSet(viewsets.ModelViewSet):
-    queryset = Connection.objects.all()
-    serializer_class = ConnectionSerializer
+    # over_road so that the user is automatically added when
+    # sending a relationship request
+    # user is marked as read-only field in serializer
+    def perform_create(self, serializer):
+        user = User.objects.get(pk=self.request.user.id)
+        serializer.save(user=user)
 
 class ImportantNumberViewSet(viewsets.ModelViewSet):
     queryset = ImportantNumber.objects.all()
@@ -49,3 +67,9 @@ class TodoCalendarViewSet(viewsets.ModelViewSet):
 class MessageViewSet(viewsets.ModelViewSet):
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
+
+
+class GroupViewSet(viewsets.ModelViewSet):
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
+
