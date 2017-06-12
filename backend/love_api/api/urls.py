@@ -12,16 +12,17 @@ from .views import *
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
-router.register(r'limitedusers', views.LimitedUserViewSet, 'limitedusers')
-router.register(r'norelationship', views.NoRelationshipViewSet, 'norelationship')
+router.register(r'relcheck', views.RelCheckViewSet, 'relcheck')
+
+router.register(r'limited_norel', views.LimitedNoRelViewSet, 'limited_norel')
 
 router.register(r'profiles', views.ProfileViewSet)
-router.register(r'groups', views.GroupViewSet)
 router.register(r'relationships', views.RelationshipViewSet)
 router.register(r'numbers', views.ImportantNumberViewSet)
 router.register(r'messages', views.MessageViewSet)
 router.register(r'photos', views.PhotoViewSet)
 router.register(r'calendar', views.TodoCalendarViewSet)
+router.register(r'groups', views.GroupViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.

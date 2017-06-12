@@ -9,5 +9,5 @@ class Message(models.Model):
     def __str__(self):
         return "id: {}, username: {}".format(self.user.id, self.user.username)
 
-    def save(self, *args, **kwargs):
-        super(Message, self).save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     super(Message, self).save(*args, **kwargs)

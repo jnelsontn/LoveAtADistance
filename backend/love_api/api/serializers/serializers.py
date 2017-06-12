@@ -1,46 +1,48 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 from api.models import *
-# from api.serializers import *
 
-class ProfileSerializer(serializers.HyperlinkedModelSerializer):
+class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        exclude = ('user', 'url')
+        exclude = ('user', 'id',)
 
-class RelationshipSerializer(serializers.HyperlinkedModelSerializer):
+class RelationshipSerializer(serializers.ModelSerializer):
 
-    # user = serializers.ReadOnlyField(source='user.id')
-    partner = serializers.ReadOnlyField(source='partner.id')
+    # we need this read only field so someone can't pretend
+    # to be another user
+    user = serializers.ReadOnlyField(source='user.id')
 
     class Meta:
         model = Relationship
-        exclude = ('url', 'user')
+        exclude = ()
 
-class MessageSerializer(serializers.HyperlinkedModelSerializer):
+class LimitedNoRelSerializer(serializers.ModelSerializer):
+    # we can actually keep out the email field...
+    # we use this for limited views and searching
+    class Meta:
+        model = User
+        fields = ('id', 'first_name', 'relationship',)
 
-    user = serializers.ReadOnlyField(source='user.username')
+class MessageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Message
-        fields = ('user', 'message', 'create_time')
+        exclude = ('id')
 
-class TodoCalendarSerializer(serializers.HyperlinkedModelSerializer):
-
-    expired = serializers.ReadOnlyField(source='has_expired')
-    user = serializers.ReadOnlyField(source='user.username')
+class TodoCalendarSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TodoCalendar
-        fields = ('url', 'expired', 'user', 'message', 'event_date')
+        exclude = ()
 
-class ImportantNumberSerializer(serializers.HyperlinkedModelSerializer):
+class ImportantNumberSerializer(serializers.ModelSerializer):
     class Meta:
         model = ImportantNumber
         exclude = ()
 
-class PhotoSerializer(serializers.HyperlinkedModelSerializer):
+class PhotoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Photo
         exclude = ()
