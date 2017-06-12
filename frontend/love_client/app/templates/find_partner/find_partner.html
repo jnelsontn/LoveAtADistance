@@ -1,0 +1,24 @@
+<nav class="navbar navbar-inverse" role="navigation">
+    <div class="navbar-header">
+        <a class="navbar-brand" ui-sref="#">Find Partner</a>
+    </div>
+    <ul class="nav navbar-nav">
+		<li><a ui-sref="#">logout</a></li>
+    </ul>
+</nav>
+
+<form>
+	<input type="text" ng-model="((email))" />
+	<button type="submit" ng-click="search()">Search</button>  
+</form>
+
+<h3>Find your partner</h3>
+<ul>
+	<li ng-show="search_performed" ng-repeat="user in results">
+		(( user.first_name )) (( user.last_name ))
+		(( user.email )) (( user.id )) <a ng-click="sendPartnerReq(user.id)">add partner</a>
+	</li>
+</ul>
+
+
+<pre>Response: (( response ))</pre>

@@ -1,27 +1,44 @@
 'use strict';
 
-app.controller('HomeCtrl', function($scope, $http, $location, RootFactory, $rootScope, apiUrl) {
+app.controller('HomeCtrl', function($scope, $http, $location, $rootScope, RootFactory, apiUrl) {
     console.log('HomeCtrl Here');
   
-    var relationship;
-    $scope.sent_request = false;
+    // $http({
+    //     url: `${apiUrl}/users/current`,
+    //     headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
+    // })
+    // .then((profile) => {
+    //     profile = profile.data;
+        $scope.profile = $rootScope.profile;
 
-    $http({
-        url: `${apiUrl}/users/current`,
-        headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
-    })
-    .then( (profile) => {
-        // before i do all this... shouldn't i check if i am in a relationship? since
-        // i can't do these features w/o it
-        profile = profile.data;
+        $scope.messages = $scope.profile.messages;
+        $scope.calendar = $scope.profile.calendar;
+        $scope.info = $scope.profile.profile;
 
-        console.log(profile);
-        $scope.profile = profile;
-        $scope.messages = profile.messages;
-        $scope.calendar = profile.calendar;
-        $scope.moreinfo = profile.profile;
+        $scope.partner_id = $scope.profile.relationship.partner;
+
+        console.log($scope.profile);
+
+        // $scope.messages = profile.messages;
+        // $scope.calendar = profile.calendar;
+        // $scope.info = profile.profile;
+
+        $http({
+            url: `${apiUrl}/users/` + $scope.partner_id,
+            headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
+        }).then((partner) => {
+            partner = partner.data;
+            console.log(partner);
+            $scope.partner = partner;
+            $scope.partner_messages = partner.messages;
+            $scope.partner_calendar = partner.calendar;
+            $scope.partner_info = partner.profile;
+        });
+
+    // });
 
 });
 
-});
+
+
 
