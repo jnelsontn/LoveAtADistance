@@ -20,7 +20,9 @@ app.controller('FindPartnerCtrl', function($scope, $http, $location, $rootScope,
         $http({
             method: 'POST',
             url: `${apiUrl}/relationships/`,
-            headers: { 'Authorization': 'Token ' + RootFactory.getToken() },
+            headers: { 
+                'Authorization': 'Token ' + RootFactory.getToken() },
+            contentType: 'application/json',
             data: { 'partner': partner }
         }).then( (response) => {
         	if (response.data) {

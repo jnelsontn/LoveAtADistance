@@ -11,7 +11,6 @@ app.config( ($httpProvider, $interpolateProvider, $stateProvider, $urlRouterProv
     $interpolateProvider.startSymbol('((');
     $interpolateProvider.endSymbol('))');
 
-
     $urlRouterProvider.otherwise('/login');
     $stateProvider
     .state('login_register', {
