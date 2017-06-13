@@ -2,8 +2,6 @@ from api.serializers import *
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
 from api.models import *
-from rest_framework.views import APIView
-from rest_framework.response import Response
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
@@ -17,11 +15,16 @@ class UserViewSet(viewsets.ModelViewSet):
 
         return super(UserViewSet, self).get_object()
 
-class RelCheckViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = RelCheckSerializer
+class RelationshipViewSet(viewsets.ModelViewSet):
+    queryset = Relationship.objects.all()
+    serializer_class = RelationshipSerializer
+
+    def perform_create(self, serializer):
+        user = User.objects.get(pk=self.request.user.id)
+        serializer.save(user=user)
 
 class LimitedNoRelViewSet(viewsets.ModelViewSet):
+    """This class defines the create behavior of our rest api."""
     serializer_class = LimitedNoRelSerializer
 
     def get_queryset(self):
@@ -37,20 +40,17 @@ class LimitedNoRelViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(email=email)
         return queryset
 
+class RelCheckViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = RelCheckSerializer
+
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
 
-class RelationshipViewSet(viewsets.ModelViewSet):
-    queryset = Relationship.objects.all()
-    serializer_class = RelationshipSerializer
-
-    # over_road so that the user is automatically added when
-    # sending a relationship request
-    # user is marked as read-only field in serializer
-    def perform_create(self, serializer):
-        user = User.objects.get(pk=self.request.user.id)
-        serializer.save(user=user)
+class NotificationViewSet(viewsets.ModelViewSet):
+    queryset = Notification.objects.all()
+    serializer_class = NotificationSerializer
 
 class ImportantNumberViewSet(viewsets.ModelViewSet):
     queryset = ImportantNumber.objects.all()
@@ -67,7 +67,6 @@ class TodoCalendarViewSet(viewsets.ModelViewSet):
 class MessageViewSet(viewsets.ModelViewSet):
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
-
 
 class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()

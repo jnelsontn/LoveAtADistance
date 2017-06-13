@@ -5,25 +5,32 @@ from api.serializers import *
 
 class UserSerializer(serializers.ModelSerializer):
 
-    #messages = MessageSerializer(many=True)
-    #weather = serializers.SerializerMethodField('get_weather')
-    #messages = serializers.PrimaryKeyRelatedField(many=True, queryset=Message.objects.all())
-
     class Meta:
         model = User
         fields = ('id', 'username', 'first_name', 'last_name',
          'email', 'messages', 'calendar', 'profile', 'relationship',
-         'last_login', 'date_joined')
-        read_only_fields = ('last_login', 'date_joined')
+         'to_user', 'from_user', 'last_login', 'date_joined')
+        read_only_fields = ('last_login', 'date_joined', 'username', 'id')
         depth = 1
-	# def get_weather(self, obj):
-    # return "weather city county{}".format(obj.city)
+
+class ProfileSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Profile
+        exclude = ('user', 'id',)
 
 class RelCheckSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'relationship')
+        fields = ('relationship', 'id',)
         depth = 1
+
+class LimitedNoRelSerializer(serializers.ModelSerializer):
+    # we can actually keep out the email field...
+    # we use this for limited views and searching
+    class Meta:
+        model = User
+        fields = ('id', 'first_name', 'relationship',)
 
 class GroupSerializer(serializers.ModelSerializer):
     class Meta:

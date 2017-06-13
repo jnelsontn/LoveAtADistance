@@ -10,12 +10,14 @@ from rest_framework.authtoken.views import obtain_auth_token
 from .methods import *
 from .views import *
 
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.conf.urls.static import static
+from .settings import MEDIA_URL, MEDIA_ROOT
+
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'relcheck', views.RelCheckViewSet, 'relcheck')
-
 router.register(r'limited_norel', views.LimitedNoRelViewSet, 'limited_norel')
-
 router.register(r'profiles', views.ProfileViewSet)
 router.register(r'relationships', views.RelationshipViewSet)
 router.register(r'numbers', views.ImportantNumberViewSet)
@@ -33,3 +35,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
+
+urlpatterns += staticfiles_urlpatterns()
+urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)
