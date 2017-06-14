@@ -57,7 +57,7 @@ app.config(($interpolateProvider, $stateProvider, $urlRouterProvider) => {
     .state('home', {
         url: '/home',
         resolve: {
-            user_profile: ((ProfileFactory) => {
+            profile: ((ProfileFactory) => {
                 let check = ProfileFactory.getProfile();
                 if (!check) {
                     // only request data if we need it
@@ -66,9 +66,9 @@ app.config(($interpolateProvider, $stateProvider, $urlRouterProvider) => {
                 }
                 return ProfileFactory.getProfile();
             }),
-            partner: (($http, apiUrl, RootFactory, user_profile) => {
+            partner: (($http, apiUrl, RootFactory, profile) => {
                 return $http({
-                    url: `${apiUrl}/users/` + user_profile.relationship.partner,
+                    url: `${apiUrl}/users/` + profile.relationship.partner,
                     headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
                 }).then((partner) => { return partner.data; });
             }),
