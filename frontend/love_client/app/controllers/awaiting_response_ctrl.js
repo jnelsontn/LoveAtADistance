@@ -1,10 +1,9 @@
 'use strict';
 
-app.controller('AwaitingResponseCtrl', function($scope, $http, $location, $rootScope, RootFactory, apiUrl) {
-	$scope.profile = $rootScope.profile;
+app.controller('AwaitingResponseCtrl', function($scope, $http, RootFactory, apiUrl, profile) {
+    console.log('Awaiting Here');
 
-	// should give info on partner?
-	$scope.requested_partner_id = $scope.profile.relationship.partner;
+    console.log('did waiting get from checking...', profile);
 
     $scope.cancelPartnerReq = (partner) => {
         $http({

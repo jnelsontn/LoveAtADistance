@@ -3,52 +3,81 @@
 var app = angular.module('LoveClient', ['ui.router', 'ngCookies'])
     .constant('apiUrl', 'http://127.0.0.1:8000');
 
-app.config( ($httpProvider, $interpolateProvider, $stateProvider, $urlRouterProvider) => {
-
-    $httpProvider.defaults.xsrfCookieName = 'csrftoken';
-    $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+app.config(($interpolateProvider, $stateProvider, $urlRouterProvider) => {
 
     $interpolateProvider.startSymbol('((');
     $interpolateProvider.endSymbol('))');
 
-    $urlRouterProvider.otherwise('/login');
+    $urlRouterProvider.otherwise('/');
     $stateProvider
     .state('login_register', {
-        url: '/', // this loads a header with links to our child states
+        url: '/',
         templateUrl: 'app/templates/login_register/main.html',
-        controller: "LoginCtrl"                                  
+        controller: 'LoginCtrl',
+        resolve: {
+            user_logged_in: (($cookies, $state) => {
+                let cookie = $cookies.get('authtoken');
+                if (cookie) { 
+                    $state.go('check'); 
+                }
+            }) 
+        }                  
     })
-        .state('login_register.login', {
-                url: '^/login',
-               templateUrl: 'app/templates/login_register/login.html',
-        })
-        .state('login_register.register', {
-                url: '^/register',
-                templateUrl: 'app/templates/login_register/register.html',
-        })
-    .state('check', {
-        url: '/',
-        templateUrl: 'app/templates/check_status/status.html',
-        controller: 'CheckStatusCtrl'
+    .state('login_register.login', {
+        url: '^/login',
+        templateUrl: 'app/templates/login_register/login.html'
     })
-    .state('find_partner', { 
-        url: '/',
-        templateUrl: 'app/templates/find_partner/find_partner.html',
-        controller: 'FindPartnerCtrl'
+    .state('login_register.register', {
+        url: '^/register',
+        templateUrl: 'app/templates/login_register/register.html'
+    })
+   .state('check', {
+        url: '/checking',
+        controller: 'CheckStatusCtrl',
+        resolve: { 
+            profile: ((ProfileFactory) => {
+                var profile = ProfileFactory.getApiProfile();
+                ProfileFactory.setProfile(profile);
+                return ProfileFactory.getProfile();
+            })
+        }
+    })
+   .state('find_partner', { 
+        url: '/findpartner',
+        templateUrl: 'app/templates/check_status/find_partner.html',
+        controller: 'FindPartnerCtrl',
+        parent: 'check'
     })
     .state('waiting', { 
-        url: '/',
+        url: '/waiting',
         templateUrl: 'app/templates/check_status/waiting.html',
-        controller: 'AwaitingResponseCtrl'
+        controller: 'AwaitingResponseCtrl',
+        parent: 'check'
     })
     .state('home', {
         url: '/home',
+        resolve: {
+            user_profile: ((ProfileFactory) => {
+                let check = ProfileFactory.getProfile();
+                if (!check) {
+                    // only request data if we need it
+                    let profile = ProfileFactory.getApiProfile();
+                    ProfileFactory.setProfile(profile);
+                }
+                return ProfileFactory.getProfile();
+            }),
+            partner: (($http, apiUrl, RootFactory, user_profile) => {
+                return $http({
+                    url: `${apiUrl}/users/` + user_profile.relationship.partner,
+                    headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
+                }).then((partner) => { return partner.data; });
+            }),
+        },
         views: {
-            '': {  // the main template will be placed here (relatively named)
+            '': {
                 templateUrl: 'app/templates/home/home.html',
                 controller: 'HomeCtrl'
             },
-                // the child views will be defined here (absolutely named)
                 'messages@home': { 
                     templateUrl: 'app/templates/home/home_messages.html'
                 },
@@ -58,7 +87,15 @@ app.config( ($httpProvider, $interpolateProvider, $stateProvider, $urlRouterProv
         }
     });
 
-
 }); // end config
 
+app.run(($cookies, RootFactory) => {
+
+    let cookie = $cookies.get('authtoken');
+    if (cookie) {
+        console.log('You have a cookie', cookie);
+        RootFactory.setToken(cookie);
+    }
+
+});
 
