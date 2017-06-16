@@ -1,56 +1,93 @@
 'use strict';
 
-app.controller('CheckStatusCtrl', function($scope, $http, $state, $rootScope, RootFactory, apiUrl) {
+app.controller('CheckStatusCtrl', function($scope, $http, $state, RootFactory, apiUrl,
+ MsgFactory, notifications, profile) {
     console.log('CheckStatusCtrl Here');
 
-    var relationship;
+    // 'notifications' and 'profile' are called from app.js/ui.router. The data
+    // resolves before the page loads. We only use 'notifications' to check the length
+    // of our notifications which must be >0. Otherwise, all data needed is already
+    // attached to our user's profile.
 
-    $http({
-        url: `${apiUrl}/users/current`,
-        headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
-    }).then( (profile) => {
-        // should we just base our data off $RootScope rather than make http calls?
-    	profile = profile.data;
-        $rootScope.profile = profile;
-        console.log('my id', profile.id);
-    	// 1. check if user is in a relationship, if not, go find a partner
-    	if (profile.relationship === null) {
-    		$state.go('find_partner');
-        // 2. if they are in a relationship, let's continue
-    	} else if (profile.relationship !== null) {
-            relationship = profile.relationship.partner;
-            console.log('partner id', relationship);
-            $http({ // 3. check the relationship against the person they sent the
-                    // request to
-                url: `${apiUrl}/relcheck/` + relationship,
-                headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
-            }).then( (bae) => {
-                bae = bae.data;
-                console.log(bae);
-                // 3. check if the requestee is in a relationship
-                // 3a. no, they are not.
-                if (bae.relationship === null) {
-                    console.log('you sent response but were waiting');
-                    // sent request but they didn't respond so lets scope it
-                    $state.go('waiting');
-                // 3b. if their status is not null, are they in relationship with us?
-                } else if (bae.relationship.partner ===  profile.id) {
-                    // yes, looks like it.
-                    $scope.relationship = true;
-                    $state.go('home');
-                    console.log('we have a match');
-                // what if they are in a relationship just not with us? 
-                // what if i sent a request and they didn't respond?
-                } else if (relationship && (bae.relationship.partner !== profile.id)) {
-                    console.log('you sent a request but it does not match them, should not happen');
-                    return;
-                } else {
-                    console.log('no clue');
-                    return;
-                }
-            });
-        } // line 17
-    }); // line 11
+    $scope.profile = profile;
+    $scope.notifications = notifications;
+    console.log('my profile:', profile);
 
+    if ((notifications.length > 0)) {
+        // If the (current user) has a notification, it is a request for a relationship. The ID of 
+        // the requestor is attached, so we call the API and get a limited set of information back
+        // to display to the current user.
+        $http({
+            url: `${apiUrl}/limited_norel/?pk=` + profile.notifications.from_user,
+            headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
+        }).then((requestor) => {
+            $scope.requestor = requestor.data;
+            console.log('requested from', $scope.requestor);
+
+            // the user can accept or reject the request. an accept, creates the relationship as the
+            // inverse of the request; therefore the fields criss-cross thus 'matching'. Either way,
+            // we set the notification to 1 (when a choice is made), which is 'viewed' 
+            // and therefore, never shown again.
+            $scope.acceptRequest = () => {
+                $http({
+                    method: 'POST',
+                    url: `${apiUrl}/relationships/`,
+                    headers: { 'Authorization': 'Token ' + RootFactory.getToken() },
+                    data: { 'partner': profile.notifications.from_user }
+                }).then( (res) => { console.log('res', res.data); });
+
+                MsgFactory.markMsgRead( profile.notifications.id ).then( (x) => {
+                    // We cannot go straight to the home state as the user's profile
+                    // must be reloaded.
+                    $state.go('login_register');
+                });
+            };
+
+            $scope.denyRequest = () => {
+                MsgFactory.markMsgRead( profile.notifications.id ).then( (x) => {
+                    console.log('an alert will go here');
+                });
+            };
+
+        });
+    } // end notification code
+
+    // relationship checking: after a succesful login, we check to see whether the user is in
+    // a relationship. If not, they are given the option to search (via email) for a partner.
+    // If so, they will be brought to their dashboard.
+
+    // Steps:
+    // 1. Check if the User is in a relationship, if not, they'll go to the 'find_partner' state.
+    if (profile.relationship === null) {
+    	$state.go('find_partner');
+    // 2. otherwise, if it is not null, we see who the other user is.
+    } else if (profile.relationship !== null) {
+        let relationship = profile.relationship.partner;
+        console.log('partner id', relationship);
+        // 3. We check the Id of the relationship on the user's profile
+        $http({ 
+            url: `${apiUrl}/relcheck/` + relationship,
+            headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
+        }).then((bae) => {
+            bae = bae.data;
+            // 4. If they are not, either, the user is waiting for a response or their
+            // request was ignored.
+            if (bae.relationship === null) {
+                console.log('you sent response but were waiting... or they ignored u');
+                $state.go('waiting');
+            // 3b. If their status is not null, then they are in a relationship with someone
+            // just not this user.
+            } else if (bae.relationship.partner !== profile.id) {
+                console.log('looks like thye moved on, you should probably cancel this req');
+            } else if (bae.relationship.partner ===  profile.id) {
+                // 4. A match has been found, the user is brought to the dashboard.
+                $state.go('home');
+                console.log('we have a match');
+            } else if (relationship && (bae.relationship.partner !== profile.id)) {
+                // we should not get to this point
+                return;
+            }
+        });
+    }
 
 });

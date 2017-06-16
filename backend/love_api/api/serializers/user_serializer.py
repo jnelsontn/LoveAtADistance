@@ -1,37 +1,73 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from api.models import *
 from api.serializers import *
+from api.models import *
+
 
 class UserSerializer(serializers.ModelSerializer):
-
-    #messages = MessageSerializer(many=True)
-    #weather = serializers.SerializerMethodField('get_weather')
-    #messages = serializers.PrimaryKeyRelatedField(many=True, queryset=Message.objects.all())
+    """
+    Serializer to map the Model instance into JSON format.
+    """
 
     class Meta:
+        """
+        The UserSerializer has almost all models attached by the
+        way of the User model (one to one relationship), 
+        a depth of one allows to easily pull properities off 
+        of the object
+        """
         model = User
         fields = ('id', 'username', 'first_name', 'last_name',
          'email', 'messages', 'calendar', 'profile', 'relationship',
-         'last_login', 'date_joined')
-        read_only_fields = ('last_login', 'date_joined')
+        'notifications', 'last_login', 'date_joined')
+        read_only_fields = ('last_login', 'date_joined', 'username', 'id')
         depth = 1
-	# def get_weather(self, obj):
-    # return "weather city county{}".format(obj.city)
+
+class ProfileSerializer(serializers.ModelSerializer):
+    """
+    Serializer to map the Model instance into JSON format.
+    """
+
+    class Meta:
+        """
+        Meta class to map serializer's fields with the model fields.
+        """
+        model = Profile
+        exclude = ('user', 'id',)
 
 class RelCheckSerializer(serializers.ModelSerializer):
+    """
+    Serializer to map the Model instance into JSON format.
+    """
+
     class Meta:
+        """
+        Meta class to map serializer's fields with the model fields.
+        """
         model = User
-        fields = ('id', 'relationship')
+        fields = ('relationship', 'id',)
         depth = 1
 
-class GroupSerializer(serializers.ModelSerializer):
+class LimitedNoRelSerializer(serializers.ModelSerializer):
+    """
+    Serializer to map the Model instance into JSON format.
+    """
+
     class Meta:
+        """
+        Meta class to map serializer's fields with the model fields.
+        """
+        model = User
+        fields = ('id', 'first_name', 'last_name', 'relationship', 'email',)
+
+class GroupSerializer(serializers.ModelSerializer):
+    """
+    Serializer to map the Model instance into JSON format.
+    """
+
+    class Meta:
+        """
+        Meta class to map serializer's fields with the model fields.
+        """
         model = Group
         exclude = ()
-
-
-
-
-
-

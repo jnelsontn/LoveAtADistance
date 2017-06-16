@@ -1,7 +1,8 @@
 'use strict';
 
-app.controller('FindPartnerCtrl', function($scope, $http, $location, $rootScope, RootFactory, apiUrl) {
-
+app.controller('FindPartnerCtrl', function($scope, $http, RootFactory, apiUrl, profile) {
+    console.log('FindPartnerCtrl Here');
+    
     $scope.search_performed = false;
 
     $scope.search = () => {
@@ -12,7 +13,6 @@ app.controller('FindPartnerCtrl', function($scope, $http, $location, $rootScope,
             res = res.data;
             $scope.results = res;
             $scope.search_performed = true;
-            console.log(res);
         });
     };
 
@@ -20,7 +20,9 @@ app.controller('FindPartnerCtrl', function($scope, $http, $location, $rootScope,
         $http({
             method: 'POST',
             url: `${apiUrl}/relationships/`,
-            headers: { 'Authorization': 'Token ' + RootFactory.getToken() },
+            headers: { 
+                'Authorization': 'Token ' + RootFactory.getToken() },
+            contentType: 'application/json',
             data: { 'partner': partner }
         }).then( (response) => {
         	if (response.data) {

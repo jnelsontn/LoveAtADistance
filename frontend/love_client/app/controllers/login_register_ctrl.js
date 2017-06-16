@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('LoginCtrl', function($scope, $http, $state, RootFactory, apiUrl) {
+app.controller('LoginCtrl', function($scope, $cookies, $http, $state, RootFactory, apiUrl) {
     console.log('LoginCtrl Here');
 
   $scope.user = {
@@ -15,9 +15,7 @@ app.controller('LoginCtrl', function($scope, $http, $state, RootFactory, apiUrl)
             $http({
                 url: `${apiUrl}/register/`,
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             data: {
                 'username': $scope.user.username,
                 'password': $scope.user.password,
@@ -29,6 +27,7 @@ app.controller('LoginCtrl', function($scope, $http, $state, RootFactory, apiUrl)
             RootFactory.setToken(res.data.token);
                 if (res.data.token !== '') {
                     $state.go('find_partner');
+                    $cookies.put('authtoken', res.data.token);
                     console.log('token ', res.data.token);
                 }
         }, console.error );
@@ -46,6 +45,7 @@ app.controller('LoginCtrl', function($scope, $http, $state, RootFactory, apiUrl)
           RootFactory.setToken(res.data.token);
             if (res.data.token !== '') {
                 $state.go('check');
+                $cookies.put('authtoken', res.data.token);
                 console.log('token: ', res.data.token);
             }
         }, console.error );
