@@ -3,13 +3,24 @@
 	<button type="submit" ng-click="search()">Search</button>  
 </form>
 
-<h3>Find your partner</h3>
+<div ng-show="search_performed">
+<h5>Search Results:</h5>
 <ul>
-	<li ng-show="search_performed" ng-repeat="user in results">
+	<li ng-repeat="user in results">
 		(( user.first_name )) (( user.last_name ))
 		(( user.email )) (( user.id )) <a ng-click="sendPartnerReq(user.id)">add partner</a>
 	</li>
-</ul>
+</ul></div>
 
+<div ng-if="notifications.length > 0">
 
-<pre>Response: (( response ))</pre>
+<pre ngif="response">Result: (( response ))</pre>
+
+	<pre ng-repeat="user in requestor">
+	(( notification.message )) from (( user.first_name )) (( user.last_name )), email: (( user.email ))
+	</pre>
+
+	<button type="submit" ng-click="acceptRequest()">ACCEPT REQUEST</button>  
+	<button type="submit" ng-click="denyRequest()">REJECT REQUEST</button>
+
+</div>

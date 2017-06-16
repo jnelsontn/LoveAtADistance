@@ -38,4 +38,22 @@ app.factory('ProfileFactory', ($http, apiUrl, RootFactory) => {
         }
     };
 
-}); // end RootFactory
+}); // end ProfileFactory
+
+app.factory('MsgFactory', ($http, apiUrl, RootFactory) => {
+    // MsgFactory sets a notification as 'viewed'.
+    return {
+        markMsgRead (id) {
+            return $http({
+                    method: 'PUT',
+                    url: `${apiUrl}/notifications/` + id + '/',
+                    headers: { 'Authorization': 'Token ' + RootFactory.getToken() },
+                    data: { 'viewed': 1 }
+                }).then((res) => {
+                    console.log('res', res.data);
+                    console.log('WHY??????');
+                });
+            }
+        };
+
+}); // end MsgFactory

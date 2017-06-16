@@ -2,6 +2,8 @@
 
 app.controller('HomeCtrl', function($scope, profile, partner) {
     console.log('HomeCtrl Here');
+    // Data is recieved from the router's resolve.
+
 
     $scope.profile = profile;
     $scope.partner = partner;

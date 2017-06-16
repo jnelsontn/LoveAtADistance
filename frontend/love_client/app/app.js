@@ -32,14 +32,25 @@ app.config(($interpolateProvider, $stateProvider, $urlRouterProvider) => {
         templateUrl: 'app/templates/login_register/register.html'
     })
    .state('check', {
+    /*
+    Each time a User logs in, we check their relationship status.
+    The resolve function allows the data to be downloaded before the
+    page is rendered.
+     */
         url: '/checking',
         controller: 'CheckStatusCtrl',
         resolve: { 
             profile: ((ProfileFactory) => {
-                var profile = ProfileFactory.getApiProfile();
+                let profile = ProfileFactory.getApiProfile();
                 ProfileFactory.setProfile(profile);
                 return ProfileFactory.getProfile();
-            })
+            }),
+            notifications: (($http, apiUrl, RootFactory, profile) => {
+                return $http({
+                    url: `${apiUrl}/notifications/`,
+                    headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
+                }).then((notifications) => { return notifications.data; });
+            }),
         }
     })
    .state('find_partner', { 

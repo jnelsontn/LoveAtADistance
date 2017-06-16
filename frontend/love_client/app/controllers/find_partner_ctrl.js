@@ -5,8 +5,6 @@ app.controller('FindPartnerCtrl', function($scope, $http, RootFactory, apiUrl, p
     
     $scope.search_performed = false;
 
-    console.log('did findpartner get from checking...', profile);
-
     $scope.search = () => {
         $http({
             url: `${apiUrl}/limited_norel/?email=` + $scope.email,
@@ -15,7 +13,6 @@ app.controller('FindPartnerCtrl', function($scope, $http, RootFactory, apiUrl, p
             res = res.data;
             $scope.results = res;
             $scope.search_performed = true;
-            console.log(res);
         });
     };
 
