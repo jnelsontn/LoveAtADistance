@@ -2,23 +2,24 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import User
 from django.http import HttpResponse
-import json
-
 from api.serializers import *
+import json
 
 @csrf_exempt
 def register_user(request):
-    '''Handles the creation of a new user for authentication
-
-    Method arguments:
-      request -- The full HTTP request object
-    '''
+    """
+    Handles the creation of a new user for authentication
+    
+    Note: This code was provided by Steve Brownlee.
+    """
 
     # Load the JSON string of the request body into a dict
     req_body = json.loads(request.body.decode())
 
-    # Create a new user by invoking the `create_user` helper method
-    # on Django's built-in User model
+    """
+    Create a new user by invoking the `create_user` helper method
+    on Django's built-in User model
+    """
     new_user = User.objects.create_user(
                     username=req_body['username'],
                     password=req_body['password'],
@@ -26,8 +27,6 @@ def register_user(request):
                     first_name=req_body['first_name'],
                     last_name=req_body['last_name'],
                     )
-
-    # Commit the user to the database by saving it
     new_user.save()
 
     # Use the REST Framework's token generator on the new user account

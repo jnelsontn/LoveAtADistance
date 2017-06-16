@@ -8,12 +8,3 @@ class Relationship(models.Model):
     def __str__(self):
     	string = self.user.first_name + ' ' + self.user.last_name + ' relationship'
     	return string
-
-# @receiver(post_save, sender=User)
-# def create_initial_relationship(sender, instance, created, **kwargs):
-#     if created:
-#         Relationship.objects.create(user=instance)
-
-# @receiver(post_save, sender=User)
-# def save_initial_connection(sender, instance, **kwargs):
-#     instance.connection.save()
