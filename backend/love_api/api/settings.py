@@ -6,7 +6,6 @@ from api.secret import *
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
@@ -28,9 +27,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
     'rest_framework',
     'rest_framework.authtoken',
+
     'corsheaders',
+    'versatileimagefield',
     'api',
 ]
 
@@ -110,11 +112,34 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
-USE_I18N = True
-USE_L10N = True
+USE_I18N = False
+USE_L10N = False
 USE_TZ = True
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'api/media')
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'api/media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
+
+VERSATILEIMAGEFIELD_SETTINGS = {
+    'cache_length': 2592000,
+    'cache_name': 'versatileimagefield_cache',
+    'jpeg_resize_quality': 100,
+
+    # The name of the top-level folder within storage classes to save all
+    # sized images. Defaults to '__sized__'
+    'sized_directory_name': 'thumbnails',
+
+    # The name of the directory to save all filtered images within.
+    # Defaults to '__filtered__':
+    'filtered_directory_name': 'filtered',
+
+    # The name of the directory to save placeholder images within.
+    # Defaults to '__placeholder__':
+    'placeholder_directory_name': 'placeholder',
+
+    'create_images_on_demand': True,
+    'image_key_post_processor': None,
+    'progressive_jpeg': False
+}
 

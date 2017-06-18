@@ -2,7 +2,6 @@ from api.serializers import *
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
 from api.models import *
-from django_filters.rest_framework import DjangoFilterBackend
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -64,7 +63,7 @@ class LimitedNoRelViewSet(viewsets.ModelViewSet):
         pk = self.request.query_params.get('pk', None)
 
         if email is not None:
-            queryset = queryset.filter(email=email)
+            queryset = queryset.filter(email__iexact=email)
 
         if pk is not None:
             queryset = User.objects.all().filter(pk=pk, 
@@ -124,6 +123,15 @@ class ImportantNumberViewSet(viewsets.ModelViewSet):
     queryset = ImportantNumber.objects.all()
     serializer_class = ImportantNumberSerializer
 
+    def get_queryset(self):
+        """
+        When we call a query, we do not want to 
+        pull in any more data than needed.
+        """
+        queryset = ImportantNumber.objects.filter(
+            user=self.request.user.id)
+        return queryset
+
     def perform_create(self, serializer):
         """
         Automatically attach the logged-in-user as the one who is
@@ -138,6 +146,16 @@ class PhotoViewSet(viewsets.ModelViewSet):
     """
     queryset = Photo.objects.all()
     serializer_class = PhotoSerializer
+
+    def get_queryset(self):
+        """
+        Only retrieve the photos belonging to the
+        current user
+        """
+        queryset = Photo.objects.all().filter(
+            user=self.request.user.id)
+
+        return queryset
 
     def perform_create(self, serializer):
         """
@@ -157,10 +175,10 @@ class TodoCalendarViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         """
-        When we call a query, we do not want to pull in any more data than needed.
+        Only retrieve the user's information.
         """
         queryset = TodoCalendar.objects.filter(
-            user=self.request.user.id).order_by('date')[:10]
+            user=self.request.user.id).order_by('date')
         return queryset
 
     def perform_create(self, serializer):
@@ -178,12 +196,13 @@ class MessageViewSet(viewsets.ModelViewSet):
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
 
-    def get_queryset(self): # for now we want more than just the current user
+    def get_queryset(self):
         """
         Limit the set of messages retrieved to the user's last ten
+        NOTE: can't limit right now if i want to delete...
         """
         queryset = Message.objects.filter(
-            user=self.request.user.id).order_by('-create_time')[:10]
+            user=self.request.user.id).order_by('-create_time') # [:10]
         return queryset
 
     def perform_create(self, serializer):
