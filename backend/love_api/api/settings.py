@@ -1,6 +1,4 @@
 """
-Django settings for love_api project.
-
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
@@ -44,6 +42,8 @@ REST_FRAMEWORK = {
     # 'DEFAULT_PERMISSION_CLASSES': (
     #     'rest_framework.permissions.IsAuthenticated'
     # )
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 10
 }
 
 MIDDLEWARE = [

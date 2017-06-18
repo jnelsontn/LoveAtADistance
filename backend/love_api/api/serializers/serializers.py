@@ -72,32 +72,6 @@ class NotificationSerializer(serializers.ModelSerializer):
         model = Notification
         exclude = ()
 
-class MessageSerializer(serializers.ModelSerializer):
-    """
-    Serializer to map the Model instance into JSON format.
-    """
-    user = serializers.ReadOnlyField(source='user.id')
-
-    class Meta:
-        """
-        Meta class to map serializer's fields with the model fields.
-        """
-        model = Message
-        exclude = ('id',)
-
-class TodoCalendarSerializer(serializers.ModelSerializer):
-    """
-    Serializer to map the Model instance into JSON format.
-    """
-    user = serializers.ReadOnlyField(source='user.id')
-
-    class Meta:
-        """
-        Meta class to map serializer's fields with the model fields.
-        """
-        model = TodoCalendar
-        exclude = ()
-
 class ImportantNumberSerializer(serializers.ModelSerializer):
     """
     Serializer to map the Model instance into JSON format.
