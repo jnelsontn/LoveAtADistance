@@ -80,7 +80,7 @@ app.controller('CheckStatusCtrl', function($scope, $http, $state,
                 console.log('you should cancel this req looks like they are in a relationship now');
             } else if (prospective_partner.relationship.partner ===  profile.id) {
             // 4. A match has been found, the user is brought to the dashboard.
-                $state.go('home');
+                $state.go('home.main');
             } else if (relationship && (prospective_partner.relationship.partner !== profile.id)) {
                 // we should not get to this point
                 return;

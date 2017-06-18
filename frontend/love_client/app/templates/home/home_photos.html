@@ -1,17 +1,45 @@
 <div class="row"><!-- start photo row -->
 
-    <button type="file" class="btn btn-success" 
-    ngf-select="uploadFiles($file, $invalidFiles)" 
-    accept="image/*" ngf-max-size="3MB">Select File</button>
+    <div class="col-sm-12">
 
+        <button type="file" class="btn btn-success" 
+        ngf-select="uploadPhoto($file)" 
+        accept="image/*" ngf-max-size="3MB">Select File</button>
 
-    <!-- only shown on photo upload -->
-    <uib-progressbar class="progress-striped active" ng-show="f.progress >= 0" 
-    type="success">
-        <div ng-bind="f.progress + '%'"></div>
-    </uib-progressbar><!-- end photo upload bar -->
+        <!-- only shown on photo upload -->
+        <uib-progressbar class="progress-striped active" ng-show="f.progress >= 0" 
+        type="success">
+            <div ng-bind="f.progress + '%'"></div>
+        </uib-progressbar><!-- end photo upload bar -->
+
+    </div>
 
 </div><!-- end photos -->
+
+<br />
+
+<div class="row">
+
+    <div class="col-sm-12">
+        <b>Photos</b> (click to enlarge):<br />
+    </div>
+
+    <div ng-repeat="photo in photos">            
+
+        <div class="col-sm-4 photo_gallery">
+
+            <a ng-href="(( photo.photo.photo))" target="_blank">
+                <img ng-src="((photo.photo.thumbnail))">
+            </a>
+            <a ng-click="removePhoto(photo.id)">Remove Photo</a>
+
+        </div>
+
+    </div>
+    <p ng-show="!photos.length">No Photos</p>
+
+
+</div>
 
 
 

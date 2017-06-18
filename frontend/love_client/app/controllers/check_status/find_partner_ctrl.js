@@ -13,7 +13,7 @@ app.controller('FindPartnerCtrl', function($scope, $http, RootFactory,
                 'Authorization': 'Token ' + RootFactory.getToken() 
             }
         }).then((res) => {
-            res = res.data;
+            res = res.data.results;
             $scope.results = res;
             $scope.search_performed = true;
             console.log(res);

@@ -15,16 +15,32 @@
   app/templates/home/home_photos.html
  */
 
-/*.thumb {
+.thumb {
     width: 24px;
     height: 24px;
     float: none;
     position: relative;
     top: 7px;
-}*/
+}
 
 .progress {
     display: inline-block;
     width: 200px;
     height: 3em;
 }
+
+/*
+templates/home_photos.html
+ */
+
+div.photo_gallery {
+    margin-bottom: 20px;
+}
+
+
+
+
+
+
+
+

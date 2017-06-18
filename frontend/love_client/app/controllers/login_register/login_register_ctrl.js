@@ -5,6 +5,8 @@ app.controller('LoginCtrl', function($scope, $cookies, $http,
 
     console.log('LoginCtrl Here');
 
+    $state.go('login_register.login');
+
     $scope.user = {
         username: "jordan",
         password: "catsgowalking"

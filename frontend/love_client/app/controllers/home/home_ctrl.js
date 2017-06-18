@@ -16,6 +16,5 @@ app.controller('HomeCtrl', function($scope, $http,
     console.log('user: ', $scope.profile);
     console.log('partner: ', $scope.partner);
 
-
 }); // end controller
 

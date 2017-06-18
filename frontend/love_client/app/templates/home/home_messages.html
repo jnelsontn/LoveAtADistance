@@ -9,6 +9,7 @@
 
 		<ul>
 			<li ng-repeat="msg in messages | orderBy:'create_time':true">
+				<a ng-click="removeMessage(msg.id)">(x)</a>
 				<b>(( msg.create_time | date:'short' ))</b> (( profile.first_name )): (( msg.message ))
 			</li>
 		</ul>

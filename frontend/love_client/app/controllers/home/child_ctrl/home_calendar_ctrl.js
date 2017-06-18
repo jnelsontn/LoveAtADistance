@@ -52,6 +52,25 @@ app.controller('CalendarCtrl', function($scope, $http, apiUrl,
         }
     });
 
+    $scope.removeUserEvent = (id) => {
+        $http({
+            url: `${apiUrl}/calendar/` + id,
+            method: 'DELETE',
+            headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
+        }).then(() => {
+
+            $http({
+                url: `${apiUrl}/calendar/`,
+                headers: { 'Authorization': 'Token ' + RootFactory.getToken() },
+            })
+            .then((updated_events) => {
+                updated_events = updated_events.data.results;
+                $scope.user_events = updated_events;
+            });
+
+        });
+    };
+
     // we'll use 'user_event' for a specific user event
     // post the event to our Api, then put it again
     $scope.addUserEvent = () => {
@@ -75,7 +94,7 @@ app.controller('CalendarCtrl', function($scope, $http, apiUrl,
                 // Update the Calendar View with the new event.
                 console.log('updated calendar: ', updated_events);
                 $scope.events = updated_events;
-
+                // We need to (also) refresh our profile for the calendar
                 ProfileFactory.getApiProfile().then((updated_profile) => {
                     // Refresh our Profile and update the list of Events
                     $scope.user_events = updated_profile.calendar;

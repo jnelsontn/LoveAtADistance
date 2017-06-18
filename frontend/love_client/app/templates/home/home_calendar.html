@@ -25,6 +25,7 @@
 				<h4> (( profile.first_name ))'s Events</h4>
 				<ul>
 					<li ng-repeat="event in user_events">
+						<a ng-click="removeUserEvent(event.id)">(x)</a>
 						<b>On (( event.date | date:'mediumDate' ))</b>: (( event.message ))
 
 					</li>

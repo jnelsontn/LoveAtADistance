@@ -22,6 +22,7 @@
 	<script type="text/javascript" src="app/setup/app_config.js"></script>
 	<script type="text/javascript" src="app/setup/app_run.js"></script>
 	<script type="text/javascript" src="app/setup/app_route.js"></script>
+	<script type="text/javascript" src="app/setup/app_route_home.js"></script>
 	<script type="text/javascript" src="app/setup/app_server_api.js"></script>
 
 	<link href="dist/css/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css">
@@ -29,12 +30,7 @@
 
 </head>
 
-<body ng-app="LoveClient">
-
-	<div class="container-fluid">
-		<!-- every state is injected through here -->
-		<div ui-view></div>
-	</div>
+<body ng-app="LoveClient"><ui-view>
 
 <!-- factories -->
 <script type="text/javascript" src="app/factories/root_factory.js"></script>
@@ -47,9 +43,10 @@
 <script type="text/javascript" src="app/controllers/check_status/awaiting_response_ctrl.js"></script>
 
 <script type="text/javascript" src="app/controllers/home/home_ctrl.js"></script>
-<script type="text/javascript" src="app/controllers/home/home_message_ctrl.js"></script>
-<script type="text/javascript" src="app/controllers/home/home_calendar_ctrl.js"></script>
-<script type="text/javascript" src="app/controllers/home/home_photo_ctrl.js"></script>
+<script type="text/javascript" src="app/controllers/home/child_ctrl/home_message_ctrl.js"></script>
+<script type="text/javascript" src="app/controllers/home/child_ctrl/home_calendar_ctrl.js"></script>
+<script type="text/javascript" src="app/controllers/home/child_ctrl/home_photo_ctrl.js"></script>
+<script type="text/javascript" src="app/controllers/home/child_ctrl/home_important_numbers_ctrl.js"></script>
 
 </body></html>
 
