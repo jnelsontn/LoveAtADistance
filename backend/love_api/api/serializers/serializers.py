@@ -91,6 +91,9 @@ class PhotoSerializer(serializers.ModelSerializer):
     """
     user = serializers.ReadOnlyField(source='user.id')
 
+    def pre_save(self, obj):
+        obj.photos = self.request.FILES.get('file')
+
     class Meta:
         """
         Meta class to map serializer's fields with the model fields.

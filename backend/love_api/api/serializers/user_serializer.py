@@ -71,8 +71,8 @@ class UserSerializer(serializers.ModelSerializer):
         """
         model = User
         fields = ('id', 'username', 'first_name', 'last_name',
-         'email', 'messages', 'calendar', 'profile', 'relationship',
-        'notifications', 'last_login', 'date_joined')
+         'email', 'messages', 'calendar', 'photos', 'profile', 
+         'relationship', 'notifications', 'last_login', 'date_joined')
         read_only_fields = ('last_login', 'date_joined', 'username', 'id')
         depth = 1
 
