@@ -1,9 +1,8 @@
-fixtures.json
 *.json
 node_modules
 bower_components
 __pycache__
-migrations
+migrations/
 *.pyc
 bin
 obj
