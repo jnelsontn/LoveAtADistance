@@ -1,7 +1,7 @@
 'use strict';
 
-app.controller('CalendarCtrl', function($scope, $http, profile, partner, 
-    apiUrl, RootFactory, ProfileFactory) {
+app.controller('CalendarCtrl', function($scope, $http, apiUrl, 
+    RootFactory, ProfileFactory) {
         console.log('CalendarCtrl Here');
 
     // Events for only current user & partner
@@ -10,7 +10,7 @@ app.controller('CalendarCtrl', function($scope, $http, profile, partner,
 
     // The calendar uses $scope.events to build the calendar
     $scope.events = $scope.profile.calendar;
-    $scope.events = $scope.events.concat(partner.calendar);
+    $scope.events = $scope.events.concat($scope.partner_calendar);
 
     // Calendar options for ui.bootStrap
     $scope.options = {
@@ -39,7 +39,8 @@ app.controller('CalendarCtrl', function($scope, $http, profile, partner,
     // When a date on the calendar is clicked, we watch to see if an
     // event is scheduled for the day.
     $scope.$watch('event.date', (date) => {
-        let dayToCheck = new Date(date).setHours(0,0,0,0);
+        let dayToCheck = new Date(date
+            ).setHours(0,0,0,0);
 
         for (let i = 0; i < $scope.events.length; i++) {
             let currentDay = new Date($scope.events[i].date
@@ -62,7 +63,7 @@ app.controller('CalendarCtrl', function($scope, $http, profile, partner,
                 'message': $scope.event.message,
                 'date': $scope.event.date
             }
-        }).then((server_response) => {
+        }).then(() => {
             $scope.event.message = '';
 
             $http({
@@ -72,7 +73,7 @@ app.controller('CalendarCtrl', function($scope, $http, profile, partner,
             .then((updated_events) => {
                 updated_events = updated_events.data.results;
                 // Update the Calendar View with the new event.
-                console.log(updated_events);
+                console.log('updated calendar: ', updated_events);
                 $scope.events = updated_events;
 
                 ProfileFactory.getApiProfile().then((updated_profile) => {

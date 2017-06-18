@@ -1,7 +1,7 @@
 'use strict';
 
-app.controller('CheckStatusCtrl', function($scope, $http, $state, RootFactory, apiUrl,
- MsgFactory, notifications, profile) {
+app.controller('CheckStatusCtrl', function($scope, $http, $state,
+    RootFactory, apiUrl, MsgFactory, notifications, profile) {
 
     console.log('CheckStatusCtrl Here');
 

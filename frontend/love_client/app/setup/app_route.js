@@ -1,12 +1,6 @@
 'use strict';
 
-var app = angular.module('LoveClient', ['ui.router', 'ui.bootstrap', 'ngCookies'])
-    .constant('apiUrl', 'http://127.0.0.1:8000');
-
-app.config(($interpolateProvider, $stateProvider, $urlRouterProvider) => {
-
-    $interpolateProvider.startSymbol('((');
-    $interpolateProvider.endSymbol('))');
+app.config(($stateProvider, $urlRouterProvider) => {
 
     $urlRouterProvider.otherwise('/');
     $stateProvider
@@ -91,6 +85,9 @@ app.config(($interpolateProvider, $stateProvider, $urlRouterProvider) => {
                 templateUrl: 'app/templates/home/home.html',
                 controller: 'HomeCtrl'
             },
+                'navbar@home': { 
+                    templateUrl: 'app/templates/home/home_navbar.html'
+                },
                 'messages@home': { 
                     templateUrl: 'app/templates/home/home_messages.html',
                     controller: 'MessageCtrl'
@@ -98,19 +95,12 @@ app.config(($interpolateProvider, $stateProvider, $urlRouterProvider) => {
                 'calendar@home': { 
                     templateUrl: 'app/templates/home/home_calendar.html',
                     controller: 'CalendarCtrl'
+                },
+                'photos@home': { 
+                    templateUrl: 'app/templates/home/home_photos.html',
+                    controller: 'PhotoCtrl'
                 }
         }
     });
 
 }); // end config
-
-app.run(($cookies, RootFactory) => {
-
-    let cookie = $cookies.get('authtoken');
-    if (cookie) {
-        console.log('You have a cookie', cookie);
-        RootFactory.setToken(cookie);
-    }
-
-});
-

@@ -1,5 +1,4 @@
-<!doctype html>
-<html lang="en">
+<!doctype html><html lang="en">
 
 <head>
 
@@ -8,12 +7,25 @@
 
 	<title>Love at a Distance</title>
 
-	<link href="dist/css/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css">
-	<link href="assets/css/main.css" rel="stylesheet" type="text/css">
-
-	<!-- Main Angular Scripts -->
+	<!-- Angular/Router -->
 	<script type="text/javascript" src="dist/js/angular/angular.min.js"></script>
 	<script type="text/javascript" src="dist/js/ui-router/angular-ui-router.min.js"></script>
+
+	<!-- Dependences -->
+	<script type="text/javascript" src="dist/js/angular-animate/angular-animate.min.js"></script>
+	<script type="text/javascript" src="dist/js/angular-ui-bootstrap/ui-bootstrap-tpls.js"></script>
+	<script type="text/javascript" src="dist/js/angular-cookies/angular-cookies.min.js"></script>
+	<script type="text/javascript" src="dist/js/ng_file_upload/ng-file-upload-all.min.js"></script>
+
+	<!-- Module -->
+	<script type="text/javascript" src="app/setup/app.js"></script>
+	<script type="text/javascript" src="app/setup/app_config.js"></script>
+	<script type="text/javascript" src="app/setup/app_run.js"></script>
+	<script type="text/javascript" src="app/setup/app_route.js"></script>
+	<script type="text/javascript" src="app/setup/app_server_api.js"></script>
+
+	<link href="dist/css/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/main.css" rel="stylesheet" type="text/css">
 
 </head>
 
@@ -23,16 +35,6 @@
 		<!-- every state is injected through here -->
 		<div ui-view></div>
 	</div>
-
-<!-- Angular -->
-<script type="text/javascript" src="dist/js/angular-animate/angular-animate.min.js"></script>
-<script type="text/javascript" src="dist/js/angular-ui-bootstrap/ui-bootstrap-tpls.js"></script>
-<script type="text/javascript" src="dist/js/angular-cookies/angular-cookies.min.js"></script>
-</script>
-
-<!-- @Love -->
-<script type="text/javascript" src="app/app.js"></script>
-<script type="text/javascript" src="app/server_api.js"></script>
 
 <!-- factories -->
 <script type="text/javascript" src="app/factories/root_factory.js"></script>
@@ -47,6 +49,7 @@
 <script type="text/javascript" src="app/controllers/home/home_ctrl.js"></script>
 <script type="text/javascript" src="app/controllers/home/home_message_ctrl.js"></script>
 <script type="text/javascript" src="app/controllers/home/home_calendar_ctrl.js"></script>
+<script type="text/javascript" src="app/controllers/home/home_photo_ctrl.js"></script>
 
 </body></html>
 

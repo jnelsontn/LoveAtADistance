@@ -1,12 +1,12 @@
 'use strict';
 
-app.controller('MessageCtrl', function($scope, $http, profile, partner, 
+app.controller('MessageCtrl', function($scope, $http, 
     apiUrl, RootFactory) {
     
     console.log('MessageCtrl Here');
 
-    $scope.messages = profile.messages;
-    $scope.partner_messages = partner.messages;
+    $scope.messages = $scope.profile.messages;
+    $scope.partner_messages = $scope.partner.messages;
 
     // post the message to our Api, retrieve our profile, update msg $scope.
     $scope.addMessage = () => {

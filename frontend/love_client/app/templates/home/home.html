@@ -1,8 +1,6 @@
-<nav class="navbar navbar-inverse" role="navigation">
-    <div class="navbar-header">
-        <a class="navbar-brand" ui-sref="#">HOME</a>
-    </div>
-</nav>
+<!-- static nav for home state -->
+<div ui-view="navbar"></div>
+<!-- end static nav -->
 
 <!-- User & Partner Information -->
 <div class="row">
@@ -44,6 +42,15 @@
 
 </div><!-- end calendar/todo -->
 
+<br />
 
+<!-- photo view -->
+<div class="row">
+
+	<div class="col-sm-12">
+		<div ui-view="photos"></div>
+	</div>
+
+</div><!-- end photo view -->
 
 

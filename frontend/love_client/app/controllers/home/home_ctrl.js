@@ -1,6 +1,8 @@
 'use strict';
 
-app.controller('HomeCtrl', function($scope, $http, profile, partner) {
+app.controller('HomeCtrl', function($scope, $http, 
+	profile, partner) {
+	
     console.log('HomeCtrl Here');
 
     // logged in user

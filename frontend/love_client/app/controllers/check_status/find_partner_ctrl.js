@@ -1,6 +1,7 @@
 'use strict';
 
-app.controller('FindPartnerCtrl', function($scope, $http, RootFactory, apiUrl, profile) {
+app.controller('FindPartnerCtrl', function($scope, $http, RootFactory, 
+    apiUrl, profile) {
     console.log('FindPartnerCtrl Here');
     
     $scope.search_performed = false;
@@ -8,7 +9,9 @@ app.controller('FindPartnerCtrl', function($scope, $http, RootFactory, apiUrl, p
     $scope.search = () => {
         $http({
             url: `${apiUrl}/limited_norel/?email=` + $scope.email,
-            headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
+            headers: { 
+                'Authorization': 'Token ' + RootFactory.getToken() 
+            }
         }).then((res) => {
             res = res.data;
             $scope.results = res;
@@ -21,8 +24,9 @@ app.controller('FindPartnerCtrl', function($scope, $http, RootFactory, apiUrl, p
         $http({
             method: 'POST',
             url: `${apiUrl}/relationships/`,
-            headers: { 'Authorization': 'Token ' + RootFactory.getToken() },
-            contentType: 'application/json',
+            headers: { 
+                'Authorization': 'Token ' + RootFactory.getToken() 
+            },
             data: { 'partner': partner }
         }).then((response) => {
         	$scope.response = 'Request Sent Successfully';
