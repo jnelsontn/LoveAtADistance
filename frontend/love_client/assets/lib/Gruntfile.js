@@ -41,11 +41,23 @@ module.exports = function(grunt) {
             src: ['angular-cookies.min.js', 'angular-cookies.min.js.map'],
             dest: '../../dist/js/angular-cookies'
         },
+        ng_file_upload: {
+            expand: true,
+            cwd: 'node_modules/ng-file-upload/dist',
+            src: ['ng-file-upload-all.min.js'],
+            dest: '../../dist/js/ng_file_upload'
+        },
         bootstrap: {
             expand: true,
             cwd: 'node_modules/bootstrap/dist/css',
             src: ['bootstrap.min.css', 'bootstrap.min.css.map'],
             dest: '../../dist/css/bootstrap'
+        },
+        bootstrap_fonts: {
+            expand: true,
+            cwd: 'node_modules/bootstrap/dist/fonts',
+            src: ['glyphicons-halflings-regular.woff', 'glyphicons-halflings-regular.woff2', 'glyphicons-halflings-regular.ttf'],
+            dest: '../../dist/css/fonts'
         }
     },
     watch: {

@@ -1,0 +1,56 @@
+
+<!-- User & Partner Information -->
+<div class="row">
+
+	<div class="col-sm-2">images goes here</div>
+	<div class="col-sm-4">
+		(( profile.first_name )) (( profile.last_name )) <br />
+		(( profile.email )) <br />
+		(( info.city )), (( info.state )) (( info.country )) <br />
+		<i>'(( info.bio ))'</i>
+
+	</div>
+
+	<div class="col-sm-2">images goes here</div>
+	<div class="col-sm-4">
+		(( partner.first_name )) (( partner.last_name )) <br />
+		(( partner.email )) <br />
+		(( partner_info.city )), (( partner_info.state )) (( partner_info.country )) <br />
+		<i>'(( partner_info.bio ))'</i>
+	</div>
+
+</div><!-- end User/Partner info -->
+
+<!-- message boxes -->
+<div class="row">
+
+	<div class="col-sm-12">
+		<div ui-view="messages"></div>
+	</div>
+
+</div><!-- end messages-->
+
+<br />
+
+<!-- calendar/todo view -->
+<div class="row">
+
+	<div class="col-sm-12">
+		<div ui-view="calendar"></div>
+	</div>
+
+</div><!-- end calendar/todo -->
+
+<br />
+
+<!-- photo view -->
+<!-- <div class="row">
+
+	<div class="col-sm-12">
+		<div ui-view="photos"></div>
+	</div>
+
+</div> -->
+<!-- end photo view -->
+
+

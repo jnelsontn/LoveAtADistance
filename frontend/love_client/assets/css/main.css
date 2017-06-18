@@ -1,0 +1,46 @@
+/* 
+ ui.bootstrap calendar:;
+ app/controllers/home/home_calendar.ctrl.js
+ app/templates/home/home_calendar.html
+*/
+.full button span {
+    background-color: #5cb85c;
+    border-radius: 25px;
+    color: black;
+}
+
+/* 
+  ng-file-upload:
+  app/controllers/home/home_photo_ctrl.js
+  app/templates/home/home_photos.html
+ */
+
+.thumb {
+    width: 24px;
+    height: 24px;
+    float: none;
+    position: relative;
+    top: 7px;
+}
+
+.progress {
+    display: inline-block;
+    width: 200px;
+    height: 3em;
+}
+
+/*
+templates/home_photos.html
+ */
+
+div.photo_gallery {
+    margin-bottom: 20px;
+}
+
+
+
+
+
+
+
+

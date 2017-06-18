@@ -3,6 +3,32 @@ from rest_framework import serializers
 from .user_serializer import *
 from api.models import *
 
+class MessageSerializer(serializers.ModelSerializer):
+    """
+    Serializer to map the Model instance into JSON format.
+    """
+    user = serializers.ReadOnlyField(source='user.id')
+
+    class Meta:
+        """
+        Meta class to map serializer's fields with the model fields.
+        """
+        model = Message
+        exclude = ()
+
+class TodoCalendarSerializer(serializers.ModelSerializer):
+    """
+    Serializer to map the Model instance into JSON format.
+    """
+    user = serializers.ReadOnlyField(source='user.id')
+
+    class Meta:
+        """
+        Meta class to map serializer's fields with the model fields.
+        """
+        model = TodoCalendar
+        exclude = ()
+
 class RelationshipSerializer(serializers.ModelSerializer):
     """
     Serializer to map the Model instance into JSON format.
@@ -72,32 +98,6 @@ class NotificationSerializer(serializers.ModelSerializer):
         model = Notification
         exclude = ()
 
-class MessageSerializer(serializers.ModelSerializer):
-    """
-    Serializer to map the Model instance into JSON format.
-    """
-    user = serializers.ReadOnlyField(source='user.id')
-
-    class Meta:
-        """
-        Meta class to map serializer's fields with the model fields.
-        """
-        model = Message
-        exclude = ('id',)
-
-class TodoCalendarSerializer(serializers.ModelSerializer):
-    """
-    Serializer to map the Model instance into JSON format.
-    """
-    user = serializers.ReadOnlyField(source='user.id')
-
-    class Meta:
-        """
-        Meta class to map serializer's fields with the model fields.
-        """
-        model = TodoCalendar
-        exclude = ()
-
 class ImportantNumberSerializer(serializers.ModelSerializer):
     """
     Serializer to map the Model instance into JSON format.
@@ -110,17 +110,3 @@ class ImportantNumberSerializer(serializers.ModelSerializer):
         """
         model = ImportantNumber
         exclude = ()
-
-class PhotoSerializer(serializers.ModelSerializer):
-    """
-    Serializer to map the Model instance into JSON format.
-    """
-    user = serializers.ReadOnlyField(source='user.id')
-
-    class Meta:
-        """
-        Meta class to map serializer's fields with the model fields.
-        """
-        model = Photo
-        exclude = ()
-

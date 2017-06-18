@@ -2,7 +2,6 @@ from api.serializers import *
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
 from api.models import *
-from django_filters.rest_framework import DjangoFilterBackend
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -40,12 +39,6 @@ class RelationshipViewSet(viewsets.ModelViewSet):
         user = User.objects.get(pk=self.request.user.id)
         serializer.save(user=user)
 
-
-"""
-General Practice is, attempting, to use multiple serializers,
-rather than viewsets; however...we do override methods where
-needed.
-"""
 class LimitedNoRelViewSet(viewsets.ModelViewSet):
     """
     A simple ViewSet for listing or retrieving users.
@@ -70,7 +63,7 @@ class LimitedNoRelViewSet(viewsets.ModelViewSet):
         pk = self.request.query_params.get('pk', None)
 
         if email is not None:
-            queryset = queryset.filter(email=email)
+            queryset = queryset.filter(email__iexact=email)
 
         if pk is not None:
             queryset = User.objects.all().filter(pk=pk, 
@@ -82,17 +75,18 @@ class NotificationViewSet(viewsets.ModelViewSet):
     queryset = Notification.objects.all()
     serializer_class = NotificationSerializer
 
-    def get_queryset(self): # notifications is a related field on the notification model
+    def get_queryset(self):
+        """
+        We only show notifications that have not been viewed and
+        are addressed to the current user
+        """
         queryset = Notification.objects.filter(viewed=0, to_user=self.request.user.id)
 
-        # will error out w/o this due to limited queryset
         pk = self.request.query_params.get('pk', None)
         if pk is not None:
             queryset = queryset.filter(pk=pk)
         return queryset
 
-    # overide serializer w/super... other users will never see request anyway since they
-    # cant query it...
     def get_serializer(self, *args, **kwargs):
         kwargs['partial'] = True
         return super(NotificationViewSet, self).get_serializer(*args, **kwargs)
@@ -107,11 +101,19 @@ class RelCheckViewSet(viewsets.ModelViewSet):
 
 class ProfileViewSet(viewsets.ModelViewSet):
     """
-    A simple ViewSet for reaching the properties
+    A simple ViewSet for the Profile properties
     that are extended from the User model.
     """
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
+
+    def perform_create(self, serializer):
+        """
+        Automatically attach the logged-in-user as the one who is
+        posting the event
+        """
+        user = User.objects.get(pk=self.request.user.id)
+        serializer.save(user=user)
 
 class ImportantNumberViewSet(viewsets.ModelViewSet):
     """
@@ -121,12 +123,47 @@ class ImportantNumberViewSet(viewsets.ModelViewSet):
     queryset = ImportantNumber.objects.all()
     serializer_class = ImportantNumberSerializer
 
+    def get_queryset(self):
+        """
+        When we call a query, we do not want to 
+        pull in any more data than needed.
+        """
+        queryset = ImportantNumber.objects.filter(
+            user=self.request.user.id)
+        return queryset
+
+    def perform_create(self, serializer):
+        """
+        Automatically attach the logged-in-user as the one who is
+        posting the event
+        """
+        user = User.objects.get(pk=self.request.user.id)
+        serializer.save(user=user)
+
 class PhotoViewSet(viewsets.ModelViewSet):
     """
     A simple ViewSet for displaying photos.
     """
     queryset = Photo.objects.all()
     serializer_class = PhotoSerializer
+
+    def get_queryset(self):
+        """
+        Only retrieve the photos belonging to the
+        current user
+        """
+        queryset = Photo.objects.all().filter(
+            user=self.request.user.id)
+
+        return queryset
+
+    def perform_create(self, serializer):
+        """
+        Automatically attach the logged-in-user as the one who is
+        posting the event
+        """
+        user = User.objects.get(pk=self.request.user.id)
+        serializer.save(user=user)
 
 class TodoCalendarViewSet(viewsets.ModelViewSet):
     """
@@ -136,12 +173,45 @@ class TodoCalendarViewSet(viewsets.ModelViewSet):
     queryset = TodoCalendar.objects.all()
     serializer_class = TodoCalendarSerializer
 
+    def get_queryset(self):
+        """
+        Only retrieve the user's information.
+        """
+        queryset = TodoCalendar.objects.filter(
+            user=self.request.user.id).order_by('date')
+        return queryset
+
+    def perform_create(self, serializer):
+        """
+        Automatically attach the logged-in-user as the one who is
+        posting the event
+        """
+        user = User.objects.get(pk=self.request.user.id)
+        serializer.save(user=user)
+
 class MessageViewSet(viewsets.ModelViewSet):
     """
     A simple viewset for listing or displaying messages.
     """
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
+
+    def get_queryset(self):
+        """
+        Limit the set of messages retrieved to the user's last ten
+        NOTE: can't limit right now if i want to delete...
+        """
+        queryset = Message.objects.filter(
+            user=self.request.user.id).order_by('-create_time') # [:10]
+        return queryset
+
+    def perform_create(self, serializer):
+        """
+        Automatically attach the logged-in-user as the one who is
+        posting the message
+        """
+        user = User.objects.get(pk=self.request.user.id)
+        serializer.save(user=user)
 
 class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
