@@ -2,6 +2,7 @@
 
 app.controller('CheckStatusCtrl', function($scope, $http, $state, RootFactory, apiUrl,
  MsgFactory, notifications, profile) {
+
     console.log('CheckStatusCtrl Here');
 
     // 'notifications' and 'profile' are called from app.js/ui.router. The data
@@ -11,7 +12,7 @@ app.controller('CheckStatusCtrl', function($scope, $http, $state, RootFactory, a
 
     $scope.profile = profile;
     $scope.notifications = notifications;
-    console.log('my profile:', profile);
+    console.log('check profile: ', profile);
 
     if ((notifications.length > 0)) {
         // If the (current user) has a notification, it is a request for a relationship. The ID of 
@@ -35,12 +36,11 @@ app.controller('CheckStatusCtrl', function($scope, $http, $state, RootFactory, a
                     headers: { 'Authorization': 'Token ' + RootFactory.getToken() },
                     data: { 'partner': profile.notifications.from_user }
                 }).then( (res) => { console.log('res', res.data); });
-
-                MsgFactory.markMsgRead( profile.notifications.id ).then( (x) => {
-                    // We cannot go straight to the home state as the user's profile
-                    // must be reloaded.
-                    $state.go('login_register');
-                });
+                    MsgFactory.markMsgRead( profile.notifications.id ).then( (x) => {
+                        // We cannot go straight to the home state as the user's profile
+                        // must be reloaded.
+                        $state.go('login_register');
+                    });
             };
 
             $scope.denyRequest = () => {
@@ -48,7 +48,6 @@ app.controller('CheckStatusCtrl', function($scope, $http, $state, RootFactory, a
                     console.log('an alert will go here');
                 });
             };
-
         });
     } // end notification code
 
@@ -63,27 +62,26 @@ app.controller('CheckStatusCtrl', function($scope, $http, $state, RootFactory, a
     // 2. otherwise, if it is not null, we see who the other user is.
     } else if (profile.relationship !== null) {
         let relationship = profile.relationship.partner;
-        console.log('partner id', relationship);
+        console.log('partner id: ', relationship);
         // 3. We check the Id of the relationship on the user's profile
         $http({ 
             url: `${apiUrl}/relcheck/` + relationship,
             headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
-        }).then((bae) => {
-            bae = bae.data;
+        }).then((prospective_partner) => {
+            prospective_partner = prospective_partner.data;
             // 4. If they are not, either, the user is waiting for a response or their
             // request was ignored.
-            if (bae.relationship === null) {
-                console.log('you sent response but were waiting... or they ignored u');
+            if (prospective_partner.relationship === null) {
+                console.log('you sent response but were waiting... or they ignored you');
                 $state.go('waiting');
             // 3b. If their status is not null, then they are in a relationship with someone
             // just not this user.
-            } else if (bae.relationship.partner !== profile.id) {
-                console.log('looks like thye moved on, you should probably cancel this req');
-            } else if (bae.relationship.partner ===  profile.id) {
-                // 4. A match has been found, the user is brought to the dashboard.
+            } else if (prospective_partner.relationship.partner !== profile.id) {
+                console.log('you should cancel this req looks like they are in a relationship now');
+            } else if (prospective_partner.relationship.partner ===  profile.id) {
+            // 4. A match has been found, the user is brought to the dashboard.
                 $state.go('home');
-                console.log('we have a match');
-            } else if (relationship && (bae.relationship.partner !== profile.id)) {
+            } else if (relationship && (prospective_partner.relationship.partner !== profile.id)) {
                 // we should not get to this point
                 return;
             }

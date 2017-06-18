@@ -1,12 +1,51 @@
-<h3>Messages</h3>
-<ul>
-	<li ng-repeat="msg in messages | orderBy:'create_time':true">
-		(( msg.create_time )) (( profile.first_name )): (( msg.message ))
-	</li>
-</ul>
 
-<ul>
-	<li ng-repeat="msg in partner.messages | orderBy:'create_time':true">
-		(( msg.create_time )) ((partner.first_name)): (( msg.message ))
-	</li>
-</ul>
+<div class="row"><!-- start message display row -->
+
+	<!-- user message view -->
+	<div class="col-sm-2"></div>
+	<div class="col-sm-5">
+
+		<h4>(( profile.first_name ))'s Messages</h4>
+
+		<ul>
+			<li ng-repeat="msg in messages | orderBy:'create_time':true">
+				<b>(( msg.create_time | date:'short' ))</b> (( profile.first_name )): (( msg.message ))
+			</li>
+		</ul>
+
+	</div>
+
+	<!-- partner message view -->
+	<div class="col-sm-5">
+	
+		<h4>(( partner.first_name))'s Messages</h4>
+
+		<ul>
+			<li ng-repeat="msg in partner.messages | orderBy:'create_time':true">
+				<b>(( msg.create_time | date:'short' ))</b> ((partner.first_name)): (( msg.message ))
+			</li>
+		</ul>
+
+	</div>
+
+</div><!-- end message display row -->
+
+<!-- add new message -->
+<div class="row">
+
+	<div class="col-sm-3"></div>
+
+	<div class="col-sm-6">
+	
+		<form class="input-group" ng-submit="addMessage()">
+			<input type="text" class="form-control" placeholder="Add a Message" 
+			ng-model="message">
+
+			<span class="input-group-btn">
+				<button class="btn btn-success" type="submit">Send Message</button>
+			</span>
+		</form>
+
+	</div>
+
+</div><!-- end add message -->

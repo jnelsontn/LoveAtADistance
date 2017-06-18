@@ -19,25 +19,34 @@
 
 <body ng-app="LoveClient">
 
-	<div ui-view></div>
+	<div class="container-fluid">
+		<!-- every state is injected through here -->
+		<div ui-view></div>
+	</div>
 
 <!-- Angular -->
 <script type="text/javascript" src="dist/js/angular-animate/angular-animate.min.js"></script>
 <script type="text/javascript" src="dist/js/angular-ui-bootstrap/ui-bootstrap-tpls.js"></script>
 <script type="text/javascript" src="dist/js/angular-cookies/angular-cookies.min.js"></script>
+</script>
 
 <!-- @Love -->
 <script type="text/javascript" src="app/app.js"></script>
+<script type="text/javascript" src="app/server_api.js"></script>
 
 <!-- factories -->
 <script type="text/javascript" src="app/factories/root_factory.js"></script>
 
 <!-- controllers -->
-<script type="text/javascript" src="app/controllers/login_register_ctrl.js"></script>
-<script type="text/javascript" src="app/controllers/home_ctrl.js"></script>
-<script type="text/javascript" src="app/controllers/find_partner_ctrl.js"></script>
-<script type="text/javascript" src="app/controllers/check_status_ctrl.js"></script>
-<script type="text/javascript" src="app/controllers/awaiting_response_ctrl.js"></script>
+<script type="text/javascript" src="app/controllers/login_register/login_register_ctrl.js"></script>
+
+<script type="text/javascript" src="app/controllers/check_status/check_status_ctrl.js"></script>
+<script type="text/javascript" src="app/controllers/check_status/find_partner_ctrl.js"></script>
+<script type="text/javascript" src="app/controllers/check_status/awaiting_response_ctrl.js"></script>
+
+<script type="text/javascript" src="app/controllers/home/home_ctrl.js"></script>
+<script type="text/javascript" src="app/controllers/home/home_message_ctrl.js"></script>
+<script type="text/javascript" src="app/controllers/home/home_calendar_ctrl.js"></script>
 
 </body></html>
 

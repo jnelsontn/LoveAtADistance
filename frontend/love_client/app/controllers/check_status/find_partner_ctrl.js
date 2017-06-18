@@ -13,6 +13,7 @@ app.controller('FindPartnerCtrl', function($scope, $http, RootFactory, apiUrl, p
             res = res.data;
             $scope.results = res;
             $scope.search_performed = true;
+            console.log(res);
         });
     };
 
@@ -20,14 +21,11 @@ app.controller('FindPartnerCtrl', function($scope, $http, RootFactory, apiUrl, p
         $http({
             method: 'POST',
             url: `${apiUrl}/relationships/`,
-            headers: { 
-                'Authorization': 'Token ' + RootFactory.getToken() },
+            headers: { 'Authorization': 'Token ' + RootFactory.getToken() },
             contentType: 'application/json',
             data: { 'partner': partner }
-        }).then( (response) => {
-        	if (response.data) {
-        		$scope.response = 'Request Sent Successfully';
-        	}
+        }).then((response) => {
+        	$scope.response = 'Request Sent Successfully';
         	console.log(response.data);
         });
     };

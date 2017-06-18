@@ -1,0 +1,7 @@
+/* handles the events listed on
+the calendar */
+.full button span {
+    background-color: #5cb85c;
+    border-radius: 25px;
+    color: black;
+}

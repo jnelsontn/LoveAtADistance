@@ -50,8 +50,7 @@ app.factory('MsgFactory', ($http, apiUrl, RootFactory) => {
                     headers: { 'Authorization': 'Token ' + RootFactory.getToken() },
                     data: { 'viewed': 1 }
                 }).then((res) => {
-                    console.log('res', res.data);
-                    console.log('WHY??????');
+                    console.log('Notification Response: ', res.data);
                 });
             }
         };

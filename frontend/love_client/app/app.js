@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('LoveClient', ['ui.router', 'ngCookies'])
+var app = angular.module('LoveClient', ['ui.router', 'ui.bootstrap', 'ngCookies'])
     .constant('apiUrl', 'http://127.0.0.1:8000');
 
 app.config(($interpolateProvider, $stateProvider, $urlRouterProvider) => {
@@ -69,9 +69,11 @@ app.config(($interpolateProvider, $stateProvider, $urlRouterProvider) => {
         url: '/home',
         resolve: {
             profile: ((ProfileFactory) => {
+                // if a user tries logging on from /home, we 
+                // see if their information is already stored
+                // if not, then we retrieve it
                 let check = ProfileFactory.getProfile();
                 if (!check) {
-                    // only request data if we need it
                     let profile = ProfileFactory.getApiProfile();
                     ProfileFactory.setProfile(profile);
                 }
@@ -90,10 +92,12 @@ app.config(($interpolateProvider, $stateProvider, $urlRouterProvider) => {
                 controller: 'HomeCtrl'
             },
                 'messages@home': { 
-                    templateUrl: 'app/templates/home/home_messages.html'
+                    templateUrl: 'app/templates/home/home_messages.html',
+                    controller: 'MessageCtrl'
                 },
                 'calendar@home': { 
-                    templateUrl: 'app/templates/home/home_calendar.html'
+                    templateUrl: 'app/templates/home/home_calendar.html',
+                    controller: 'CalendarCtrl'
                 }
         }
     });

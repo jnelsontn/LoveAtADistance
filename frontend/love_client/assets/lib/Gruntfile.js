@@ -46,6 +46,12 @@ module.exports = function(grunt) {
             cwd: 'node_modules/bootstrap/dist/css',
             src: ['bootstrap.min.css', 'bootstrap.min.css.map'],
             dest: '../../dist/css/bootstrap'
+        },
+        bootstrap_fonts: {
+            expand: true,
+            cwd: 'node_modules/bootstrap/dist/fonts',
+            src: ['glyphicons-halflings-regular.woff', 'glyphicons-halflings-regular.woff2', 'glyphicons-halflings-regular.ttf'],
+            dest: '../../dist/css/fonts'
         }
     },
     watch: {

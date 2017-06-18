@@ -15,5 +15,4 @@ app.controller('AwaitingResponseCtrl', function($scope, $http, RootFactory, apiU
         });
     };
 
-
 });

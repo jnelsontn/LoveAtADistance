@@ -3,13 +3,10 @@
 app.controller('LoginCtrl', function($scope, $cookies, $http, $state, RootFactory, apiUrl) {
     console.log('LoginCtrl Here');
 
-  $scope.user = {
-    first_name: "Jordan",
-    last_name: "Nelson",
-    email: "me@me.com",
-    username: "jordan",
-    password: "catsgowalking"
-  };
+    $scope.user = {
+        username: "jordan",
+        password: "catsgowalking"
+    };
 
     $scope.register = () => {
             $http({
