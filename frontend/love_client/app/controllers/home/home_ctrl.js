@@ -2,7 +2,7 @@
 
 app.controller('HomeCtrl', function($scope, $http, 
 	profile, partner) {
-	
+
     console.log('HomeCtrl Here');
 
     // logged in user
@@ -17,4 +17,3 @@ app.controller('HomeCtrl', function($scope, $http,
     console.log('partner: ', $scope.partner);
 
 }); // end controller
-

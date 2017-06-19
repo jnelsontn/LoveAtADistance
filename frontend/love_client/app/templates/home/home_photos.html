@@ -27,11 +27,12 @@
     <div ng-repeat="photo in photos">            
 
         <div class="col-sm-4 photo_gallery">
-
-            <a ng-href="(( photo.photo.photo))" target="_blank">
-                <img ng-src="((photo.photo.thumbnail))">
-            </a>
-            <a ng-click="removePhoto(photo.id)">Remove Photo</a>
+            <div class="thumbnail">
+                <a ng-href="(( photo.photo.photo))" target="_blank" class="img-responsive" alt="uploaded image">
+                    <img ng-src="((photo.photo.thumbnail))">
+                </a>
+                <a ng-click="removePhoto(photo.id)">Remove Photo</a>
+            </div>
 
         </div>
 

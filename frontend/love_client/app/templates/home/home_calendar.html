@@ -2,8 +2,7 @@
 <div class="row"><!-- calendar view row -->
 
 	<!-- calendar view, first column -->
-	<div class="col-sm-1"></div>
-	<div class="col-sm-3">
+	<div class="col-sm-6">
 
 		<div style="display:inline-block; min-height:290px;">
 			<div uib-datepicker ng-model="event.date" class="well well-sm" 
@@ -12,54 +11,44 @@
 
 	</div>
 
-	<!-- calendar view, second column -->
-	<div class="col-sm-8">
-		<!-- row within row -->
-		<div class="row">
+	<!-- user view -->
+	<div class="col-sm-6">
 
-			<p><b>Date:</b> (( event.date | date:'mediumDate' )) <b>Event:</b> (( todays_event ))</p>
+	<!-- <p><b>Date:</b> (( event.date | date:'mediumDate' )) <b>Event:</b> (( todays_event ))</p> -->
 
-			<!-- user view -->
-			<div class="col-sm-6">
+		<!-- user view -->
+		<p>
+		<h4> (( profile.first_name ))'s Upcoming Events</h4>
+		<ul>
+			<li ng-repeat="event in user_events">
+				<a ng-click="removeUserEvent(event.id)">(x)</a>
+				<b>On (( event.date | date:'mediumDate' ))</b>: (( event.message ))
 
-				<h4> (( profile.first_name ))'s Events</h4>
-				<ul>
-					<li ng-repeat="event in user_events">
-						<a ng-click="removeUserEvent(event.id)">(x)</a>
-						<b>On (( event.date | date:'mediumDate' ))</b>: (( event.message ))
+			</li>
+		</ul>
+		</p>
 
-					</li>
-				</ul>
-			</div>
+		<h4> (( partner.first_name ))'s Upcoming Events</h4>
+		<ul>
+			<li ng-repeat="event in partner_calendar">
+				<b>On (( event.date | date:'mediumDate' ))</b>: (( event.message ))
+			</li>
+		</ul>
 
-			<!-- partner view -->
-			<div class="col-sm-6">
-
-				<h4> (( partner.first_name ))'s Events </h4>
-				<ul>
-					<li ng-repeat="event in partner_calendar">
-						<b>On (( event.date | date:'mediumDate' ))</b>: (( event.message ))
-
-					</li>
-				</ul>
-			</div>
-		</div><!-- end row within row -->
-	</div><!-- end calendar view, second column -->
+	</div><!-- end partner event view -->
 
 </div><!-- end calendar row -->
 
 <!-- add event to calendar row -->
 <div class="row">
 
-	<div class="col-sm-3"></div>
-	<div class="col-sm-6">
-	
+	<div class="col-sm-12">
 		<form class="input-group" ng-submit="addUserEvent()">
-			<input type="text" class="form-control" placeholder="Add Event Message"
+			<input type="text" class="form-control" placeholder="Choose a Day on the Calendar, Descript the Event and click 'Add Event'"
 			ng-model="event.message">
 
 			<span class="input-group-btn">
-				<button class="btn btn-success" type="submit">Add Event</button>
+				<button class="btn btn-primary" type="submit">Add Event</button>
 	       	</span>
 		</form>
 	</div>
