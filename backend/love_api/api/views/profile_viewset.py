@@ -12,12 +12,12 @@ class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
 
-    def update(self, request, *args, **kwargs):
-        profile = self.get_object()
-        serializer = self.get_serializer(profile, data=request.data, partial=True)
-        serializer.is_valid(raise_exception=True)
-        self.perform_update(serializer)
-        return Response(serializer.data)
+    def perform_update(self, serializer):
+        """
+        Automatically attach the logged-in-user as the one who is
+        posting the event
+        """
+        serializer.save(id=self.request.user.id)
 
     # def get_queryset(self):
     #     """

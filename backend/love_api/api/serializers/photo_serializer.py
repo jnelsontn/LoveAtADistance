@@ -11,9 +11,10 @@ class PhotoSerializer(serializers.HyperlinkedModelSerializer):
     user = serializers.ReadOnlyField(source='user.id')
     photo = VersatileImageFieldSerializer(
         sizes=[
-            ('photo', 'url'),
-            ('thumbnail', 'crop__400x400')
-        ])
+            ('full_size', 'url'),
+            ('medium_square_crop', 'crop__400x400'),
+            ('profile', 'thumbnail__250x250'),
+        ]) 
 
     class Meta:
         """

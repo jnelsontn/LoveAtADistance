@@ -11,14 +11,19 @@ class Profile(models.Model):
 
     user = models.OneToOneField(User, related_name='profile', 
         on_delete=models.CASCADE)
-    bio = models.TextField(max_length=800, null=True, blank=True)
-    city = models.CharField(max_length=30, null=True, blank=True)
-    state = models.CharField(max_length=30, null=True, blank=True)
-    country = models.CharField(max_length=30, null=True, blank=True)
-    birth_date = models.DateField(blank=True, null=True)
-    phone_number = models.CharField(max_length=20, null=True, blank=True)
-    profile_photo = VersatileImageField(upload_to=user_directory, 
+    bio = models.TextField(max_length=800, 
         null=True, blank=True)
+    city = models.CharField(max_length=30, 
+        null=True, blank=True)
+    state = models.CharField(max_length=30, 
+        null=True, blank=True)
+    country = models.CharField(max_length=30, 
+        null=True, blank=True)
+    birth_date = models.DateField(blank=True, null=True)
+    phone_number = models.CharField(max_length=20, 
+        null=True, blank=True)
+    profile_photo = VersatileImageField('profile_photo', 
+        upload_to=user_directory, null=True, blank=True)
 
     def __str__(self):
         return "UserID: {}, Name: {} {}".format(

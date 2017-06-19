@@ -1,3 +1,4 @@
+snippets.txt
 *.json
 node_modules
 bower_components
@@ -10,4 +11,5 @@ obj
 *.sqlite3
 media/
 env/
+static/
 secret.py

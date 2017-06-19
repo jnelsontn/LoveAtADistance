@@ -7,6 +7,14 @@ class ProfileSerializer(serializers.ModelSerializer):
     """
     Serializer to map the Model instance into JSON format.
     """
+    user = serializers.ReadOnlyField(source='user.id')
+    profile_photo = VersatileImageFieldSerializer(
+        sizes=[
+            ('full_size', 'url'),
+            ('medium_square_crop', 'crop__400x400'),
+            ('profile', 'thumbnail__250x250'),
+        ])
+
     class Meta:
         """
         Meta class to map serializer's fields with the model fields.
