@@ -12,7 +12,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # NOTE: Create a secret.py file and put your secret key in there. 
 #SECRET_KEY = ''
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ROOT_URLCONF = 'api.urls'
@@ -119,27 +118,21 @@ USE_TZ = True
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'api/media')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
+
 
 VERSATILEIMAGEFIELD_SETTINGS = {
     'cache_length': 2592000,
     'cache_name': 'versatileimagefield_cache',
     'jpeg_resize_quality': 100,
-
-    # The name of the top-level folder within storage classes to save all
-    # sized images. Defaults to '__sized__'
     'sized_directory_name': 'thumbnails',
-
-    # The name of the directory to save all filtered images within.
-    # Defaults to '__filtered__':
     'filtered_directory_name': 'filtered',
-
-    # The name of the directory to save placeholder images within.
-    # Defaults to '__placeholder__':
     'placeholder_directory_name': 'placeholder',
-
     'create_images_on_demand': True,
     'image_key_post_processor': None,
     'progressive_jpeg': False
 }
+
 

@@ -4,7 +4,7 @@ app.config(($stateProvider) => {
 
     $stateProvider.state('home', {
         url: '/',
-        templateUrl: 'app/templates/home/home_landing.html',
+        templateUrl: 'app/templates/home/home.html',
         resolve: {
             profile: ((ProfileFactory) => {
                 // if a user tries logging on from /home, we 
@@ -22,6 +22,12 @@ app.config(($stateProvider) => {
                     url: `${apiUrl}/users/` + profile.relationship.partner,
                     headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
                 }).then((partner) => { return partner.data; });
+            }),
+            user_profile: (($http, apiUrl, RootFactory, profile) => {
+                return $http({
+                    url: `${apiUrl}/profiles/` + profile.id,
+                    headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
+                }).then((user_profile) => { return user_profile.data; });
             })
         }
     })
@@ -63,6 +69,16 @@ app.config(($stateProvider) => {
         url: 'home/contacts',
         templateUrl: 'app/templates/home/home_important_phone_numbers.html',
         controller: 'ImportantNumbersCtrl'
+    })
+    .state('home.profile', { 
+        url: 'home/profile',
+        templateUrl: 'app/templates/home/profile/home_profile.html',
+        controller: 'ProfileCtrl',
+    })
+    .state('home.editprofile', { 
+        url: 'home/profile/editprofile',
+        templateUrl: 'app/templates/home/profile/home_edit_profile.html',
+        controller: 'ProfileCtrl'
     })
     ;
 

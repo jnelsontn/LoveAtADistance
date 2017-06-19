@@ -5,6 +5,9 @@ app.controller('MessageCtrl', function($scope, $http,
     
     console.log('MessageCtrl Here');
 
+    // ui.bootstrap message box
+    $scope.status = { isFirstOpen: false };
+
     $scope.messages = $scope.profile.messages;
     $scope.partner_messages = $scope.partner.messages;
 

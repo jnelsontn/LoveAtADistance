@@ -1,27 +1,7 @@
-from versatileimagefield.serializers import VersatileImageFieldSerializer
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 from api.serializers import *
 from api.models import *
-
-class PhotoSerializer(serializers.ModelSerializer):
-    """
-    Serializer to map the Model instance into JSON format.
-    """
-    user = serializers.ReadOnlyField(source='user.id')
-
-    photo = VersatileImageFieldSerializer(
-        sizes=[
-            ('photo', 'url'),
-            ('thumbnail', 'crop__400x400')
-        ])
-
-    class Meta:
-        """
-        Meta class to map serializer's fields with the model fields.
-        """
-        model = Photo
-        exclude = ()
 
 class UserSerializer(serializers.ModelSerializer):
     """
@@ -50,22 +30,10 @@ class UserSerializer(serializers.ModelSerializer):
         read_only_fields = ('last_login', 'date_joined', 'username', 'id')
         depth = 1
 
-class ProfileSerializer(serializers.ModelSerializer):
-    """
-    Serializer to map the Model instance into JSON format.
-    """
-    class Meta:
-        """
-        Meta class to map serializer's fields with the model fields.
-        """
-        model = Profile
-        exclude = ('user', 'id',)
-
 class RelCheckSerializer(serializers.ModelSerializer):
     """
     Serializer to map the Model instance into JSON format.
     """
-
     class Meta:
         """
         Meta class to map serializer's fields with the model fields.
@@ -78,22 +46,9 @@ class LimitedNoRelSerializer(serializers.ModelSerializer):
     """
     Serializer to map the Model instance into JSON format.
     """
-
     class Meta:
         """
         Meta class to map serializer's fields with the model fields.
         """
         model = User
         fields = ('id', 'first_name', 'last_name', 'relationship', 'email',)
-
-class GroupSerializer(serializers.ModelSerializer):
-    """
-    Serializer to map the Model instance into JSON format.
-    """
-
-    class Meta:
-        """
-        Meta class to map serializer's fields with the model fields.
-        """
-        model = Group
-        exclude = ()

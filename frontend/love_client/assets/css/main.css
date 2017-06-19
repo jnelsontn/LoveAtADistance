@@ -1,11 +1,18 @@
+/*
+ for navbar
+ */
+body {
+    padding-top: 5em;
+}
+
 /* 
  ui.bootstrap calendar:;
  app/controllers/home/home_calendar.ctrl.js
  app/templates/home/home_calendar.html
 */
 .full button span {
-    background-color: #5cb85c;
-    border-radius: 25px;
+    background-color: #d9534f;
+    border-radius: 30px;
     color: black;
 }
 
@@ -14,14 +21,6 @@
   app/controllers/home/home_photo_ctrl.js
   app/templates/home/home_photos.html
  */
-
-.thumb {
-    width: 24px;
-    height: 24px;
-    float: none;
-    position: relative;
-    top: 7px;
-}
 
 .progress {
     display: inline-block;
