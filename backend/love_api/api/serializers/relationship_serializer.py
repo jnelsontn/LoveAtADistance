@@ -3,32 +3,6 @@ from rest_framework import serializers
 from .user_serializer import *
 from api.models import *
 
-class MessageSerializer(serializers.ModelSerializer):
-    """
-    Serializer to map the Model instance into JSON format.
-    """
-    user = serializers.ReadOnlyField(source='user.id')
-
-    class Meta:
-        """
-        Meta class to map serializer's fields with the model fields.
-        """
-        model = Message
-        exclude = ()
-
-class TodoCalendarSerializer(serializers.ModelSerializer):
-    """
-    Serializer to map the Model instance into JSON format.
-    """
-    user = serializers.ReadOnlyField(source='user.id')
-
-    class Meta:
-        """
-        Meta class to map serializer's fields with the model fields.
-        """
-        model = TodoCalendar
-        exclude = ()
-
 class RelationshipSerializer(serializers.ModelSerializer):
     """
     Serializer to map the Model instance into JSON format.
@@ -84,29 +58,3 @@ class RelationshipSerializer(serializers.ModelSerializer):
                     to_user=request_to, message='Relationship Request')
         
         return Relationship.objects.create(**validated_data)
-
-class NotificationSerializer(serializers.ModelSerializer):
-    """
-    Serializer to map the Model instance into JSON format.
-    """
-    user = serializers.ReadOnlyField(source='user.id')
-
-    class Meta:
-        """
-        Meta class to map serializer's fields with the model fields.
-        """
-        model = Notification
-        exclude = ()
-
-class ImportantNumberSerializer(serializers.ModelSerializer):
-    """
-    Serializer to map the Model instance into JSON format.
-    """
-    user = serializers.ReadOnlyField(source='user.id')
-
-    class Meta:
-        """
-        Meta class to map serializer's fields with the model fields.
-        """
-        model = ImportantNumber
-        exclude = ()

@@ -2,8 +2,10 @@ from django.contrib.auth.models import User
 from django.db import models
 
 class Notification(models.Model):
-    from_user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='from_user')
-    to_user = models.OneToOneField(User, on_delete=models.PROTECT, related_name='notifications', null=False, blank=False)
+    from_user = models.OneToOneField(User, on_delete=models.CASCADE, 
+    	related_name='from_user')
+    to_user = models.OneToOneField(User, on_delete=models.PROTECT, 
+    	related_name='notifications', null=False, blank=False)
     message = models.TextField(max_length=200, null=True, blank=True)
     viewed = models.BooleanField(default=0)
 

@@ -14,17 +14,17 @@ from .methods import *
 from .views import *
 
 router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'relcheck', views.RelCheckViewSet, 'relcheck')
-router.register(r'limited_norel', views.LimitedNoRelViewSet, 'limited_norel')
-router.register(r'profiles', views.ProfileViewSet)
-router.register(r'relationships', views.RelationshipViewSet)
-router.register(r'numbers', views.ImportantNumberViewSet)
-router.register(r'messages', views.MessageViewSet)
-router.register(r'photos', views.PhotoViewSet)
-router.register(r'calendar', views.TodoCalendarViewSet)
-router.register(r'groups', views.GroupViewSet)
-router.register(r'notifications', views.NotificationViewSet)
+router.register(r'users', user_viewset.UserViewSet)
+router.register(r'relcheck', limited_viewset.RelCheckViewSet, 'relcheck')
+router.register(r'limited_norel', limited_viewset.LimitedNoRelViewSet, 'limited_norel')
+router.register(r'profiles', profile_viewset.ProfileViewSet)
+router.register(r'relationships', relationship_viewset.RelationshipViewSet)
+router.register(r'numbers', important_number_viewset.ImportantNumberViewSet)
+router.register(r'messages', message_viewset.MessageViewSet)
+router.register(r'photos', photo_viewset.PhotoViewSet)
+router.register(r'calendar', todo_calendar_viewset.TodoCalendarViewSet)
+router.register(r'groups', group_viewset.GroupViewSet)
+router.register(r'notifications', notification_viewset.NotificationViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.

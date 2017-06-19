@@ -12,7 +12,8 @@ class Photo(models.Model):
     def __str__(self):
     	return self.photo
 
-    user = models.ForeignKey(User, related_name='photos', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='photos', 
+        on_delete=models.CASCADE)
     photo = VersatileImageField(upload_to=user_directory)
     photo_name = models.CharField(max_length=50)
     uploaded_at = models.DateTimeField(auto_now_add=True)
