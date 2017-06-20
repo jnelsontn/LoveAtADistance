@@ -46,7 +46,7 @@ class LimitedSerializer(serializers.ModelSerializer):
         User can still search by e-mail even if they cannot see it
         """
         model = User
-        fields = ('id', 'first_name', 'last_name', 'relationship',)
+        fields = ('id', 'first_name', 'last_name', 'relationship', 'email')
 
 class RelCheckSerializer(serializers.ModelSerializer):
     """
