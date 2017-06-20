@@ -5,10 +5,12 @@ app.controller('ImportantNumbersCtrl', function($scope, $http,
 
     console.log('ImportantNumbers Here');
 
+    // logged in user
     $scope.profile = profile;
-    $scope.partner = partner;
-
     $scope.numbers = numbers;
+
+    // their partner
+    $scope.partner = partner;
     $scope.partner_numbers = partner.numbers;
 
     $scope.removeContact = (id) => {
@@ -42,7 +44,6 @@ app.controller('ImportantNumbersCtrl', function($scope, $http,
                 'important_number': $scope.important_number
             }
         }).then((server_response) => {
-            console.log('server response: ', server_response.data);
             $scope.important_name = '';
             $scope.important_number = '';
             

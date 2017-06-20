@@ -1,9 +1,10 @@
 'use strict';
 
-app.controller('HomeCtrl', function($scope, profile, 
-    user_profile, partner) {
+app.controller('HomeMainCtrl', function($scope, 
+    $state, $cookies, profile, user_profile, 
+    partner) {
 
-    console.log('HomeCtrl Here');
+    console.log('HomeMainCtrl Here');
 
     // logged in user
     $scope.profile = profile;

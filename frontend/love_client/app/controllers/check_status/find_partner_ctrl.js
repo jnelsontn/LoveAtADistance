@@ -1,7 +1,8 @@
 'use strict';
 
-app.controller('FindPartnerCtrl', function($scope, $http, RootFactory, 
-    apiUrl, $state, profile) {
+app.controller('FindPartnerCtrl', function($scope, $http,
+    $state, RootFactory, apiUrl, profile) {
+
     console.log('FindPartnerCtrl Here');
     
     $scope.search_performed = false;

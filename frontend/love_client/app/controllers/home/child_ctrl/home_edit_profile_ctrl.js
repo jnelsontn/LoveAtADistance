@@ -14,8 +14,6 @@ app.controller('EditProfileCtrl', function($scope, $http,
     $scope.partner = partner;
     $scope.partner_info = partner.profile;
 
-
-
     console.log($scope.profile);
     console.log($scope.info);
 

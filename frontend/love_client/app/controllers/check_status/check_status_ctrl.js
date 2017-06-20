@@ -1,7 +1,7 @@
 'use strict';
 
 app.controller('CheckStatusCtrl', function($scope, $http,
-    $state, RootFactory, apiUrl, profile) {
+    $state, $cookies, RootFactory, apiUrl, profile) {
 
     console.log('CheckStatusCtrl Here');
 
@@ -9,6 +9,12 @@ app.controller('CheckStatusCtrl', function($scope, $http,
     $scope.profile = profile;
 
     console.log('check profile: ', profile);
+
+    $scope.logOut = () => {
+        $cookies.remove('authtoken');
+        $state.go('login_register.login');
+        $state.reload();
+    };
 
     if (profile.notifications !== null) {
         $http({
@@ -37,10 +43,9 @@ app.controller('CheckStatusCtrl', function($scope, $http,
     // Steps:
     // 1. Check if the User is in a relationship, if not, they'll go to the 'find_partner' state.
     if (profile.relationship === null) {
-    	$state.go('find_partner');
+    	$state.go('check.find_partner');
     // 2. otherwise, if it is not null, we see who the other user is.
     } else if (profile.relationship !== null) {
-
         console.log('partner id: ', profile.relationship.partner);
         // 3. We check the Id of the relationship on the user's profile
         $http({ 
@@ -53,7 +58,7 @@ app.controller('CheckStatusCtrl', function($scope, $http,
             // request was ignored.
             if (prospective_partner.relationship === null) {
                 console.log('you sent response but were waiting... or they ignored you');
-                $state.go('awaiting_response');
+                $state.go('check.awaiting_response');
             // 3b. If their status is not null, then they are in a relationship with someone
             // just not this user.
             } else if (prospective_partner.relationship.partner !== profile.id) {

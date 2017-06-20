@@ -2,7 +2,16 @@
 
         <form class="form-horizontal">
 
-        <h4>If you do not have an account, please <a ui-sref="login_register.register">register</a>.</h4> 
+        <p class="lead">
+
+            Welcome to <strong>DISTANT LOVERS</strong>, exclusively designed for the couple in a long distance
+            relationship.
+
+            <br /><br />
+
+            If you do not have an account, please <a ui-sref="login_register.register">register</a>. 
+
+        </p>
 
         <br />
 
@@ -10,7 +19,7 @@
             <div class="form-group">
                 <label for="username" class="col-sm-2 control-label">Username</label>
     
-                <div class="col-sm-10">
+                <div class="col-sm-8">
                     <input type="text" class="form-control" id="username" ng-model="(( user.username ))">
                 </div>
             </div>
@@ -19,15 +28,15 @@
             <div class="form-group">
                 <label for="password" class="col-sm-2 control-label">Password</label>
     
-                <div class="col-sm-10">
+                <div class="col-sm-8">
                     <input type="password" class="form-control" id="password" ng-model="(( user.password ))">
                 </div>
             </div>
 
             <!-- submit button -->
             <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-primary" ng-click="login()">Login</button>
+                <div class="col-sm-offset-8 col-sm-10">
+                    <button type="submit" class="btn btn-success" ng-click="login()">Login</button>
                 </div>
             </div>      
 
@@ -37,6 +46,5 @@
 
     <div class="col-sm-6">
 
-        <h4>THE app for long-distance couples!</h4> 
-
+        
     </div>

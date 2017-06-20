@@ -1,9 +1,9 @@
 'use strict';
 
-app.controller('CalendarCtrl', function($scope, $http, apiUrl, 
-    calendar, RootFactory, ProfileFactory) {
+app.controller('CalendarCtrl', function($scope, $http, 
+    apiUrl, calendar, RootFactory, ProfileFactory) {
     
-        console.log('CalendarCtrl Here');
+    console.log('CalendarCtrl Here');
 
     // Events for only current user & partner
     $scope.user_events = calendar;
@@ -12,6 +12,9 @@ app.controller('CalendarCtrl', function($scope, $http, apiUrl,
     // The calendar uses $scope.events to build the calendar
     $scope.events = calendar;
     $scope.events = $scope.events.concat($scope.partner_calendar);
+
+    // for event list
+    $scope.status = { isFirstOpen: true };
 
     // Calendar options for ui.bootStrap
     $scope.options = {
@@ -67,6 +70,8 @@ app.controller('CalendarCtrl', function($scope, $http, apiUrl,
             .then((updated_events) => {
                 updated_events = updated_events.data.results;
                 $scope.user_events = updated_events;
+                $scope.events = updated_events;
+                $scope.events = $scope.events.concat($scope.partner_calendar);
             });
         });
     };
@@ -91,11 +96,9 @@ app.controller('CalendarCtrl', function($scope, $http, apiUrl,
             })
             .then((updated_events) => {
                 updated_events = updated_events.data.results;
-                // Update the Calendar View with the new event.
-                console.log('updated calendar: ', updated_events);
+                $scope.user_events = updated_events;
                 $scope.events = updated_events;
-                // We need to (also) refresh our profile for the calendar
-                // $scope.user_events = updated_events;
+                $scope.events = $scope.events.concat($scope.partner_calendar);
             });
         });
     };

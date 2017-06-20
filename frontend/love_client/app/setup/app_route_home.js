@@ -2,9 +2,11 @@
 
 app.config(($stateProvider) => {
 
-    $stateProvider.state('home', {
-        url: '/',
+    $stateProvider
+    .state('home', {
+        url: '^/home',
         templateUrl: 'app/templates/home/home.html',
+        controller: 'HomeNavBarCtrl',
         resolve: {
             profile: ((ProfileFactory) => {
                 // if a user tries logging on from /home, we 
@@ -14,8 +16,7 @@ app.config(($stateProvider) => {
                 if (!check) {
                     let profile = ProfileFactory.getApiProfile();
                     ProfileFactory.setProfile(profile);
-                }
-                return ProfileFactory.getProfile();
+                } return ProfileFactory.getProfile();
             }),
             partner: (($http, apiUrl, profile, RootFactory) => {
                 return $http({
@@ -50,11 +51,11 @@ app.config(($stateProvider) => {
         }
     })
     .state('home.main', {
-        url: 'home',
+        url: '^/home_main',
         views: {
             '': {
                 templateUrl: 'app/templates/home/home_main.html',
-                controller: 'HomeCtrl'
+                controller: 'HomeMainCtrl'
             },
             'header@home.main': { 
                 templateUrl: 'app/templates/home/home_header.html',
@@ -68,10 +69,10 @@ app.config(($stateProvider) => {
                 templateUrl: 'app/templates/home/home_calendar.html',
                 controller: 'CalendarCtrl'
             }
-        } // end views
+        }
     })
     .state('home.photos', { 
-        url: 'home/photos',
+        url: '^/photos',
         templateUrl: 'app/templates/home/home_photos.html',
         controller: 'PhotoCtrl',
         resolve: {
@@ -84,7 +85,7 @@ app.config(($stateProvider) => {
         }
     })
     .state('home.important_numbers', { 
-        url: 'home/contacts',
+        url: '^/contacts',
         templateUrl: 'app/templates/home/home_important_phone_numbers.html',
         controller: 'ImportantNumbersCtrl',
         resolve: {
@@ -96,13 +97,8 @@ app.config(($stateProvider) => {
             })
         }
     })
-    .state('home.profile', { 
-        url: 'home/profile',
-        templateUrl: 'app/templates/home/profile/home_profile.html',
-        controller: 'ProfileCtrl',
-    })
     .state('home.editprofile', { 
-        url: 'home/profile/editprofile',
+        url: '^/editprofile',
         templateUrl: 'app/templates/home/home_edit_profile.html',
         controller: 'EditProfileCtrl'
     });

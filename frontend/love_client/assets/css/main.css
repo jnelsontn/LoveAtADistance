@@ -6,12 +6,12 @@ body {
 }
 .navbar-custom {
     background-color: #428bca !important;
+    border-bottom: 1px solid #d9534f;
 }
 
 a.navbar-brand {
     color: white !important;
 }
-
 
 /* 
  ui.bootstrap calendar:;
@@ -19,21 +19,9 @@ a.navbar-brand {
  app/templates/home/home_calendar.html
 */
 .full button span {
-    background-color: #d9534f;
+    background-color: #428bca;
     border-radius: 30px;
     color: black;
-}
-
-/* 
-  ng-file-upload:
-  app/controllers/home/home_photo_ctrl.js
-  app/templates/home/home_photos.html
- */
-
-.progress {
-    display: inline-block;
-    width: 200px;
-    height: 3em;
 }
 
 /*
