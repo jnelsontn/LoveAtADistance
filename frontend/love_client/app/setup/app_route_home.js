@@ -56,6 +56,10 @@ app.config(($stateProvider) => {
                 templateUrl: 'app/templates/home/home_main.html',
                 controller: 'HomeCtrl'
             },
+            'header@home.main': { 
+                templateUrl: 'app/templates/home/home_header.html',
+                controller: 'HomeHeaderCtrl'
+            },
             'messages@home.main': { 
                 templateUrl: 'app/templates/home/home_messages.html',
                 controller: 'MessageCtrl'
@@ -99,8 +103,8 @@ app.config(($stateProvider) => {
     })
     .state('home.editprofile', { 
         url: 'home/profile/editprofile',
-        templateUrl: 'app/templates/home/profile/home_edit_profile.html',
-        controller: 'ProfileCtrl'
+        templateUrl: 'app/templates/home/home_edit_profile.html',
+        controller: 'EditProfileCtrl'
     });
 
 });

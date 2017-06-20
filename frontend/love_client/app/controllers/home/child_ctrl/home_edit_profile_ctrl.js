@@ -1,78 +1,83 @@
 'use strict';
 
-app.controller('ProfileCtrl', function($scope, $http, 
+app.controller('EditProfileCtrl', function($scope, $http, 
     $state, Upload, apiUrl, RootFactory, profile, 
-    user_profile) {
-    
-    console.log('ProfileCtrl Here');
+    user_profile, partner) {
 
-    $scope.user = profile;
-    $scope.profile = user_profile;
+    console.log('EditProfileCtrl Here');
 
-    console.log('home_profile - user: ', $scope.user);
-    console.log('home_profile - profile: ', $scope.profile);
-    
+    // logged in user
+    $scope.profile = profile;
+    $scope.info = user_profile;
+
+    // their partner
+    $scope.partner = partner;
+    $scope.partner_info = partner.profile;
+
+
+
+    console.log($scope.profile);
+    console.log($scope.info);
+
     let check_profile_photo = Object.keys(
-        $scope.profile.profile_photo).length;
+        $scope.info.profile_photo).length;
 
     if (check_profile_photo < 1) {
          $scope.profile_photo = false;
     } else {
-        $scope.profile_photo = $scope.profile.profile_photo.medium_square_crop;
-        $scope.profile_photo_full = $scope.profile.profile_photo.full_size;
+        $scope.profile_photo = $scope.info.profile_photo.medium_square_crop;
+        $scope.profile_photo_full = $scope.info.profile_photo.full_size;
     }
 
-
     $scope.updateProfile = () => {
-        // first we call the update to profile
         $http({
-            url: `${apiUrl}/profiles/` + $scope.profile.user + '/',
+            url: `${apiUrl}/users/` + $scope.profile.id + '/',
             method: 'PUT',
             headers: { 
                 'Authorization': 'Token ' + RootFactory.getToken() 
             },
             data: { 
-                'phone_number': $scope.profile.phone_number,
-                // birth_date needs to be converted to ISO 8601 for Django
-                // 'birth_date': $scope.profile.birth_date,
-                'city': $scope.profile.city,
-                'state': $scope.profile.state,
-                'country': $scope.profile.country,
-                'bio': $scope.profile.bio
-            }
-        }).then(() => {
-            // refresh user profile....
-            $http({
-                url: `${apiUrl}/profiles/` + $scope.profile.user,
-                headers: { 'Authorization': 'Token ' + RootFactory.getToken() },
-            })
-            .then((updated_profile_obj) => {
-                updated_profile_obj = updated_profile_obj.data;
-                $scope.profile = updated_profile_obj;
-            });
-        });
-        // second call is to update the user
-        $http({
-            url: `${apiUrl}/users/` + $scope.user.id + '/',
-            method: 'PUT',
-            headers: { 
-                'Authorization': 'Token ' + RootFactory.getToken() 
-            },
-            data: { 
-                'first_name': $scope.user.first_name,
-                'last_name': $scope.user.last_name,
-                'email': $scope.user.email
+                'first_name': $scope.profile.first_name,
+                'last_name': $scope.profile.last_name,
+                'email': $scope.profile.email
             }
         }).then(() => {
             $http({
-                url: `${apiUrl}/users/` + $scope.user.id,
+                url: `${apiUrl}/users/` + $scope.profile.id,
                 headers: { 'Authorization': 'Token ' + RootFactory.getToken() },
             })
             .then((updated_user_obj) => {
                 updated_user_obj = updated_user_obj.data;
-                $scope.user = updated_user_obj;
+                $scope.profile = updated_user_obj;
             });
         });
+        // first we call the update to profile
+        $http({
+            url: `${apiUrl}/profiles/` + $scope.info.user + '/',
+            method: 'PUT',
+            headers: { 
+                'Authorization': 'Token ' + RootFactory.getToken() 
+            },
+            data: { 
+                'phone_number': $scope.info.phone_number,
+                'city': $scope.info.city,
+                'state': $scope.info.state,
+                'country': $scope.info.country,
+                'bio': $scope.info.bio
+            }
+        }).then(() => {
+            // refresh user profile....
+            $http({
+                url: `${apiUrl}/profiles/` + $scope.info.user,
+                headers: { 'Authorization': 'Token ' + RootFactory.getToken() },
+            })
+            .then((updated_profile_obj) => {
+                updated_profile_obj = updated_profile_obj.data;
+                $scope.info = updated_profile_obj;
+            });
+        });
+        // second call is to update the user
+
     };
 
     // You can remove your relationship with them, they'll have to remove their
@@ -80,7 +85,7 @@ app.controller('ProfileCtrl', function($scope, $http,
     $scope.disconnectPartner = () => {
         $http({
             method: 'DELETE',
-            url: `${apiUrl}/relationships/` + $scope.user.relationship.id,
+            url: `${apiUrl}/relationships/` + $scope.profile.relationship.id,
             headers: { 
                 'Authorization': 'Token ' + RootFactory.getToken() 
             },
@@ -98,7 +103,7 @@ app.controller('ProfileCtrl', function($scope, $http,
         $scope.f = file;
         if (file) {
             file.upload = Upload.upload({
-                url: `${apiUrl}/profiles/` + $scope.user.id + '/',
+                url: `${apiUrl}/profiles/` + $scope.info.user + '/',
                 method: 'PUT',
                 headers: { 
                     'Authorization': 'Token ' + RootFactory.getToken() 
@@ -109,12 +114,11 @@ app.controller('ProfileCtrl', function($scope, $http,
             }).then((res) => { 
                 file.result = res.data;
                 $http({
-                    url: `${apiUrl}/photos/`,
+                    url: `${apiUrl}/profiles/` + $scope.info.user + '/',
                     headers: { 'Authorization': 'Token ' + RootFactory.getToken() },
                 })
                 .then((updated_profile_photo) => {
-                    console.log(updated_profile_photo);
-                    $scope.profile_photo = $scope.profile.profile_photo.profile;
+                    $scope.profile_photo = updated_profile_photo.data.profile_photo.medium_square_crop;
                     $scope.f = '';
                 });
             }, (res) => { console.log(res.status + ': ' + res.data); },

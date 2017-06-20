@@ -32,7 +32,7 @@ app.config(($stateProvider, $urlRouterProvider) => {
     The resolve function allows the data to be downloaded before the
     page is rendered.
      */
-        url: '/check',
+        url: '^/check',
         controller: 'CheckStatusCtrl',
         resolve: { 
             profile: ((ProfileFactory) => {

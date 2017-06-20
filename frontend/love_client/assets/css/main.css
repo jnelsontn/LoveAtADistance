@@ -4,6 +4,14 @@
 body {
     padding-top: 5em;
 }
+.navbar-custom {
+    background-color: #428bca !important;
+}
+
+a.navbar-brand {
+    color: white !important;
+}
+
 
 /* 
  ui.bootstrap calendar:;

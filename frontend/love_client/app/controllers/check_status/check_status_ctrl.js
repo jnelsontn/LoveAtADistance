@@ -10,7 +10,7 @@ app.controller('CheckStatusCtrl', function($scope, $http,
 
     console.log('check profile: ', profile);
 
-    if ((profile.notifications !== null)) {
+    if (profile.notifications !== null) {
         $http({
             url: `${apiUrl}/notifications/` + profile.notifications.id,
             headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
