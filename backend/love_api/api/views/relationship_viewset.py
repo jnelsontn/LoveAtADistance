@@ -10,14 +10,6 @@ class RelationshipViewSet(viewsets.ModelViewSet):
     queryset = Relationship.objects.all()
     serializer_class = RelationshipSerializer
 
-    """
-    When a relationship is created, it's important to force the
-    system to ensure the request comes from the actual current user
-    """
-    def perform_create(self, serializer):
-        user = User.objects.get(pk=self.request.user.id)
-        serializer.save(user=user)
-
     def get_queryset(self):
         """
         Only retrieve the user's information.
@@ -26,6 +18,13 @@ class RelationshipViewSet(viewsets.ModelViewSet):
             user_id=self.request.user.id).order_by('id') # [:10]
         return queryset
 
+    """
+    When a relationship is created, it's important to force the
+    system to ensure the request comes from the actual current user
+    """
+    def perform_create(self, serializer):
+        user = User.objects.get(pk=self.request.user.id)
+        serializer.save(user=user)
 
 
 

@@ -124,7 +124,6 @@ MEDIA_URL = '/media/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
-
 VERSATILEIMAGEFIELD_SETTINGS = {
     'cache_length': 2592000,
     'cache_name': 'versatileimagefield_cache',

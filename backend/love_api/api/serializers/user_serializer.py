@@ -1,7 +1,9 @@
+from versatileimagefield.fields import VersatileImageField
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 from api.serializers import *
 from api.models import *
+from .profile_serializer import  *
 
 class UserSerializer(serializers.ModelSerializer):
     """
@@ -24,6 +26,7 @@ class PartnerSerializer(serializers.ModelSerializer):
     """
     Serializer to map the Model instance into JSON format.
     """
+    profile = ProfileSerializer(many=False, required=False)
     class Meta:
         model = User
         fields = ('id', 'username', 'first_name', 'last_name',
