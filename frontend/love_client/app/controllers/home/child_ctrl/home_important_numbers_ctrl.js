@@ -13,6 +13,9 @@ app.controller('ImportantNumbersCtrl', function($scope, $http,
     $scope.partner = partner;
     $scope.partner_numbers = partner.numbers;
 
+    // ui.bootstrap message box
+    $scope.status = { isFirstOpen: false };
+
     $scope.removeContact = (id) => {
         $http({
             url: `${apiUrl}/numbers/` + id,

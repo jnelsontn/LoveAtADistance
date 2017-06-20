@@ -7,7 +7,7 @@
         heading="(( profile.first_name))'s Messages (click to expand)" 
         is-open="status.isFirstOpen">
 
-            <p ng-repeat="msg in messages | limitTo: -5 | orderBy:'create_time':true">
+            <p ng-repeat="msg in messages | orderBy:'create_time':true">
                 <a ng-click="removeMessage(msg.id)">(x)</a>
                 <strong>(( msg.create_time | date:'short' ))</strong>: (( msg.message ))
             </p>
@@ -21,7 +21,7 @@
         heading="(( partner.first_name ))'s Messages" 
         is-open="status.isFirstOpen">
 
-            <p ng-repeat="msg in partner_messages | limitTo: -5 | orderBy:'create_time':true">
+            <p ng-repeat="msg in partner_messages | orderBy:'create_time':true">
                 <strong>(( msg.create_time | date:'short' ))</strong>: (( msg.message ))
             </p>
 

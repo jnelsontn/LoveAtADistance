@@ -29,7 +29,7 @@ app.controller('LoginCtrl', function($scope, $cookies, $http,
         }).then(res => {
             RootFactory.setToken(res.data.token);
                 if (res.data.token !== '') {
-                    $state.go('find_partner');
+                    $state.go('check');
                     $cookies.put('authtoken', res.data.token);
                     console.log('token ', res.data.token);
                 }

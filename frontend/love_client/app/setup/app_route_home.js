@@ -47,6 +47,12 @@ app.config(($stateProvider) => {
                     url: `${apiUrl}/calendar/`,
                     headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
                 }).then((calendar) => { return calendar.data.results; });
+            }),
+            numbers: (($http, apiUrl, RootFactory) => {
+                return $http({
+                    url: `${apiUrl}/numbers/`,
+                    headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
+                }).then((numbers) => { return numbers.data.results; });
             })
         }
     })
@@ -68,6 +74,10 @@ app.config(($stateProvider) => {
             'calendar@home.main': { 
                 templateUrl: 'app/templates/home/home_calendar.html',
                 controller: 'CalendarCtrl'
+            },
+            'important_numbers@home.main': { 
+                templateUrl: 'app/templates/home/home_important_phone_numbers.html',
+                controller: 'ImportantNumbersCtrl'
             }
         }
     })
@@ -81,19 +91,6 @@ app.config(($stateProvider) => {
                     url: `${apiUrl}/photos/`,
                     headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
                 }).then((photos) => { return photos.data.results; });
-            })
-        }
-    })
-    .state('home.important_numbers', { 
-        url: '^/contacts',
-        templateUrl: 'app/templates/home/home_important_phone_numbers.html',
-        controller: 'ImportantNumbersCtrl',
-        resolve: {
-            numbers: (($http, apiUrl, RootFactory) => {
-                return $http({
-                    url: `${apiUrl}/numbers/`,
-                    headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
-                }).then((numbers) => { return numbers.data.results; });
             })
         }
     })

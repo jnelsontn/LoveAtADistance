@@ -5,7 +5,7 @@ body {
     padding-top: 5em;
 }
 .navbar-custom {
-    background-color: #428bca !important;
+    background-color: #2F79B9 !important;
     border-bottom: 1px solid #d9534f;
 }
 
@@ -19,7 +19,7 @@ a.navbar-brand {
  app/templates/home/home_calendar.html
 */
 .full button span {
-    background-color: #428bca;
+    background-color: #2F79B9;
     border-radius: 30px;
     color: black;
 }
