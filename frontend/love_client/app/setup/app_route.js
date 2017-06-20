@@ -6,7 +6,7 @@ app.config(($stateProvider, $urlRouterProvider) => {
 
     $stateProvider
     .state('login_register', {
-        url: '',
+        url: '/',
         templateUrl: 'app/templates/login_register/main.html',
         controller: 'LoginCtrl',
         resolve: {
@@ -26,13 +26,14 @@ app.config(($stateProvider, $urlRouterProvider) => {
         url: '^/register',
         templateUrl: 'app/templates/login_register/register.html'
     })
-   .state('check', {
     /*
     Each time a User logs in, we check their relationship status.
     The resolve function allows the data to be downloaded before the
     page is rendered.
      */
-        url: '/check',
+   .state('check', {
+        url: '^/check',
+        templateUrl: 'app/templates/check_status/home.html',
         controller: 'CheckStatusCtrl',
         resolve: { 
             profile: ((ProfileFactory) => {
@@ -42,17 +43,30 @@ app.config(($stateProvider, $urlRouterProvider) => {
             })
         }
     })
-   .state('find_partner', { 
+    .state('check.find_partner', { 
         url: '^/find_partner',
         templateUrl: 'app/templates/check_status/find_partner.html',
-        controller: 'FindPartnerCtrl',
-        parent: 'check'
+        controller: 'FindPartnerCtrl'
     })
-    .state('awaiting_response', { 
+    .state('check.awaiting_response', { 
         url: '^/awaiting_response',
         templateUrl: 'app/templates/check_status/awaiting_response.html',
         controller: 'AwaitingResponseCtrl',
-        parent: 'check'
+        resolve: {
+            profile: ((ProfileFactory) => {
+                let profile = ProfileFactory.getApiProfile();
+                ProfileFactory.setProfile(profile);
+                return ProfileFactory.getProfile();
+            }),
+        }
     });
 
 }); // end route config
+
+
+
+
+
+
+
+

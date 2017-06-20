@@ -14,26 +14,39 @@
 	<!-- user view -->
 	<div class="col-sm-6">
 
-	<!-- <p><b>Date:</b> (( event.date | date:'mediumDate' )) <b>Event:</b> (( todays_event ))</p> -->
+		<ul class="list-group">
+  			<li class="list-group-item list-group-item-danger">
+  				<strong>Calendar Event:</strong>
+  				 (( event.date | date:'mediumDate' )) (( todays_event ))
+  			</li>
+  		</ul>
 
-		<!-- user view -->
-		<p>
-		<h4> (( profile.first_name ))'s Upcoming Events</h4>
-		<ul>
-			<li ng-repeat="event in user_events">
-				<a ng-click="removeUserEvent(event.id)">(x)</a>
-				<b>On (( event.date | date:'mediumDate' ))</b>: (( event.message ))
+		<!-- user events view -->
+    	<uib-accordion>
+	        <div uib-accordion-group class="panel panel-primary" 
+	        heading="(( profile.first_name ))'s Events" 
+	        is-open="status.isFirstOpen">
 
-			</li>
-		</ul>
-		</p>
+            <p ng-repeat="event in user_events">
+                <a ng-click="removeUserEvent(event.id)">(x)</a>
+                <strong>On (( event.date | date:'mediumDate' ))</strong>: (( event.message ))
+            </p>
 
-		<h4> (( partner.first_name ))'s Upcoming Events</h4>
-		<ul>
-			<li ng-repeat="event in partner_calendar">
-				<b>On (( event.date | date:'mediumDate' ))</b>: (( event.message ))
-			</li>
-		</ul>
+        	</div>
+    	</uib-accordion>
+
+    	<!-- partner events view -->
+    	<uib-accordion>
+	        <div uib-accordion-group class="panel panel-success" 
+	        heading="(( partner.first_name ))'s Events (click to expand)">
+
+            <p ng-repeat="event in partner_calendar">
+                <a ng-click="removeUserEvent(event.id)">(x)</a>
+                <strong>On (( event.date | date:'mediumDate' ))</strong>: (( event.message ))
+            </p>
+
+        	</div>
+    	</uib-accordion>
 
 	</div><!-- end partner event view -->
 
@@ -44,7 +57,8 @@
 
 	<div class="col-sm-12">
 		<form class="input-group" ng-submit="addUserEvent()">
-			<input type="text" class="form-control" placeholder="Choose a Day on the Calendar, Descript the Event and click 'Add Event'"
+			<input type="text" class="form-control" 
+			placeholder="Choose a Day on the Calendar, Enter an Event Description and click 'Add Event'" 
 			ng-model="event.message">
 
 			<span class="input-group-btn">

@@ -9,7 +9,6 @@ class UserViewSet(viewsets.ModelViewSet):
     requesting the current user object.
     """
     queryset = User.objects.all()
-    # serializer_class = UserSerializer
     serializers = {
         'DEFAULT': UserSerializer,
         'PARTNER': PartnerSerializer,

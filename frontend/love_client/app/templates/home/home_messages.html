@@ -9,7 +9,7 @@
 
             <p ng-repeat="msg in messages | orderBy:'create_time':true">
                 <a ng-click="removeMessage(msg.id)">(x)</a>
-                <b>(( msg.create_time | date:'short' ))</b>: (( msg.message ))
+                <strong>(( msg.create_time | date:'short' ))</strong>: (( msg.message ))
             </p>
 
         </div>
@@ -22,7 +22,7 @@
         is-open="status.isFirstOpen">
 
             <p ng-repeat="msg in partner_messages | orderBy:'create_time':true">
-                <b>(( msg.create_time | date:'short' ))</b>: (( msg.message ))
+                <strong>(( msg.create_time | date:'short' ))</strong>: (( msg.message ))
             </p>
 
         </div>

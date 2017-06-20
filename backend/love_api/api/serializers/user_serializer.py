@@ -1,7 +1,9 @@
+from versatileimagefield.fields import VersatileImageField
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 from api.serializers import *
 from api.models import *
+from .profile_serializer import  *
 
 class UserSerializer(serializers.ModelSerializer):
     """
@@ -24,6 +26,7 @@ class PartnerSerializer(serializers.ModelSerializer):
     """
     Serializer to map the Model instance into JSON format.
     """
+    profile = ProfileSerializer(many=False, required=False)
     class Meta:
         model = User
         fields = ('id', 'username', 'first_name', 'last_name',
@@ -43,7 +46,7 @@ class LimitedSerializer(serializers.ModelSerializer):
         User can still search by e-mail even if they cannot see it
         """
         model = User
-        fields = ('id', 'first_name', 'last_name', 'relationship',)
+        fields = ('id', 'first_name', 'last_name', 'relationship', 'email')
 
 class RelCheckSerializer(serializers.ModelSerializer):
     """

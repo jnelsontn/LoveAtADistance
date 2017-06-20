@@ -1,3 +1,4 @@
+from versatileimagefield.serializers import VersatileImageFieldSerializer
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 from api.serializers import *
@@ -13,7 +14,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             ('full_size', 'url'),
             ('medium_square_crop', 'crop__400x400'),
             ('profile', 'thumbnail__250x250'),
-        ])
+        ], required=False)
 
     class Meta:
         """

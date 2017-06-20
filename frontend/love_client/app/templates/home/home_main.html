@@ -1,25 +1,12 @@
 
-<!-- User & Partner Information -->
+<!-- Header/bio -->
 <div class="row">
 
-	<div class="col-sm-2">images goes here</div>
-	<div class="col-sm-4">
-		(( profile.first_name )) (( profile.last_name )) <br />
-		(( profile.email )) <br />
-		(( info.city )), (( info.state )) (( info.country )) <br />
-		<i>'(( info.bio ))'</i>
-
+	<div class="col-sm-12">
+		<div ui-view="header"></div>
 	</div>
 
-	<div class="col-sm-2">images goes here</div>
-	<div class="col-sm-4">
-		(( partner.first_name )) (( partner.last_name )) <br />
-		(( partner.email )) <br />
-		(( partner_info.city )), (( partner_info.state )) (( partner_info.country )) <br />
-		<i>'(( partner_info.bio ))'</i>
-	</div>
-
-</div><!-- end User/Partner info -->
+</div><!-- end header/bio -->
 
 <br />
 
@@ -45,14 +32,14 @@
 
 <br />
 
-<!-- photo view -->
-<!-- <div class="row">
+<!-- important numbers -->
+<div class="row">
 
 	<div class="col-sm-12">
-		<div ui-view="photos"></div>
+		<div ui-view="important_numbers"></div>
 	</div>
 
-</div> -->
-<!-- end photo view -->
+</div>
+<!-- end important numbers -->
 
 

@@ -1,22 +1,22 @@
 'use strict';
 
-app.controller('FindPartnerCtrl', function($scope, $http, RootFactory, 
-    apiUrl, $state, profile) {
+app.controller('FindPartnerCtrl', function($scope, $http,
+    $state, ProfileFactory, RootFactory, apiUrl, profile) {
+
     console.log('FindPartnerCtrl Here');
     
     $scope.search_performed = false;
 
-    $scope.search = () => {
+    $scope.searchEmail = () => {
         $http({
             url: `${apiUrl}/limited/?email=` + $scope.email,
             headers: { 
                 'Authorization': 'Token ' + RootFactory.getToken() 
             }
         }).then((res) => {
-            $scope.search_performed = true;
             res = res.data.results;
+            $scope.search_performed = true;
             $scope.results = res;
-            console.log(res);
         });
     };
 
@@ -29,8 +29,11 @@ app.controller('FindPartnerCtrl', function($scope, $http, RootFactory,
             },
             data: { 'partner': partner }
         }).then((res) => {
-        	$scope.response = 'Request Sent Successfully';
-        	console.log(res.data);
+            res = res.data;
+            console.log('res', res);
+            let update_profile = ProfileFactory.getApiProfile();
+            ProfileFactory.setProfile(update_profile);
+            $state.go('check.awaiting_response');
         });
     };
 
@@ -45,8 +48,6 @@ app.controller('FindPartnerCtrl', function($scope, $http, RootFactory,
                 method: 'DELETE',
                 url: `${apiUrl}/notifications/` + $scope.profile.notifications.id,
                 headers: { 'Authorization': 'Token ' + RootFactory.getToken() },
-            }).then(() => {
-                $state.reload();
             });
             $state.go('login_register');
         });
@@ -58,8 +59,8 @@ app.controller('FindPartnerCtrl', function($scope, $http, RootFactory,
             url: `${apiUrl}/notifications/` + $scope.profile.notifications.id,
             headers: { 'Authorization': 'Token ' + RootFactory.getToken() },
         }).then(() => {
-            $scope.relationship_request = false;
-            $state.reload();
+            $scope.partner_request = false;
+            $scope.search_section = true;
         });
     };
 

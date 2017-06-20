@@ -1,31 +1,20 @@
-
-<!-- user_obj
-date_joined:
-last_login:
-username:
-
-profile:
-profile_photo:
- -->
-
 <div class="row">
 
     <div class="col-sm-6">
 
-         <a ng-if="profile_photo != false" ng-href="(( profile_photo_full ))"
-         target="_blank" alt="profile photo full size">
-            <img ng-src="(( profile_photo ))" alt="profile photo" 
-            class="img-responsive img-rounded">
+        <a ng-if="profile_photo != false" ng-href="(( profile_photo_full ))"
+        target="_blank" alt="profile photo full size">
+
+            <img ng-src="(( profile_photo ))" alt="profile photo" class="img-responsive img-rounded">
+
         </a>
 
-        <br /><br />
+        <br />
 
-        <button type="file" class="btn btn-success" 
-        ngf-select="uploadProfilePhoto($file)" ngf-pattern="'.jpg,.jpeg'"
-        accept="image/*" ngf-max-size="3MB">Change Profile Photo</button>
+        <button type="file" class="btn btn-success" ngf-select="uploadProfilePhoto($file)" 
+        ngf-pattern="'.jpg,.jpeg'" accept="image/*" ngf-max-size="3MB">Change Profile Photo</button>
 
     </div>
-
 
     <div class="col-sm-6">
 
@@ -36,7 +25,7 @@ profile_photo:
                 <label for="firstName" class="col-sm-2 control-label">First Name</label>
     
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="firstName" ng-model="user.first_name">
+                    <input type="text" class="form-control" id="firstName" ng-model="profile.first_name">
                 </div>
             </div>
 
@@ -45,7 +34,7 @@ profile_photo:
                 <label for="lastName" class="col-sm-2 control-label">Last Name</label>
     
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="lastName" ng-model="user.last_name">
+                    <input type="text" class="form-control" id="lastName" ng-model="profile.last_name">
                 </div>
             </div>
 
@@ -54,7 +43,7 @@ profile_photo:
                 <label for="email" class="col-sm-2 control-label">E-mail</label>
     
                 <div class="col-sm-10">
-                    <input type="email" class="form-control" id="email" ng-model="user.email">
+                    <input type="email" class="form-control" id="email" ng-model="profile.email">
                 </div>
             </div>
 
@@ -63,25 +52,16 @@ profile_photo:
                 <label for="tel" class="col-sm-2 control-label">Phone</label>
     
                 <div class="col-sm-10">
-                    <input type="tel" class="form-control" id="tel" ng-model="profile.phone_number">
+                    <input type="tel" class="form-control" id="tel" ng-model="info.phone_number">
                 </div>
             </div>
-
-            <!-- birth date -->
-<!--            <div class="form-group">
-                <label for="birthday" class="col-sm-2 control-label">Birthday</label>
-    
-                <div class="col-sm-10">
-                    <input type="date" class="form-control" id="birthday" ng-model="profile.birth_date">
-                </div>
-            </div> -->
 
             <!-- city -->
             <div class="form-group">
                 <label for="city" class="col-sm-2 control-label">City</label>
     
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="city" ng-model="profile.city">
+                    <input type="text" class="form-control" id="city" ng-model="info.city">
                 </div>
             </div>
 
@@ -90,7 +70,7 @@ profile_photo:
                 <label for="state" class="col-sm-2 control-label">State</label>
     
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="state" ng-model="profile.state">
+                    <input type="text" class="form-control" id="state" ng-model="info.state">
                 </div>
             </div>
 
@@ -99,7 +79,7 @@ profile_photo:
                 <label for="country" class="col-sm-2 control-label">Country</label>
     
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="country" ng-model="profile.country">
+                    <input type="text" class="form-control" id="country" ng-model="info.country">
                 </div>
             </div>
 
@@ -108,27 +88,35 @@ profile_photo:
                 <label for="bio" class="col-sm-2 control-label">Tagline</label>
     
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="bio" ng-model="profile.bio">
+                    <input type="text" class="form-control" id="bio" ng-model="info.bio">
                 </div>
             </div>
 
             <!-- submit button -->
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-primary" 
-              ng-click="updateProfile()">
-              Update Profile</button>
+                    <button type="submit" class="btn btn-primary" ng-click="updateProfile()">
+                    Update Profile</button>
                 </div>
             </div>
 
         </form>
 
-    <br /><br />
+        <br />
 
-    <h3>Remove Relationship:</h3>
-    <button type="submit" class="btn btn-danger" 
-    ng-click="disconnectPartner()">
-    Remove Relationship</button>
+        <form class="form-horizontal">
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+
+                    <h3>Remove Relationship:</h3>
+
+                    <button type="submit" class="btn btn-danger" ng-click="disconnectPartner()">
+                    Remove Relationship</button>
+
+                </div>
+            </div>
+
+        </p>
 
     </div>
 

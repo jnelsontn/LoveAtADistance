@@ -1,58 +1,61 @@
-<div class="row"><!-- start message display row -->
-
-	<!-- user message view -->
-	<div class="col-sm-2"></div>
-	<div class="col-sm-5">
-
-		<h4>(( profile.first_name ))'s Contacts</h4>
-
-		<ul>
-			<li ng-repeat="number in numbers">
-				<a ng-click="removeContact(number.id)">(x)</a>
-				<b>Name:</b> (( number.important_name )) <br />
-				<b>Number:</b> (( number.important_number ))
-			</li>
-		</ul>
-
-	</div>
-
-	<!-- partner message view -->
-	<div class="col-sm-5">
-	
-		<h4>(( partner.first_name))'s Contacts</h4>
-
-		<ul>
-			<li ng-repeat="number in partner_numbers">
-				<b>Name:</b> (( number.important_name )) <br />
-				<b>Number:</b> (( number.important_number ))
-			</li>
-		</ul>
-
-	</div>
-
-</div><!-- end message display row -->
-
-<!-- add new message -->
 <div class="row">
 
-	<div class="col-sm-3"></div>
+	<!-- user contacts view -->
+    <uib-accordion class="col-sm-6">
+        <div uib-accordion-group class="panel panel-primary" 
+        heading="(( profile.first_name))'s Contacts (click to expand)" 
+        is-open="status.isFirstOpen">
+
+            <p ng-repeat="number in numbers">
+                <a ng-click="removeContact(number.id)">(x)</a>
+				<strong>Name:</strong> (( number.important_name )) <br />
+				<strong>Number:</strong> (( number.important_number ))
+            </p>
+
+        </div>
+    </uib-accordion>
+
+    <!-- partner message view -->
+    <uib-accordion class="col-sm-6">
+        <div uib-accordion-group class="panel panel-success" 
+        heading="(( partner.first_name ))'s Contacts"
+        is-open="status.isFirstOpen">
+
+            <p ng-repeat="number in partner_numbers">
+				<strong>Name:</strong> (( number.important_name )) <br />
+				<strong>Number:</strong> (( number.important_number ))
+            </p>
+
+        </div>
+    </uib-accordion>
+
+</div><!-- end contacts display row -->
+
+
+<div class="row">
 
 	<div class="col-sm-6">
-	
-		<form class="input-group" ng-submit="addContact()">
 
-			<input type="text" class="form-control" placeholder="Name" 
-			ng-model="important_name">
-
-			<input type="text" class="form-control" placeholder="Phone Number" 
-			ng-model="important_number">
-
-			<span class="input-group-btn">
-				<button class="btn btn-success" type="submit">Add Contact</button>
-			</span>
-
-		</form>
+		<input type="text" class="form-control" placeholder="Name" 
+		ng-model="important_name">
 
 	</div>
 
-</div><!-- end add message -->
+	<div class="col-sm-6">
+
+		<input type="text" class="form-control" placeholder="Phone Number" 
+		ng-model="important_number">
+	
+	</div>
+
+</div>
+
+<br />
+
+<div class="row">
+		
+	<div class="col-sm-6 form-group">		
+		<button class="btn btn-success" ng-click="addContact()">Add Contact</button>
+	</div>
+
+</div>

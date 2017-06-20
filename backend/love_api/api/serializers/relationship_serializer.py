@@ -47,14 +47,20 @@ class RelationshipSerializer(serializers.ModelSerializer):
         """ 
         if reply is False:
             try:
-                """Although the system forces uniqueness, it never hurts to check
-                at this point, no response has been given but a request was made"""
+                """
+                Although the system forces uniqueness, it never hurts to check
+                at this point, no response has been given but a request was made
+                """
                 Notification.objects.get(from_user=request_from,
                     to_user=request_to, viewed=0)
             except:
-                """If the above passes, meaning a request has not been created or the other user
-                has NOT made a notification, it can safely be done here"""
-                Notification.objects.create(from_user=request_from, 
-                    to_user=request_to, message='Relationship Request')
+                """
+                If the above passes, meaning a request has not been created or the other user
+                has NOT made a notification, it can safely be done here
+                the User who sent the request may also delete it, thankfully... we should
+                actually link those fields
+                """
+                Notification.objects.create(id=request_from.id, from_user=request_from, 
+                    to_user=request_to)
         
         return Relationship.objects.create(**validated_data)

@@ -11,7 +11,7 @@ class Profile(models.Model):
 
     user = models.OneToOneField(User, related_name='profile', 
         on_delete=models.CASCADE)
-    bio = models.TextField(max_length=800, 
+    bio = models.TextField(max_length=150, 
         null=True, blank=True)
     city = models.CharField(max_length=30, 
         null=True, blank=True)
@@ -19,7 +19,8 @@ class Profile(models.Model):
         null=True, blank=True)
     country = models.CharField(max_length=30, 
         null=True, blank=True)
-    birth_date = models.DateField(blank=True, null=True)
+    birth_date = models.DateField(
+        blank=True, null=True)
     phone_number = models.CharField(max_length=20, 
         null=True, blank=True)
     profile_photo = VersatileImageField('profile_photo', 
@@ -37,3 +38,7 @@ model (above) which is the extended fields of a User instance.
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
