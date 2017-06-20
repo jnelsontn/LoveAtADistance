@@ -15,7 +15,7 @@ class TodoCalendarViewSet(viewsets.ModelViewSet):
         """
         Only retrieve the user's information.
         """
-        queryset = TodoCalendar.objects.filter(
+        queryset = TodoCalendar.objects.all().filter(
             user=self.request.user.id).order_by('date')
         return queryset
 

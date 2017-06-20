@@ -17,17 +17,35 @@ app.config(($stateProvider) => {
                 }
                 return ProfileFactory.getProfile();
             }),
-            partner: (($http, apiUrl, RootFactory, profile) => {
+            partner: (($http, apiUrl, profile, RootFactory) => {
                 return $http({
                     url: `${apiUrl}/users/` + profile.relationship.partner,
                     headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
-                }).then((partner) => { return partner.data; });
+                }).then((partner) => { 
+                    partner = partner.data;
+                    return partner;
+                });
             }),
-            user_profile: (($http, apiUrl, RootFactory, profile) => {
+            user_profile: (($http, apiUrl, RootFactory) => {
                 return $http({
-                    url: `${apiUrl}/profiles/` + profile.id,
+                    url: `${apiUrl}/profiles/`,
                     headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
-                }).then((user_profile) => { return user_profile.data; });
+                }).then((user_profile) => {
+                    user_profile = user_profile.data.results[0];
+                    return user_profile;
+                });
+            }),
+            messages: (($http, apiUrl, RootFactory) => {
+                return $http({
+                    url: `${apiUrl}/messages/`,
+                    headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
+                }).then((messages) => { return messages.data.results; });
+            }),
+            calendar: (($http, apiUrl, RootFactory) => {
+                return $http({
+                    url: `${apiUrl}/calendar/`,
+                    headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
+                }).then((calendar) => { return calendar.data.results; });
             })
         }
     })
@@ -46,29 +64,33 @@ app.config(($stateProvider) => {
                 templateUrl: 'app/templates/home/home_calendar.html',
                 controller: 'CalendarCtrl'
             }
-            // 'photos@home.main': { 
-            //     templateUrl: 'app/templates/home/home_photos.html',
-            //     controller: 'PhotoCtrl'
-            // }
-        }
+        } // end views
     })
     .state('home.photos', { 
         url: 'home/photos',
         templateUrl: 'app/templates/home/home_photos.html',
         controller: 'PhotoCtrl',
         resolve: {
-            user_photos: (($http, apiUrl, RootFactory, profile) => {
+            photos: (($http, apiUrl, RootFactory) => {
                 return $http({
                     url: `${apiUrl}/photos/`,
                     headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
-                }).then((user_photos) => { return user_photos.data.results; });
+                }).then((photos) => { return photos.data.results; });
             })
         }
     })
     .state('home.important_numbers', { 
         url: 'home/contacts',
         templateUrl: 'app/templates/home/home_important_phone_numbers.html',
-        controller: 'ImportantNumbersCtrl'
+        controller: 'ImportantNumbersCtrl',
+        resolve: {
+            numbers: (($http, apiUrl, RootFactory) => {
+                return $http({
+                    url: `${apiUrl}/numbers/`,
+                    headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
+                }).then((numbers) => { return numbers.data.results; });
+            })
+        }
     })
     .state('home.profile', { 
         url: 'home/profile',
@@ -79,8 +101,6 @@ app.config(($stateProvider) => {
         url: 'home/profile/editprofile',
         templateUrl: 'app/templates/home/profile/home_edit_profile.html',
         controller: 'ProfileCtrl'
-    })
-    ;
-
+    });
 
 });

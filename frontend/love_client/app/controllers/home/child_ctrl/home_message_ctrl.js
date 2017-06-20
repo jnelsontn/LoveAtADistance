@@ -1,14 +1,14 @@
 'use strict';
 
 app.controller('MessageCtrl', function($scope, $http, 
-    apiUrl, RootFactory) {
+    messages, apiUrl, RootFactory) {
     
     console.log('MessageCtrl Here');
 
     // ui.bootstrap message box
     $scope.status = { isFirstOpen: false };
 
-    $scope.messages = $scope.profile.messages;
+    $scope.messages = messages;
     $scope.partner_messages = $scope.partner.messages;
 
     $scope.removeMessage = (id) => {

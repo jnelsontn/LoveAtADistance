@@ -11,5 +11,4 @@ class Relationship(models.Model):
         unique_together = ( ('user', 'partner'), ('partner', 'user'), )
 
     def __str__(self):
-        string = self.user.first_name + ' ' + self.user.last_name + ' relationship'
-        return string
+    	return str(self.user.id)

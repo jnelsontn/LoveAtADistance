@@ -3,7 +3,8 @@
 
     <!-- user message view -->
     <uib-accordion class="col-sm-6">
-        <div uib-accordion-group class="panel panel-primary" heading="(( profile.first_name))'s Messages (click to expand)" 
+        <div uib-accordion-group class="panel panel-primary" 
+        heading="(( profile.first_name))'s Messages (click to expand)" 
         is-open="status.isFirstOpen">
 
             <p ng-repeat="msg in messages | orderBy:'create_time':true">
@@ -16,10 +17,11 @@
 
     <!-- partner message view -->
     <uib-accordion class="col-sm-6">
-        <div uib-accordion-group class="panel panel-success" heading="(( partner.first_name ))'s Messages" 
+        <div uib-accordion-group class="panel panel-success" 
+        heading="(( partner.first_name ))'s Messages" 
         is-open="status.isFirstOpen">
 
-            <p ng-repeat="msg in partner.messages | orderBy:'create_time':true">
+            <p ng-repeat="msg in partner_messages | orderBy:'create_time':true">
                 <b>(( msg.create_time | date:'short' ))</b>: (( msg.message ))
             </p>
 

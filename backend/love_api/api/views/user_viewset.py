@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
-from api.models import *
 from api.serializers import *
+from api.models import *
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -9,7 +9,11 @@ class UserViewSet(viewsets.ModelViewSet):
     requesting the current user object.
     """
     queryset = User.objects.all()
-    serializer_class = UserSerializer
+    # serializer_class = UserSerializer
+    serializers = {
+        'DEFAULT': UserSerializer,
+        'PARTNER': PartnerSerializer,
+    }
 
     def get_object(self):
         """
@@ -30,3 +34,27 @@ class UserViewSet(viewsets.ModelViewSet):
         posting the event
         """
         serializer.save(id=self.request.user.id)
+
+    def get_serializer_class(self):
+        try:
+            # i have sent a request and have a partner... good
+            sent_relationship = Relationship.objects.get(user=self.request.user.id).partner.id
+
+            if type(sent_relationship == int):
+                # have they given us a relationship??????
+                try:
+                    do_we_have_a_partner = Relationship.objects.filter(
+                        user=sent_relationship, partner=self.request.user.id).values_list(
+                        'user', 'partner').order_by('id')
+
+                    partner_id = do_we_have_a_partner[0][0]
+
+                    if sent_relationship == partner_id:
+                        return self.serializers.get(self.action, self.serializers['PARTNER'])
+
+                except:
+                    pass
+        except:
+            pass
+
+        return self.serializers.get(self.action, self.serializers['DEFAULT'])

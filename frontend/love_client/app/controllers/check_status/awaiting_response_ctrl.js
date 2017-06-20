@@ -1,23 +1,19 @@
 'use strict';
 
 app.controller('AwaitingResponseCtrl', function($scope, $http, 
-    RootFactory, apiUrl, profile) {
+    RootFactory, $state, apiUrl, profile) {
     
     console.log('Awaiting Response Here');
 
-    $scope.cancelPartnerReq = (partner) => {
+    $scope.cancelPartnerReq = () => {
         $http({
             method: 'DELETE',
             url: `${apiUrl}/relationships/` + $scope.profile.relationship.id,
             headers: { 
                 'Authorization': 'Token ' + RootFactory.getToken() 
             },
-        }).then((res) => {
-            // Update the Dom to let the user know the cancel request was successful
-        	if (res.data) { 
-                $scope.response = 'Successfully Canceled Request';
-            }
-        	console.log(res.data);
+        }).then(() => {
+           $state.reload();
         });
     };
 

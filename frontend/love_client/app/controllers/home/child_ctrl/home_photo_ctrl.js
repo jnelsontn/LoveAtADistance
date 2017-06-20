@@ -1,12 +1,12 @@
 'use strict';
 
-app.controller('PhotoCtrl', function ($scope, $http, user_photos,
+app.controller('PhotoCtrl', function ($scope, $http, photos,
     Upload, apiUrl, RootFactory, profile, partner) {
 
     console.log('PhotoCtrl Here');
 
-    console.log(user_photos);
-    $scope.photos = user_photos;
+    console.log(photos);
+    $scope.photos = photos;
 
     $scope.removePhoto = (id) => {
         $http({
@@ -38,7 +38,6 @@ app.controller('PhotoCtrl', function ($scope, $http, user_photos,
                 },
                 data: {
                     'photo': file,
-                    'photo_name': file.name
                 }
             }).then((res) => { 
                 file.result = res.data;

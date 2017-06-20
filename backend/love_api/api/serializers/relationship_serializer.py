@@ -37,7 +37,7 @@ class RelationshipSerializer(serializers.ModelSerializer):
             2.We check if a relationship already exists if the situation was 'reversed'
             if so, we know this is a response to a request
             """
-            Notification.objects.get(from_user=request_to, to_user=request_from)
+            Notification.objects.get(from_user=request_to, to_user=request_from, viewed=0)
             reply = True
         except:
             pass
@@ -50,7 +50,7 @@ class RelationshipSerializer(serializers.ModelSerializer):
                 """Although the system forces uniqueness, it never hurts to check
                 at this point, no response has been given but a request was made"""
                 Notification.objects.get(from_user=request_from,
-                    to_user=request_to)
+                    to_user=request_to, viewed=0)
             except:
                 """If the above passes, meaning a request has not been created or the other user
                 has NOT made a notification, it can safely be done here"""

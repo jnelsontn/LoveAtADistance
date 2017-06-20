@@ -39,24 +39,18 @@ app.config(($stateProvider, $urlRouterProvider) => {
                 let profile = ProfileFactory.getApiProfile();
                 ProfileFactory.setProfile(profile);
                 return ProfileFactory.getProfile();
-            }),
-            notifications: (($http, apiUrl, RootFactory, profile) => {
-                return $http({
-                    url: `${apiUrl}/notifications/`,
-                    headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
-                }).then((notifications) => { return notifications.data; });
-            }),
+            })
         }
     })
    .state('find_partner', { 
-        url: 'findpartner',
+        url: '^/find_partner',
         templateUrl: 'app/templates/check_status/find_partner.html',
         controller: 'FindPartnerCtrl',
         parent: 'check'
     })
-    .state('waiting', { 
-        url: 'waiting',
-        templateUrl: 'app/templates/check_status/waiting.html',
+    .state('awaiting_response', { 
+        url: '^/awaiting_response',
+        templateUrl: 'app/templates/check_status/awaiting_response.html',
         controller: 'AwaitingResponseCtrl',
         parent: 'check'
     });

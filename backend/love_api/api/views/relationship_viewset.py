@@ -18,24 +18,14 @@ class RelationshipViewSet(viewsets.ModelViewSet):
         user = User.objects.get(pk=self.request.user.id)
         serializer.save(user=user)
 
-    def get_object(self):
+    def get_queryset(self):
+        """
+        Only retrieve the user's information.
+        """
+        queryset = Relationship.objects.filter(
+            user_id=self.request.user.id).order_by('id') # [:10]
+        return queryset
 
-        pk = self.kwargs.get('pk')
 
-        # will add try/except here
-        if pk == 'relcheck':
-            sent_req = Relationship.objects.get(user=self.request.user.id)
 
-            if sent_req.partner:
-                 returned_req = Relationship.objects.get(user=sent_req.partner.id)
 
-                 if returned_req:
-                 
-                    they_have_us = Relationship.objects.get(user=returned_req.user.id, 
-                        partner=self.request.user.id)
-
-                    # if we can match this... lets grant user profile
-
-                    return they_have_us
-
-        return super(RelationshipViewSet, self).get_object()
