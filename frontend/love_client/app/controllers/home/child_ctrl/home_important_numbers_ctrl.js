@@ -1,14 +1,14 @@
 'use strict';
 
 app.controller('ImportantNumbersCtrl', function($scope, $http,
-    RootFactory, apiUrl, profile, partner) {
+    RootFactory, apiUrl, profile, partner, numbers) {
 
     console.log('ImportantNumbers Here');
 
     $scope.profile = profile;
     $scope.partner = partner;
 
-    $scope.numbers = profile.numbers;
+    $scope.numbers = numbers;
     $scope.partner_numbers = partner.numbers;
 
     $scope.removeContact = (id) => {

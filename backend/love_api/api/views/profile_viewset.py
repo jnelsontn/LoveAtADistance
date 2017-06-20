@@ -19,11 +19,11 @@ class ProfileViewSet(viewsets.ModelViewSet):
         """
         serializer.save(id=self.request.user.id)
 
-    # def get_queryset(self):
-    #     """
-    #     Only retrieve the profile properties belonging to the
-    #     current user
-    #     """
-    #     queryset = Profile.objects.all().filter(
-    #         user=self.request.user.id)
-    #     return queryset
+    def get_queryset(self):
+        """
+        Only retrieve the profile properties belonging to the
+        current user
+        """
+        queryset = Profile.objects.all().filter(
+            user=self.request.user.id)
+        return queryset

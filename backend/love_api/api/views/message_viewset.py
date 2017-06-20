@@ -13,7 +13,6 @@ class MessageViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         """
         Limit the set of messages retrieved to the user's last ten
-        NOTE: can't limit right now if i want to delete...
         """
         queryset = Message.objects.filter(
             user=self.request.user.id).order_by('-create_time') # [:10]

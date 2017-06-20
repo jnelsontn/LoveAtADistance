@@ -1,15 +1,15 @@
-from api.serializers import *
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
+from api.serializers import *
 from api.models import *
 
-class LimitedNoRelViewSet(viewsets.ModelViewSet):
+class LimitedViewSet(viewsets.ModelViewSet):
     """
-    A simple ViewSet for listing or retrieving users.
-    However, we only return a limited selection of
-    information in this view.
+    A simple, limited, ViewSet for listing 
+    or retrieving users.
     """
-    serializer_class = LimitedNoRelSerializer
+    queryset = User.objects.all()
+    serializer_class = LimitedSerializer
 
     def get_queryset(self):
         """
@@ -30,7 +30,7 @@ class LimitedNoRelViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(email__iexact=email)
 
         if pk is not None:
-            queryset = User.objects.all().filter(pk=pk, 
+            queryset = User.objects.filter(pk=pk, 
                 relationship__isnull=False).exclude(id=self.request.user.id)
 
         return queryset
@@ -42,13 +42,3 @@ class RelCheckViewSet(viewsets.ModelViewSet):
     """
     queryset = User.objects.all()
     serializer_class = RelCheckSerializer
-
-
-
-
-
-
-
-
-
-
