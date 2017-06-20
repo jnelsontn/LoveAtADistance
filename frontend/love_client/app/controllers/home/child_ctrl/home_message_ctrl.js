@@ -13,7 +13,7 @@ app.controller('MessageCtrl', function($scope, $http,
 
     $scope.removeMessage = (id) => {
         $http({
-            url: `${apiUrl}/messages/` + id,
+            url: `${apiUrl}/messages/` + id + '/',
             method: 'DELETE',
             headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
         }).then(() => {
@@ -26,7 +26,6 @@ app.controller('MessageCtrl', function($scope, $http,
                 updated_messages = updated_messages.data.results;
                 $scope.messages = updated_messages;
             });
-
         });
     };
 
@@ -49,6 +48,8 @@ app.controller('MessageCtrl', function($scope, $http,
                 updated_messages = updated_messages.data.results;
                 $scope.messages = updated_messages;
             });
+        }, function(data) {
+            console.log('your message cannot be blank');
         });
     };
 

@@ -10,7 +10,7 @@ app.controller('PhotoCtrl', function ($scope, $http, photos,
 
     $scope.removePhoto = (id) => {
         $http({
-            url: `${apiUrl}/photos/` + id,
+            url: `${apiUrl}/photos/` + id + '/',
             method: 'DELETE',
             headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
         }).then(() => {
@@ -58,8 +58,6 @@ app.controller('PhotoCtrl', function ($scope, $http, photos,
             });
         }
     };
-
-
 
 }); // end controller
 

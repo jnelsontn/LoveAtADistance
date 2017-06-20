@@ -4,12 +4,12 @@ app.controller('CheckStatusCtrl', function($scope, $http,
     $state, $cookies, RootFactory, apiUrl, profile) {
 
     console.log('CheckStatusCtrl Here');
-
+    console.log(profile);
     $scope.partner_request = false;
     $scope.search_section = true;
     $scope.profile = profile;
 
-    console.log('check profile: ', profile);
+    console.log('check profile: ', $scope.profile);
 
     $scope.logOut = () => {
         $cookies.remove('authtoken');
@@ -17,9 +17,9 @@ app.controller('CheckStatusCtrl', function($scope, $http,
         $state.reload();
     };
 
-    if (profile.notifications !== null) {
+    if ($scope.profile.notifications) {
         $http({
-            url: `${apiUrl}/notifications/` + profile.notifications.id,
+            url: `${apiUrl}/notifications/` + $scope.profile.notifications.id + '/',
             headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
         }).then((requestor) => {
             $scope.requestor = requestor.data.from_user;
@@ -31,7 +31,7 @@ app.controller('CheckStatusCtrl', function($scope, $http,
             }).then((requestor_info) => {
                 $scope.who_is_the_requestor = requestor_info.data.results;
 
-                if ($scope.who_is_the_requestor !== null) {
+                if ($scope.who_is_the_requestor) {
                     $scope.partner_request = true;
                 }
             });
@@ -47,11 +47,11 @@ app.controller('CheckStatusCtrl', function($scope, $http,
     if (profile.relationship === null) {
     	$state.go('check.find_partner');
     // 2. otherwise, if it is not null, we see who the other user is.
-    } else if (profile.relationship !== null) {
+    } else if (profile.relationship) {
 
         // 3. We check the Id of the relationship on the user's profile
         $http({ 
-            url: `${apiUrl}/relcheck/` + profile.relationship.partner,
+            url: `${apiUrl}/relcheck/` + $scope.profile.relationship.partner + '/',
             headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
         }).then((prospective_partner) => {
             prospective_partner = prospective_partner.data;

@@ -1,7 +1,7 @@
 
 <div class="row">
 
-    <div class="col-sm-4" ng-show="search_section">
+    <div class="col-sm-4"><div ng-show="search_section">
 
     <h4>Search for your Partner by email:</h4>
 
@@ -15,28 +15,17 @@
             </span>
 
         </form>
-
+        </div>
     </div>
 
-    <div class="col-sm-offset-2"></div>
-    <div class="col-sm-6">
+    <div class="col-sm-8 lead">
 
-        <p class="lead">
         Before you can use <strong>Distant Lovers</strong>, you and your partner must have
         both signed-up. <br />
-
-        <br />
-
-        Next, use the search box to enter your partner's e-mail.
-
-        <br /><br />
-
-        The system will search for a matching e-mail address. Once found, click the
+        Next, use the search box to enter your partner's e-mail. Once found, click the
         'Request Partner' link to send your partner a notification to confirm the request.
 
-
     </div>
-
 
 </div>
 
@@ -57,8 +46,8 @@
                     Request (( user.first_name )) as Partner</a> </br>
             </p>
 
-            <h5 ng-show="!results.length">
-            No results. Perhaps they are already in a relationship?</h5>
+            <p ng-show="!results.length">
+            No results. Perhaps they are already in a relationship?</p>
             
         </div>
     </div>
@@ -93,3 +82,5 @@
     </div>
 
 </div>
+
+<br /><br />
