@@ -14,7 +14,7 @@ class UserSerializer(serializers.ModelSerializer):
         """
         We only use the User Serializer until we check
         for a relationship between two users, then the
-        partner serializer does all the big lifting.
+        partner serializer does all the heavy lifting.
         """
         model = User
         fields = ('id', 'first_name', 'last_name',
@@ -24,7 +24,8 @@ class UserSerializer(serializers.ModelSerializer):
 
 class PartnerSerializer(serializers.ModelSerializer):
     """
-    Serializer to map the Model instance into JSON format.
+    The "Main Event" which handles all data when two users
+    are connected.
     """
     profile = ProfileSerializer(many=False, required=False)
     photos = PhotoSerializer(many=True, required=False)

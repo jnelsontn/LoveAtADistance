@@ -5,7 +5,7 @@ from api.serializers import *
 
 class RelationshipViewSet(viewsets.ModelViewSet):
     """
-    A simple ViewSet for listing or retrieving users.
+    A simple ViewSet to handle relationships
     """
     queryset = Relationship.objects.all()
     serializer_class = RelationshipSerializer
