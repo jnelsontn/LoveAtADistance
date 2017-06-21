@@ -51,22 +51,9 @@ app.config(($stateProvider, $urlRouterProvider) => {
     .state('check.awaiting_response', { 
         url: '^/awaiting_response',
         templateUrl: 'app/templates/check_status/awaiting_response.html',
-        controller: 'AwaitingResponseCtrl',
-        resolve: {
-            profile: ((ProfileFactory) => {
-                let profile = ProfileFactory.getApiProfile();
-                ProfileFactory.setProfile(profile);
-                return ProfileFactory.getProfile();
-            }),
-        }
+        controller: 'AwaitingResponseCtrl'
     });
 
 }); // end route config
-
-
-
-
-
-
 
 

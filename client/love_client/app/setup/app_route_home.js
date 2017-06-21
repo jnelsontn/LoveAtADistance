@@ -9,23 +9,9 @@ app.config(($stateProvider) => {
         controller: 'HomeNavBarCtrl',
         resolve: {
             profile: ((ProfileFactory) => {
-                // if a user tries logging on from /home, we 
-                // see if their information is already stored
-                // if not, then we retrieve it
-                let check = ProfileFactory.getProfile();
-                if (!check) {
-                    let profile = ProfileFactory.getApiProfile();
-                    ProfileFactory.setProfile(profile);
-                } return ProfileFactory.getProfile();
-            }),
-            partner: (($http, apiUrl, profile, RootFactory) => {
-                return $http({
-                    url: `${apiUrl}/users/` + profile.relationship.partner + '/',
-                    headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
-                }).then((partner) => { 
-                    partner = partner.data;
-                    return partner;
-                });
+                let profile = ProfileFactory.getApiProfile();
+                ProfileFactory.setProfile(profile);
+                return ProfileFactory.getProfile();
             }),
             user_profile: (($http, apiUrl, RootFactory) => {
                 return $http({
@@ -53,7 +39,20 @@ app.config(($stateProvider) => {
                     url: `${apiUrl}/numbers/`,
                     headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
                 }).then((numbers) => { return numbers.data.results; });
-            })
+            }),
+            partner: (($http, apiUrl, profile, RootFactory) => {
+                return $http({
+                    url: `${apiUrl}/users/` + profile.relationship.partner + '/',
+                    headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
+                }).then((partner) => { 
+                    partner = partner.data;
+                    if (!partner.relationship) {
+                        console.log(
+                            'your relationship was removed, need to redirect');
+                    }
+                    return partner;
+                });
+            }),
         }
     })
     .state('home.main', {

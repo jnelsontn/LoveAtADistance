@@ -30,7 +30,7 @@ app.factory('ProfileFactory', ($http, apiUrl, RootFactory) => {
                 headers: {
                     'Authorization': 'Token ' + RootFactory.getToken()
                 }
-            }).then(res => res.data);
+            }).then((res) => { return res.data; });
         }, setProfile (profile) {
             current_profile = profile;
         }, getProfile () {

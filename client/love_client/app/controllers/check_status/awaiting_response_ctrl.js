@@ -7,7 +7,7 @@ app.controller('AwaitingResponseCtrl', function($scope, $http,
 
     $scope.cancelPartnerReq = () => {
         $http({
-            url: `${apiUrl}/relationships/` + profile.relationship.id + '/',
+            url: `${apiUrl}/relationships/` + $scope.profile.relationship.id + '/',
             method: 'DELETE',
             headers: { 
                 'Authorization': 'Token ' + RootFactory.getToken() 
@@ -19,7 +19,7 @@ app.controller('AwaitingResponseCtrl', function($scope, $http,
                 headers: { 'Authorization': 'Token ' + RootFactory.getToken() },
             }).then(() => {
                 $state.go('check.find_partner');
-            }, function(data) {
+            }, function() {
                 $state.go('check.find_partner');
             });
         });

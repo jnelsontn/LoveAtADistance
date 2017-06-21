@@ -11,9 +11,7 @@ app.controller('FindPartnerCtrl', function($scope, $http,
     $scope.searchEmail = () => {
         $http({
             url: `${apiUrl}/limited/?email=` + $scope.email,
-            headers: { 
-                'Authorization': 'Token ' + RootFactory.getToken() 
-            }
+            headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
         }).then((res) => {
             res = res.data.results;
             $scope.search_performed = true;
@@ -25,13 +23,9 @@ app.controller('FindPartnerCtrl', function($scope, $http,
         $http({
             method: 'POST',
             url: `${apiUrl}/relationships/`,
-            headers: { 
-                'Authorization': 'Token ' + RootFactory.getToken() 
-            },
+            headers: { 'Authorization': 'Token ' + RootFactory.getToken() },
             data: { 'partner': partner }
-        }).then((res) => {
-            res = res.data;
-            console.log('res', res);
+        }).then(() => {
             let update_profile = ProfileFactory.getApiProfile();
             ProfileFactory.setProfile(update_profile);
             $timeout(() => {
@@ -54,7 +48,7 @@ app.controller('FindPartnerCtrl', function($scope, $http,
             });
             $timeout(() => {
                 $state.go('home.main');
-            }, 300);
+            }, 100);
         });
     };
 
