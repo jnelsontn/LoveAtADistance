@@ -58,7 +58,7 @@ app.controller('CalendarCtrl', function($scope, $http,
 
     $scope.removeUserEvent = (id) => {
         $http({
-            url: `${apiUrl}/calendar/` + id,
+            url: `${apiUrl}/calendar/` + id + '/',
             method: 'DELETE',
             headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
         }).then(() => {
@@ -100,6 +100,8 @@ app.controller('CalendarCtrl', function($scope, $http,
                 $scope.events = updated_events;
                 $scope.events = $scope.events.concat($scope.partner_calendar);
             });
+        }, function(data) {
+            console.log('all fields must be filled out');
         });
     };
 

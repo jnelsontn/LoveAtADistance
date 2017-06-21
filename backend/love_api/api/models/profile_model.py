@@ -7,7 +7,7 @@ from django.db import models
 class Profile(models.Model):
 
     def user_directory(self, file):
-        return '{}/{}'.format(self.user.id, file)
+        return '{}'.format(file)
 
     user = models.OneToOneField(User, related_name='profile', 
         on_delete=models.CASCADE)

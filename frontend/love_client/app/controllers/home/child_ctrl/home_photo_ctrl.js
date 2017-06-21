@@ -1,16 +1,18 @@
 'use strict';
 
 app.controller('PhotoCtrl', function ($scope, $http, photos,
-    Upload, apiUrl, RootFactory, profile, partner) {
+    Upload, apiUrl, RootFactory, profile, user_profile, partner) {
 
     console.log('PhotoCtrl Here');
 
     console.log(photos);
+    $scope.partner = partner;
     $scope.photos = photos;
+    $scope.partner_photos = partner.photos;
 
     $scope.removePhoto = (id) => {
         $http({
-            url: `${apiUrl}/photos/` + id,
+            url: `${apiUrl}/photos/` + id + '/',
             method: 'DELETE',
             headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
         }).then(() => {
@@ -58,8 +60,6 @@ app.controller('PhotoCtrl', function ($scope, $http, photos,
             });
         }
     };
-
-
 
 }); // end controller
 

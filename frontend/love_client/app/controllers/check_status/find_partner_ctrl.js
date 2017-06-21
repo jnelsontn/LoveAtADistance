@@ -46,7 +46,7 @@ app.controller('FindPartnerCtrl', function($scope, $http,
         }).then(() => { 
             $http({
                 method: 'DELETE',
-                url: `${apiUrl}/notifications/` + $scope.profile.notifications.id,
+                url: `${apiUrl}/notifications/` + $scope.profile.notifications.id + '/',
                 headers: { 'Authorization': 'Token ' + RootFactory.getToken() },
             });
             $state.go('login_register');
@@ -56,7 +56,7 @@ app.controller('FindPartnerCtrl', function($scope, $http,
     $scope.denyRequest = (id) => {
         $http({
             method: 'DELETE',
-            url: `${apiUrl}/notifications/` + $scope.profile.notifications.id,
+            url: `${apiUrl}/notifications/` + $scope.profile.notifications.id + '/',
             headers: { 'Authorization': 'Token ' + RootFactory.getToken() },
         }).then(() => {
             $scope.partner_request = false;

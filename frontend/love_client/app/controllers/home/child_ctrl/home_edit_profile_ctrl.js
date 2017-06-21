@@ -41,7 +41,7 @@ app.controller('EditProfileCtrl', function($scope, $http,
             }
         }).then(() => {
             $http({
-                url: `${apiUrl}/users/` + $scope.profile.id,
+                url: `${apiUrl}/users/` + $scope.profile.id + '/',
                 headers: { 'Authorization': 'Token ' + RootFactory.getToken() },
             })
             .then((updated_user_obj) => {
@@ -66,7 +66,7 @@ app.controller('EditProfileCtrl', function($scope, $http,
         }).then(() => {
             // refresh user profile....
             $http({
-                url: `${apiUrl}/profiles/` + $scope.info.user,
+                url: `${apiUrl}/profiles/` + $scope.info.user + '/',
                 headers: { 'Authorization': 'Token ' + RootFactory.getToken() },
             })
             .then((updated_profile_obj) => {
@@ -83,7 +83,7 @@ app.controller('EditProfileCtrl', function($scope, $http,
     $scope.disconnectPartner = () => {
         $http({
             method: 'DELETE',
-            url: `${apiUrl}/relationships/` + $scope.profile.relationship.id,
+            url: `${apiUrl}/relationships/` + $scope.profile.relationship.id + '/',
             headers: { 
                 'Authorization': 'Token ' + RootFactory.getToken() 
             },
@@ -126,7 +126,5 @@ app.controller('EditProfileCtrl', function($scope, $http,
             });
         }
     };
-
-
 
 });

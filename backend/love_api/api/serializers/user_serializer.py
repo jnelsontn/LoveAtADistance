@@ -1,9 +1,10 @@
 from versatileimagefield.fields import VersatileImageField
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
+from .profile_serializer import  *
+from .photo_serializer import  *
 from api.serializers import *
 from api.models import *
-from .profile_serializer import  *
 
 class UserSerializer(serializers.ModelSerializer):
     """
@@ -11,10 +12,9 @@ class UserSerializer(serializers.ModelSerializer):
     """
     class Meta:
         """
-        The UserSerializer has almost all models attached by the
-        way of the User model (one to one relationship), 
-        a depth of one allows to easily pull prop. off 
-        of the object
+        We only use the User Serializer until we check
+        for a relationship between two users, then the
+        partner serializer does all the big lifting.
         """
         model = User
         fields = ('id', 'first_name', 'last_name',
@@ -27,6 +27,7 @@ class PartnerSerializer(serializers.ModelSerializer):
     Serializer to map the Model instance into JSON format.
     """
     profile = ProfileSerializer(many=False, required=False)
+    photos = PhotoSerializer(many=True, required=False)
     class Meta:
         model = User
         fields = ('id', 'username', 'first_name', 'last_name',
@@ -43,7 +44,6 @@ class LimitedSerializer(serializers.ModelSerializer):
     class Meta:
         """
         Meta class to map serializer's fields with the model fields.
-        User can still search by e-mail even if they cannot see it
         """
         model = User
         fields = ('id', 'first_name', 'last_name', 'relationship', 'email')

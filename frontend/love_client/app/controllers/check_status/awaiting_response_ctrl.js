@@ -7,14 +7,14 @@ app.controller('AwaitingResponseCtrl', function($scope, $http,
 
     $scope.cancelPartnerReq = () => {
         $http({
-            url: `${apiUrl}/relationships/` + profile.relationship.id,
+            url: `${apiUrl}/relationships/` + profile.relationship.id + '/',
             method: 'DELETE',
             headers: { 
                 'Authorization': 'Token ' + RootFactory.getToken() 
             },
         }).then(() => {
             $http({
-                url: `${apiUrl}/notifications/` + $scope.profile.id,
+                url: `${apiUrl}/notifications/` + $scope.profile.id + '/',
                 method: 'DELETE',
                 headers: { 'Authorization': 'Token ' + RootFactory.getToken() },
             }).then(() => {

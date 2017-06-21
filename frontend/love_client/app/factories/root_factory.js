@@ -26,7 +26,7 @@ app.factory('ProfileFactory', ($http, apiUrl, RootFactory) => {
     return {
         getApiProfile () {
             return $http({
-                url: `${apiUrl}/users/current`,
+                url: `${apiUrl}/users/current/`,
                 headers: {
                     'Authorization': 'Token ' + RootFactory.getToken()
                 }

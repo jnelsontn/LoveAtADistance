@@ -18,7 +18,7 @@ app.controller('ImportantNumbersCtrl', function($scope, $http,
 
     $scope.removeContact = (id) => {
         $http({
-            url: `${apiUrl}/numbers/` + id,
+            url: `${apiUrl}/numbers/` + id + '/',
             method: 'DELETE',
             headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
         }).then(() => {
@@ -60,6 +60,8 @@ app.controller('ImportantNumbersCtrl', function($scope, $http,
                 updated_numbers = updated_numbers.data.results;
                 $scope.numbers = updated_numbers;
             });
+        }, function(data) {
+            console.log('all fields must be filled out');
         });
     };
 
