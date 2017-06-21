@@ -13,3 +13,4 @@ obj
 media/
 env/
 static/
+secret.py
