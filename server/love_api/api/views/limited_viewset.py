@@ -38,7 +38,7 @@ class LimitedViewSet(viewsets.ModelViewSet):
 class RelCheckViewSet(viewsets.ModelViewSet):
     """
     A simple ViewSet for checking the existence
-    of a relationship.
+    of a relationship before relationships are made.
     """
     queryset = User.objects.all()
     serializer_class = RelCheckSerializer

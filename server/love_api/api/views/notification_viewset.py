@@ -4,6 +4,9 @@ from api.serializers import *
 from api.models import *
 
 class NotificationViewSet(viewsets.ModelViewSet):
+    """
+    A simple ViewSet for displaying notifications.
+    """
     queryset = Notification.objects.all()
     serializer_class = NotificationSerializer
 

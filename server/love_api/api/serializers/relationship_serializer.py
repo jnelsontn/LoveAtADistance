@@ -34,8 +34,8 @@ class RelationshipSerializer(serializers.ModelSerializer):
         reply = False
         try:
             """
-            2.We check if a relationship already exists if the situation was 'reversed'
-            if so, we know this is a response to a request
+            2.We check if a relationship already exists, if the situation was 'reversed',
+            so, we know this is a response to a request
             """
             Notification.objects.get(from_user=request_to, to_user=request_from, viewed=0)
             reply = True
@@ -57,8 +57,6 @@ class RelationshipSerializer(serializers.ModelSerializer):
                 """
                 If the above passes, meaning a request has not been created or the other user
                 has NOT made a notification, it can safely be done here
-                the User who sent the request may also delete it, thankfully... we should
-                actually link those fields
                 """
                 Notification.objects.create(id=request_from.id, from_user=request_from, 
                     to_user=request_to)

@@ -5,8 +5,7 @@ from api.models import *
 
 class UserViewSet(viewsets.ModelViewSet):
     """
-    A simple ViewSet for listing or retrieving users or...
-    requesting the current user object.
+    A ViewSet for listing or retrieving users
     """
     queryset = User.objects.all()
     serializers = {
@@ -17,8 +16,8 @@ class UserViewSet(viewsets.ModelViewSet):
     def get_object(self):
         """
         Django REST doesn't send a user object back to the
-        client by default; therefore, we send a POST request to
-        the users/current endpoint to retrieve the information
+        client by default; so we can return the user to the
+        client when they request 'current'
         """
         pk = self.kwargs.get('pk')
 
@@ -36,11 +35,11 @@ class UserViewSet(viewsets.ModelViewSet):
 
     def get_serializer_class(self):
         try:
-            # i have sent a request and have a partner... good
+            """Has the user sent a request to a partner?"""
             sent_relationship = Relationship.objects.get(user=self.request.user.id).partner.id
 
             if type(sent_relationship == int):
-                # have they given us a relationship??????
+                """ Has the other user confirmed the relationship?"""
                 try:
                     do_we_have_a_partner = Relationship.objects.filter(
                         user=sent_relationship, partner=self.request.user.id).values_list(
@@ -48,6 +47,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
                     partner_id = do_we_have_a_partner[0][0]
 
+                    """If so, lets give them each other's information"""
                     if sent_relationship == partner_id:
                         return self.serializers.get(self.action, self.serializers['PARTNER'])
 
@@ -56,4 +56,5 @@ class UserViewSet(viewsets.ModelViewSet):
         except:
             pass
 
+        """Otherwise the 'normal' serializer will be used"""
         return self.serializers.get(self.action, self.serializers['DEFAULT'])
