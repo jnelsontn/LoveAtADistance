@@ -1,12 +1,14 @@
 'use strict';
 
 app.controller('PhotoCtrl', function ($scope, $http, photos,
-    Upload, apiUrl, RootFactory, profile, partner) {
+    Upload, apiUrl, RootFactory, profile, user_profile, partner) {
 
     console.log('PhotoCtrl Here');
 
     console.log(photos);
+    $scope.partner = partner;
     $scope.photos = photos;
+    $scope.partner_photos = partner.photos;
 
     $scope.removePhoto = (id) => {
         $http({

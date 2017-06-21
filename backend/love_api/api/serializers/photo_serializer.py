@@ -4,7 +4,7 @@ from rest_framework import serializers
 from .user_serializer import *
 from api.models import *
 
-class PhotoSerializer(serializers.HyperlinkedModelSerializer):
+class PhotoSerializer(serializers.ModelSerializer):
     """
     Serializer to map the Model instance into JSON format.
     """
@@ -14,6 +14,7 @@ class PhotoSerializer(serializers.HyperlinkedModelSerializer):
             ('full_size', 'url'),
             ('medium_square_crop', 'crop__400x400'),
             ('profile', 'thumbnail__250x250'),
+            ('thumbnail', 'thumbnail__100x100'),
         ]) 
 
     class Meta:
