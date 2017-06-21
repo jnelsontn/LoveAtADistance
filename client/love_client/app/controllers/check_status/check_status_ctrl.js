@@ -1,7 +1,8 @@
 'use strict';
 
 app.controller('CheckStatusCtrl', function($scope, $http,
-    $state, $cookies, RootFactory, apiUrl, profile) {
+    $state, $cookies, $timeout, RootFactory, apiUrl, 
+    profile) {
 
     console.log('CheckStatusCtrl Here');
     console.log(profile);
@@ -45,7 +46,9 @@ app.controller('CheckStatusCtrl', function($scope, $http,
     // Steps:
     // 1. Check if the User is in a relationship, if not, they'll go to the 'find_partner' state.
     if (profile.relationship === null) {
-    	$state.go('check.find_partner');
+        $timeout(() => {
+            $state.go('check.find_partner');
+        }, 300);
     // 2. otherwise, if it is not null, we see who the other user is.
     } else if (profile.relationship) {
 
@@ -58,12 +61,16 @@ app.controller('CheckStatusCtrl', function($scope, $http,
             // 4. If they are not, either, the user is waiting for a response or their
             // request was ignored.
             if (prospective_partner.relationship === null) {
-                $state.go('check.awaiting_response');
+                $timeout(() => {
+                    $state.go('check.awaiting_response');
+                }, 300);
             // 3b. If their status is not null, then they are in a relationship with someone
             // just not this user.
             } else if (prospective_partner.relationship.partner ===  profile.id) {
             // 4. A match has been found, the user is brought to the dashboard.
-                $state.go('home.main');
+                $timeout(() => {
+                    $state.go('home.main');
+                }, 300);
             }
         });
     }

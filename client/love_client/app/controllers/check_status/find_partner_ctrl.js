@@ -1,7 +1,8 @@
 'use strict';
 
 app.controller('FindPartnerCtrl', function($scope, $http,
-    $state, ProfileFactory, RootFactory, apiUrl, profile) {
+    $state, $timeout, ProfileFactory, RootFactory, apiUrl,
+    profile) {
 
     console.log('FindPartnerCtrl Here');
     
@@ -33,7 +34,9 @@ app.controller('FindPartnerCtrl', function($scope, $http,
             console.log('res', res);
             let update_profile = ProfileFactory.getApiProfile();
             ProfileFactory.setProfile(update_profile);
-            $state.go('check.awaiting_response');
+            $timeout(() => {
+                $state.go('check.awaiting_response');
+            }, 200);
         });
     };
 
@@ -49,7 +52,9 @@ app.controller('FindPartnerCtrl', function($scope, $http,
                 url: `${apiUrl}/notifications/` + $scope.profile.notifications.id + '/',
                 headers: { 'Authorization': 'Token ' + RootFactory.getToken() },
             });
-            $state.go('login_register');
+            $timeout(() => {
+                $state.go('home.main');
+            }, 300);
         });
     };
 
