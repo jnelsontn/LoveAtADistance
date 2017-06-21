@@ -1,0 +1,61 @@
+<div class="row">
+
+	<!-- user contacts view -->
+    <uib-accordion class="col-sm-6">
+        <div uib-accordion-group class="panel panel-primary" 
+        heading="(( profile.first_name))'s Contacts (click to expand)" 
+        is-open="status.isFirstOpen">
+
+            <p ng-repeat="number in numbers">
+                <a ng-click="removeContact(number.id)">(x)</a>
+				<strong>Name:</strong> (( number.important_name )) <br />
+				<strong>Number:</strong> (( number.important_number ))
+            </p>
+
+        </div>
+    </uib-accordion>
+
+    <!-- partner message view -->
+    <uib-accordion class="col-sm-6">
+        <div uib-accordion-group class="panel panel-success" 
+        heading="(( partner.first_name ))'s Contacts"
+        is-open="status.isFirstOpen">
+
+            <p ng-repeat="number in partner_numbers">
+				<strong>Name:</strong> (( number.important_name )) <br />
+				<strong>Number:</strong> (( number.important_number ))
+            </p>
+
+        </div>
+    </uib-accordion>
+
+</div><!-- end contacts display row -->
+
+<!-- for adding contacts -->
+<div class="row">
+
+	<div class="col-sm-6">
+
+		<input type="text" class="form-control" placeholder="Name" 
+		ng-model="important_name">
+
+	</div>
+
+	<div class="col-sm-6">
+
+		<input type="text" class="form-control" placeholder="Phone Number" 
+		ng-model="important_number">
+	
+	</div>
+
+</div>
+
+<br />
+
+<div class="row">
+		
+	<div class="col-sm-6 form-group">		
+		<button class="btn btn-success" ng-click="addContact()">Add Contact</button>
+	</div>
+
+</div>
