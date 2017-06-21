@@ -7,7 +7,7 @@ class Photo(models.Model):
     Store user uploads in MEDIA_ROOT/user_id
     """
     def user_directory(self, file):
-        return '{}'.format(file)
+        return '{}/{}'.format(self.user.id, file)
 
     def __str__(self):
     	return self.photo
