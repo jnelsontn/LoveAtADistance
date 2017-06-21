@@ -4,8 +4,6 @@ app.controller('FindPartnerCtrl', function($scope, $http,
     $state, $timeout, ProfileFactory, RootFactory, apiUrl,
     profile) {
 
-    console.log('FindPartnerCtrl Here');
-    
     $scope.search_performed = false;
 
     // Search for a user by their e-mail address and display the

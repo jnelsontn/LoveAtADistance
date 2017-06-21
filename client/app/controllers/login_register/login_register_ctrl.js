@@ -5,6 +5,14 @@ app.controller('LoginCtrl', function($scope, $cookies, $http,
 
     $state.go('login_register.login');
 
+    $scope.user = {
+        first_name: '' ,
+        last_name: '',
+        email: '',
+        username: '',
+        password: ''
+    };
+
     $scope.register = () => {
             $http({
                 url: `${apiUrl}/register/`,
