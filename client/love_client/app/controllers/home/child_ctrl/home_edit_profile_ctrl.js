@@ -1,7 +1,7 @@
 'use strict';
 
 app.controller('EditProfileCtrl', function($scope, $http, 
-    $state, Upload, apiUrl, RootFactory, profile, 
+    $state, $timeout, Upload, apiUrl, RootFactory, profile, 
     user_profile, partner) {
 
     console.log('EditProfileCtrl Here');
@@ -87,13 +87,10 @@ app.controller('EditProfileCtrl', function($scope, $http,
             headers: { 
                 'Authorization': 'Token ' + RootFactory.getToken() 
             },
-        }).then((res) => {
-            // Update the Dom to let the user know the cancel request was successful
-            if (res.data) { 
-                $scope.response = 'Successfully Canceled Request';
-            }
-            console.log(res.data);
-            $state.go('find_partner');
+        }).then(() => {
+            $timeout(() => {
+                $state.go('login_register.login');
+            }, 1000);
         });
     };
 
