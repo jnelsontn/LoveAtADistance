@@ -27,9 +27,10 @@ A few "in action" screenshots of Distant Love.
 ![Dashboard View](https://raw.githubusercontent.com/jnelsontn/DistantLovers/master/screenshots/dashboard.png)
 
 [Dashboard View Cont](https://raw.githubusercontent.com/jnelsontn/DistantLovers/master/screenshots/dashboard2.png)
-[Edit Profile](https://raw.githubusercontent.com/jnelsontn/DistantLovers/master/screenshots/edit-profile%20view.png)
-[Photo Gallery](https://raw.githubusercontent.com/jnelsontn/DistantLovers/master/screenshots/photo_gallery.png)
 
+[Edit Profile](https://raw.githubusercontent.com/jnelsontn/DistantLovers/master/screenshots/edit-profile%20view.png)
+
+[Photo Gallery](https://raw.githubusercontent.com/jnelsontn/DistantLovers/master/screenshots/photo_gallery.png)
 
 **GETTING STARTED/INSTALLATION:**
 
