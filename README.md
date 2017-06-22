@@ -50,7 +50,7 @@ to create the database. Initiate the server by running:
 
 For the AngularJs client, no set-up is necessary. Simply go to the ```client``` directory and run the server of your choice. If you started the Django server on another machine, you will need to modify the ```client/app/setup/app_server_api.js``` file and change the IP address to that of the machine running the Django API.
 
-**TECHNOLOGIES**
+**TECHNOLOGIES:**
 
 The front-end client was built using the AngularJs framework with Bootstrap for the styling. 
 
