@@ -2,7 +2,9 @@ Distant Lovers
 ==========================
 **DEPLOYED / DEMO:**
 [love.digitalmarhmellow.com](https://love.digitalmarshmellow.com)
+
 [api.digitalmarshmellow.com](https://api.digitalmarshmellow.com) (browsable api)
+
 [Github Source Code](https://github.com/jnelsontn/DistantLovers)
 
 Contact:  [jordan@digitalmarshmellow.com](mailto:jordan@digitalmarshmellow.com)
