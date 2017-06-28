@@ -43,7 +43,7 @@ app.config(($stateProvider) => {
             }),
             partner: (($http, apiUrl, profile, RootFactory) => {
                 return $http({
-                    url: `${apiUrl}/users/` + profile.relationship.partner + '/',
+                    url: `${apiUrl}/users/partner/`,
                     headers: { 'Authorization': 'Token ' + RootFactory.getToken() }
                 }).then((partner) => { 
                     partner = partner.data;

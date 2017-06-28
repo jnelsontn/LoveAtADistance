@@ -23,8 +23,19 @@ class UserViewSet(viewsets.ModelViewSet):
 
         if pk == 'current':
             return self.request.user
+        elif pk == 'partner':
+            partner = self.request.user.relationship.partner
+            return partner
 
         return super(UserViewSet, self).get_object()
+
+    def get_queryset(self):
+        """
+        Only retrieve the user's information.
+        """
+        queryset = User.objects.all().filter(
+            id=self.request.user.id)
+        return queryset
 
     def perform_update(self, serializer):
         """
