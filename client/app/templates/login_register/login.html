@@ -18,45 +18,72 @@
 	<div class="col-sm-2"></div>
 	<div class="col-sm-4">
 
-	<h5>
-		<a href="https://github.com/jnelsontn/DistantLovers" target="_blank">Github Repository</a>. <br />
-		<a href="https://github.com/jnelsontn/DistantLovers/tree/master/screenshots" target="_blank">
-		Distant Lover's Screenshots</a>. <br />
-		<a href="https://digitalmarshmellow.com" target="_blank">Digitalmarshmellow Home</a>.
-	</h5>
+    	<h5>
+    		<a href="https://github.com/jnelsontn/DistantLovers" target="_blank">Github Repository</a>. <br />
+    		<a href="https://github.com/jnelsontn/DistantLovers/tree/master/screenshots" target="_blank">
+    		Distant Lover's Screenshots</a>. <br />
+    		<a href="https://digitalmarshmellow.com" target="_blank">Digitalmarshmellow Home</a>.
+    	</h5>
 
-	</div>
+        <br />
+        
+        <p class="lead">
+            Fully-complete demo account, no sign-up required. Click the below to login.
+        </p>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary" ng-click="demoLogin()">Click Here for full Demo</button>
+            </div>
+        </div> 
+
+    </div>
 </div>
+
+<div class="row">
 
 	<div class="col-sm-6">
 
-	<form class="form-horizontal">
-         <!-- username -->
-        <div class="form-group">
-            <label for="username" class="col-sm-2 control-label">Username</label>
+    	<form class="form-horizontal">
+             <!-- username -->
+            <div class="form-group">
+                <label for="username" class="col-sm-2 control-label">Username</label>
+        
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="username" ng-model="(( user.username ))">
+                </div>
+            </div>
+
+            <!-- password -->
+            <div class="form-group">
+                <label for="password" class="col-sm-2 control-label">Password</label>
+        
+                <div class="col-sm-8">
+                    <input type="password" class="form-control" id="password" ng-model="(( user.password ))">
+                </div>
+            </div>
+
+            <!-- submit button -->
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-success" ng-click="login()">Login</button>
+                </div>
+            </div>      
+
+        </form>
     
-            <div class="col-sm-8">
-                <input type="text" class="form-control" id="username" ng-model="(( user.username ))">
-            </div>
-        </div>
+    </div>
 
-        <!-- password -->
-        <div class="form-group">
-            <label for="password" class="col-sm-2 control-label">Password</label>
-    
-            <div class="col-sm-8">
-                <input type="password" class="form-control" id="password" ng-model="(( user.password ))">
-            </div>
-        </div>
+    <div class="col-sm-2"></div>
+    <div class="col-sm-4">
 
-        <!-- submit button -->
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-success" ng-click="login()">Login</button>
-            </div>
-        </div>      
+        <h5>
+        Note:
+        To prevent abuse, the ability to upload or modify fields is disabled (including in the demo account)
+        <br />
+        Please <a href="mailto:jordan@digitalmarshmellow.com"> jordan@digitalmarshmellow.com </a> 
+        for a full account.
+        </h5>
+    </div>
 
-    </form>
-
-</div>
 </div>
