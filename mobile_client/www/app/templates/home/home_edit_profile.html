@@ -1,0 +1,127 @@
+<div class="row">
+
+    <div class="col-sm-6">
+
+        <a ng-if="profile_photo != false" ng-href="(( profile_photo_full ))"
+        target="_blank" alt="profile photo full size">
+
+            <img ng-src="(( profile_photo ))" alt="profile photo" class="img-responsive img-rounded">
+
+        </a>
+
+        <br />
+
+        <button type="file" class="btn btn-success" ngf-select="uploadProfilePhoto($file)" 
+        ngf-pattern="'.jpg,.jpeg'" accept="image/*" ngf-max-size="3MB">Change Profile Photo</button>
+
+    </div>
+
+    <div class="col-sm-6">
+
+        <form class="form-horizontal">
+
+            <!-- first name -->
+            <div class="form-group">
+                <label for="firstName" class="col-sm-2 control-label">First Name</label>
+    
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="firstName" ng-model="profile.first_name">
+                </div>
+            </div>
+
+            <!-- last name -->
+            <div class="form-group">
+                <label for="lastName" class="col-sm-2 control-label">Last Name</label>
+    
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="lastName" ng-model="profile.last_name">
+                </div>
+            </div>
+
+            <!-- email -->
+            <div class="form-group">
+                <label for="email" class="col-sm-2 control-label">E-mail</label>
+    
+                <div class="col-sm-10">
+                    <input type="email" class="form-control" id="email" ng-model="profile.email">
+                </div>
+            </div>
+
+            <!-- tel -->
+            <div class="form-group">
+                <label for="tel" class="col-sm-2 control-label">Phone</label>
+    
+                <div class="col-sm-10">
+                    <input type="tel" class="form-control" id="tel" ng-model="info.phone_number">
+                </div>
+            </div>
+
+            <!-- city -->
+            <div class="form-group">
+                <label for="city" class="col-sm-2 control-label">City</label>
+    
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="city" ng-model="info.city">
+                </div>
+            </div>
+
+            <!-- city -->
+            <div class="form-group">
+                <label for="state" class="col-sm-2 control-label">State</label>
+    
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="state" ng-model="info.state">
+                </div>
+            </div>
+
+            <!-- country -->
+            <div class="form-group">
+                <label for="country" class="col-sm-2 control-label">Country</label>
+    
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="country" ng-model="info.country">
+                </div>
+            </div>
+
+            <!-- country -->
+            <div class="form-group">
+                <label for="bio" class="col-sm-2 control-label">Tagline</label>
+    
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="bio" ng-model="info.bio">
+                </div>
+            </div>
+
+            <!-- submit button -->
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-primary" ng-click="updateProfile()">
+                    Update Profile</button>
+                </div>
+            </div>
+
+        </form>
+
+        <br />
+
+        <!-- 'disconnect' your relationship with the partner -->
+        <form class="form-horizontal">
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+
+                    <h3>Remove Relationship:</h3>
+
+                    <button type="submit" class="btn btn-danger" ng-click="disconnectPartner()">
+                    Remove Relationship</button>
+
+                </div>
+            </div>
+
+        </p>
+
+    </div>
+
+</div>
+
+<br /><br />
+

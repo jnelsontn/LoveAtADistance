@@ -1,0 +1,73 @@
+<!-- large header intro -->
+<div class="row">
+
+	<div class="page-header">
+
+		<h1>(( profile.first_name )) & (( partner.first_name ))'s Life! 
+		<small>Distance can't stop us!</small></h1>
+
+	</div>
+	
+</div>
+
+<!-- small profile section -->
+<div class="row">
+
+	<!-- user profile image -->
+	<div class="col-sm-2">
+		<a ng-if="thumbnail_photo != false" ng-href="(( profile_photo_full ))"
+	         target="_blank" alt="profile photo full size">
+
+			<img ng-src="(( thumbnail_photo ))" alt="profile photo thumbnail" 
+            class="img-responsive img-rounded">
+
+		</a>
+	</div>
+
+	<!-- user profile info -->
+	<div class="col-sm-4">
+		<p class="lead">
+			(( profile.first_name )) (( profile.last_name )) <br />
+			
+			<a ng-href="mailto:(( profile.email ))">(( profile.email ))</a>  <br />
+
+			(( info.city )), (( info.state )) (( info.country )) <br />
+		
+		<br />
+
+		<i>'(( info.bio ))'</i>
+
+		</p>
+
+	</div>
+
+	<!-- partner profile image -->
+	<div class="col-sm-2">
+		<a ng-if="partner_thumbnail_photo != false" ng-href="(( partner_photo_full ))"
+	         target="_blank" alt="profile photo full size">
+
+			<img ng-src="(( partner_thumbnail_photo ))" alt="profile photo thumbnail" 
+            class="img-responsive img-rounded">
+
+		</a>
+	</div>
+
+	<!-- partner profile info -->
+	<div class="col-sm-4">
+		<p class="lead">
+			(( partner.first_name )) (( partner.last_name )) <br />
+			
+			<a ng-href="mailto:(( partner.email ))">(( partner.email ))</a>  <br />
+
+			(( partner_info.city )), (( partner_info.state )) (( partner_info.country )) <br />
+		
+		<br />
+
+		<i>'(( partner_info.bio ))'</i>
+
+		</p>
+
+	</div>
+
+</div><!-- end User/Partner info -->
+
