@@ -1,6 +1,6 @@
-NOTE:
-This is very very very incomplete. It does not function properly.
+NOTE for Distant Lovers:
 
+This is very very very incomplete. It does not function properly.
 Work is in progress. This is the basic skeleton.
 
 
