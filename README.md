@@ -1,7 +1,7 @@
 Distant Lovers
 ==========================
 **DEPLOYED / DEMO:**
-[love.digitalmarhmellow.com](https://love.digitalmarshmellow.com)
+[love.digitalmarshmellow.com](https://love.digitalmarshmellow.com)
 
 [api.digitalmarshmellow.com](https://api.digitalmarshmellow.com) (browsable api)
 
@@ -54,4 +54,4 @@ For the AngularJs client, no set-up is necessary. Simply go to the ```client``` 
 
 The front-end client was built using the AngularJs framework with Bootstrap for the styling. 
 
-I used the Django Rest Framework to build the RESTful API. Token authentication is used to secure sessions and no information is presented publically with the exception of name and e-mail for the search ability. All over information is restricted to the two users connected and in a relationship.
+I used the Django Rest Framework to build the RESTful API. Token authentication is used to secure sessions and no information is presented publically, the API restricts the client to viewing information pertaining only about themselves and their user.
