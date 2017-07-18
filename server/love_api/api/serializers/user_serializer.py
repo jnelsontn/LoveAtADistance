@@ -47,7 +47,7 @@ class LimitedSerializer(serializers.ModelSerializer):
         Meta class to map serializer's fields with the model fields.
         """
         model = User
-        fields = ('id', 'first_name', 'last_name', 'relationship', 'email')
+        fields = ('id', 'first_name', 'last_name', 'relationship',)
 
 class RelCheckSerializer(serializers.ModelSerializer):
     """

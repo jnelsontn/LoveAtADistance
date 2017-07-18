@@ -51,6 +51,24 @@ app.controller('LoginCtrl', function($scope, $cookies, $http,
         });
     };
 
+    $scope.demoLogin = () => {
+        $http({
+            url: `${apiUrl}/api-token-auth/`,
+            method: 'POST',
+            data: {
+                'username': '',
+                'password': ''
+            }
+        }).then(res => {
+          RootFactory.setToken(res.data.token);
+            if (res.data.token !== '') {
+                $state.go('check');
+                $cookies.put('authtoken', res.data.token);
+            }
+        });
+    };
+
+
 }); // end LoginCtrl
 
 

@@ -1,8 +1,5 @@
-mobile_client
-snippets.txt
 *.json
 node_modules
-bower_components
 __pycache__
 migrations/
 *.pyc

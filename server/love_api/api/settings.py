@@ -1,16 +1,14 @@
 """
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
+
+NOTE: Create a secret.py file and put your secret key in there. 
 """
 from api.secret import *
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
-# NOTE: Create a secret.py file and put your secret key in there. 
-#SECRET_KEY = ''
 
 DEBUG = True
 
@@ -36,6 +34,10 @@ INSTALLED_APPS = [
 ]
 
 REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+    'rest_framework.permissions.IsAuthenticated',
+#   'rest_framework.permissions.DjangoModelPermissions',
+     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.SessionAuthentication'
@@ -61,6 +63,8 @@ MIDDLEWARE = [
 CORS_ORIGIN_WHITELIST = (
     'localhost:8080',
     '127.0.0.1:8080',
+    'localhost:8100',
+    '127.0.0.1:8100',
 )
 
 TEMPLATES = [
@@ -114,7 +118,6 @@ USE_I18N = False
 USE_L10N = False
 USE_TZ = True
 
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'api/media')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
