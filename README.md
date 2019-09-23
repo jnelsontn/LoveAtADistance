@@ -1,8 +1,5 @@
 Distant Lovers
 ==========================
-[Github Source Code](https://github.com/jnelsontn/DistantLovers)
-
-Contact:  [jordan@digitalmarshmellow.com](mailto:jordan@digitalmarshmellow.com)
 
 ----------
 **ABOUT:**
@@ -15,17 +12,6 @@ Distant Lovers uses an AngularJs client and the server is built using the Django
 A user must register (with their email) to use the website and they are then presented with a "Search" screen where they must enter the email of their partner (who must have signed up). If the partner comes up in a search, the user can click the "Send Request" link to send a notification to the partner for a relationship. Once sent, the partner must accept and the two users are now in a relationship.
 
 After connecting, upon login, each user is presented a joint dashboard where they can share photos, messages, events, contacts and more.
-
-**SCREENSHOTS**
-
-A few "in action" screenshots of Distant Love.
-![Dashboard View](https://raw.githubusercontent.com/jnelsontn/DistantLovers/master/screenshots/dashboard.png)
-
-[Dashboard View Cont](https://raw.githubusercontent.com/jnelsontn/DistantLovers/master/screenshots/dashboard2.png)
-
-[Edit Profile](https://raw.githubusercontent.com/jnelsontn/DistantLovers/master/screenshots/edit-profile%20view.png)
-
-[Photo Gallery](https://raw.githubusercontent.com/jnelsontn/DistantLovers/master/screenshots/photo_gallery.png)
 
 **GETTING STARTED/INSTALLATION:**
 
